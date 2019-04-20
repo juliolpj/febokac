@@ -1,0 +1,12 @@
+.portada{
+    background: url(src/assets/img/fondo-transparente.png) no-repeat fixed center;
+    background-color:lightgray;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 35%;
+    height: 100%;
+    width: 100% ;
+    text-align: center;
+  
+ }
