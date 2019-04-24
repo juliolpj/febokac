@@ -97,6 +97,13 @@ export class PalistasComponent implements OnInit {
   }
 
   aceptarEliminarRegistro(palista: PalistaI) {
-
+    this.dataService.deleteRecord$(palista.id).subscribe(
+      () => {
+        this.msgService.sendMessage('Registro eliminado satisfactoriamente');
+        this.getRecords();
+      },
+      error => this.msgService.sendMessage('Error al eliminar el registro: ' + error.statusText, 'alert-danger'),
+      () => this.frmStatus = 'Consultar'
+    )
   }
 }

@@ -36,4 +36,8 @@ export class PalistasService {
   updateRecord$(palista: PalistaI) {
     return from(this.afs.doc<PalistaI>(`palistas/${palista.id}`).update(palista));
   }
+
+  deleteRecord$(id: string) {
+    return from(this.afs.doc<PalistaI>(`palistas/${id}`).delete());
+  }
 }
