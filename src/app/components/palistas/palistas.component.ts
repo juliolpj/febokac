@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PalistaI } from 'src/app/models/palista';
 import { PalistasService } from 'src/app/services/palistas.service';
+import { MensajesService } from 'src/app/services/mensajes.service';
 
 @Component({
   selector: 'app-palistas',
@@ -12,7 +13,7 @@ export class PalistasComponent implements OnInit {
   registro: PalistaI = {};
   palistas: Array<PalistaI>;
 
-  constructor( private dataService: PalistasService) { }
+  constructor( private dataService: PalistasService, private msgService: MensajesService) { }
 
   ngOnInit() {
     this.getRecords();
@@ -30,16 +31,19 @@ export class PalistasComponent implements OnInit {
 
   agregar() {
     this.registro = {};
+    this.msgService.clearMessages();
     this.frmStatus = 'Agregar';
   }
 
   modificar(palista: PalistaI) {
     this.registro = Object.assign({}, palista);
+    this.msgService.clearMessages();
     this.frmStatus = 'Modificar'; 
   }
   
   eliminar(palista: PalistaI) {
     this.registro = Object.assign({}, palista);
+    this.msgService.clearMessages();
     this.frmStatus = 'Eliminar';
   }
 
@@ -65,11 +69,11 @@ export class PalistasComponent implements OnInit {
   aceptarAgregarRegistro(palista: PalistaI) {
     this.dataService.addRecord$(palista).subscribe(
       data => {
-        //this.msgService.sendMessage('Registro agregado satisfactoriamente');
+        this.msgService.sendMessage('Registro agregado satisfactoriamente');
         this.getRecords();
       },
       error => {
-        //this.msgService.sendMessage('Error al agregar los datos: ' + error.statusText, 'alert-danger');
+        this.msgService.sendMessage('Error al agregar los datos: ' + error.statusText, 'alert-danger');
         console.log(error);
       },
       () => this.frmStatus = 'Consultar'
@@ -81,10 +85,12 @@ export class PalistasComponent implements OnInit {
     
     this.dataService.updateRecord$(palista).subscribe(
       data => {
-        //this.msgService.sendMessage('Registro actualizado satisfactoriamente');
+        this.msgService.sendMessage('Registro actualizado satisfactoriamente');
         this.getRecords();
       },
-      error => {//this.msgService.sendMessage('Error al actualizar los registro: ' + error.statusText, 'alert-danger')
+      error => {
+        this.msgService.sendMessage('Error al actualizar los registro: ' + error.statusText, 'alert-danger');
+        console.log(error);
       },
       () => this.frmStatus = 'Consultar'
     )

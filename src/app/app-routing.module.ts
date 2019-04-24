@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'palistas', component: PalistasComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 
 @NgModule({

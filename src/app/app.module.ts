@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PalistasComponent } from './components/palistas/palistas.component';
 import { FormularioComponent } from './components/palistas/formulario/formulario.component';
+import { MensajesComponent } from './components/mensajes/mensajes.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormularioComponent } from './components/palistas/formulario/formulario
     LoginComponent,
     ProfileComponent,
     PalistasComponent,
-    FormularioComponent
+    FormularioComponent,
+    MensajesComponent
   ],
   imports: [
     BrowserModule,
