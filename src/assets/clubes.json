@@ -1,0 +1,26 @@
+{
+    "clubes":[
+        {
+            "nombre": "El Club de Remo y Náutica Belén de Escobar",
+            "img": "src/assets/img/crnbe1.png"
+        },
+        {
+            "nombre": "Club de Regatas La Plata",
+            "img": "src/assets/img/crlp1.png"
+        },
+        {
+            "nombre": "Las Canaletas San Pedro",
+            "img": "src/assets/img/cpcn_villa gesel1.png"
+        },
+        {
+            "nombre": "Centro Náutico del Fuerte Tandil",
+            "img": "src/assets/img/cnf_tandil1.png"
+        },
+        {
+            "nombre": "Club Atlético Estudiantes de Olavarría",
+            "img": "src/assets/img/cae_olavarria1.png"
+        }
+    ]
+}
+
+

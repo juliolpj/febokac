@@ -13,8 +13,17 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/home" routerLinkActive="active"> <strong>Home</strong> </a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="isLogged" class="nav-item">
+        <a class="nav-link" routerLink="/palistas" routerLinkActive="active"> <strong>Palistas</strong> </a>
+      </li>
+      <li *ngIf="!isLogged" class="nav-item">
         <a class="nav-link" routerLink="/login" routerLinkActive="active"> <strong>Ingresar</strong> </a>
+      </li>
+      <li *ngIf="isLogged" class="nav-item">
+        <a class="nav-link" routerLink="/profile" routerLinkActive="active"> <strong>Profile</strong> </a>
+      </li>
+      <li *ngIf="isLogged" class="nav-item">
+        <a href="#" class="nav-link" (click)="onLogout()"> <strong>Logout</strong> </a>
       </li>
     </ul>
   </div>

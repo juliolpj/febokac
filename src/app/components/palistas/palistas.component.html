@@ -1,0 +1,45 @@
+
+<app-formulario
+  [frmStatus]="frmStatus"
+  [registro]="registro"
+  (botonCancelar)="recibirCancelar($event)"
+  (botonAceptar)="recibirAceptar($event)"
+></app-formulario>
+
+<div [hidden]="frmStatus != 'Consultar'" class="card mt-3">
+  <div class="card-header d-flex">
+    Palistas
+    <a (click)="agregar()" class="text-primary ml-auto">
+      <i class="fa fa-plus-circle fa-2x"></i>
+    </a>
+  </div>
+</div>
+
+<table [hidden]="frmStatus != 'Consultar'" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>DNI</th>
+      <th>Nombre</th>
+      <th>F.Nacimiento</th>
+      <th>Sexo</th>
+      <th>Seguro</th>
+      <th> </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let palista of palistas">
+      <td (click)="modificar(palista)"> {{ palista.dni }} </td>
+      <td (click)="modificar(palista)"> {{ palista.nombre }} </td>
+      <td (click)="modificar(palista)"> {{ palista.fnacimiento }} </td>
+      <td (click)="modificar(palista)"> {{ palista.sexo }} </td>
+      <td (click)="modificar(palista)"> {{ palista.seguro }} </td>
+      <td>
+        <a (click)="eliminar(palista)" class="text-danger ml-auto">
+          <i class="fa fa-minus-circle fa-2x"></i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+
+</table>
