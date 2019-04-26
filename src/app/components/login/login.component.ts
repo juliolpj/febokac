@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { MensajesService } from 'src/app/services/mensajes.service';
 
 @Component({
   selector: 'app-login',
@@ -10,17 +11,20 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   email = '';
   password = '';
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, 
+              private router: Router,
+              private msgService: MensajesService) {
   }
 
   ngOnInit() {
   }
 
   onLogin() {
+    this.msgService.clearMessages();
     this.authService.login(this.email, this.password)
       .then( res => {
         this.router.navigate(['home']);
-    }).catch( err => console.log('err', err.message));
+    }).catch( error => this.msgService.sendMessage('Error: Ocurrió un error, verifique el email y la contraseña', 'alert-danger'));
   }
 
 }
