@@ -1,10 +1,14 @@
 
-<app-formulario
-  [frmStatus]="frmStatus"
-  [registro]="registro"
-  (botonCancelar)="recibirCancelar($event)"
-  (botonAceptar)="recibirAceptar($event)"
-></app-formulario>
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
+      <app-formulario
+        [frmStatus]="frmStatus"
+        [registro]="registro"
+        (botonCancelar)="recibirCancelar($event)"
+        (botonAceptar)="recibirAceptar($event)"
+      ></app-formulario>
+    </div>
+</div>
 
 <div [hidden]="frmStatus != 'Consultar'" class="card mt-3">
   <div class="card-header d-flex">
@@ -21,7 +25,7 @@
       <th>DNI</th>
       <th>Nombre</th>
       <th>F.Nacimiento</th>
-      <th>Sexo</th>
+      <th>Genero</th>
       <th>Seguro</th>
       <th> </th>
     </tr>
@@ -31,8 +35,8 @@
     <tr *ngFor="let palista of palistas">
       <td (click)="modificar(palista)"> {{ palista.dni }} </td>
       <td (click)="modificar(palista)"> {{ palista.nombre }} </td>
-      <td (click)="modificar(palista)"> {{ palista.fnacimiento }} </td>
-      <td (click)="modificar(palista)"> {{ palista.sexo }} </td>
+      <td (click)="modificar(palista)"> {{ utilService.showDate(palista.fnacimiento) }} </td>
+      <td (click)="modificar(palista)"> {{ palista.genero }} </td>
       <td (click)="modificar(palista)"> {{ palista.seguro }} </td>
       <td>
         <a (click)="eliminar(palista)" class="text-danger ml-auto">

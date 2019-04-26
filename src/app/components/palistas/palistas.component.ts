@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PalistaI } from 'src/app/models/palista';
 import { PalistasService } from 'src/app/services/palistas.service';
 import { MensajesService } from 'src/app/services/mensajes.service';
+import { UtilService } from 'src/app/services/util.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-palistas',
@@ -13,7 +15,10 @@ export class PalistasComponent implements OnInit {
   registro: PalistaI = {};
   palistas: Array<PalistaI>;
 
-  constructor( private dataService: PalistasService, private msgService: MensajesService) { }
+  constructor( private dataService: PalistasService, 
+               private msgService: MensajesService,
+               public utilService: UtilService,
+               public authService: AuthService) { }
 
   ngOnInit() {
     this.getRecords();
@@ -31,6 +36,8 @@ export class PalistasComponent implements OnInit {
 
   agregar() {
     this.registro = {};
+    this.registro.club = this.authService.user.club;
+    
     this.msgService.clearMessages();
     this.frmStatus = 'Agregar';
   }

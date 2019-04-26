@@ -3,6 +3,7 @@ export interface PalistaI {
     dni?: string;
     nombre?: string;
     fnacimiento?: string;
-    sexo?: string,
-    seguro?: string
+    genero?: string,
+    seguro?: string,
+    club?: string
 }
