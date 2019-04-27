@@ -26,7 +26,7 @@
       <th>Nombre</th>
       <th>F.Nacimiento</th>
       <th>Genero</th>
-      <th>Seguro</th>
+      <th>Categoría</th>
       <th> </th>
     </tr>
   </thead>
@@ -37,7 +37,7 @@
       <td (click)="modificar(palista)"> {{ palista.nombre }} </td>
       <td (click)="modificar(palista)"> {{ utilService.showDate(palista.fnacimiento) }} </td>
       <td (click)="modificar(palista)"> {{ palista.genero }} </td>
-      <td (click)="modificar(palista)"> {{ palista.seguro }} </td>
+      <td (click)="modificar(palista)"> {{ palista.categoria }} </td>
       <td>
         <a (click)="eliminar(palista)" class="text-danger ml-auto">
           <i class="fa fa-minus-circle fa-2x"></i>

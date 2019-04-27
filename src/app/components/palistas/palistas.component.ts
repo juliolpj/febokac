@@ -60,6 +60,8 @@ export class PalistasComponent implements OnInit {
   }
 
   recibirAceptar(palista: PalistaI) {
+    console.log('Recibir aceptar', palista);
+    
     switch (this.frmStatus) {
       case 'Agregar':
         this.aceptarAgregarRegistro(palista);
@@ -88,8 +90,6 @@ export class PalistasComponent implements OnInit {
   }
 
   aceptarModificarRegistro(palista: PalistaI) {
-    console.log('aceptarModificarRegistro', palista.id);
-    
     this.dataService.updateRecord$(palista).subscribe(
       data => {
         this.msgService.sendMessage('Registro actualizado satisfactoriamente');

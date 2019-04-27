@@ -4,7 +4,7 @@
   </div>
 
   <div class="card-body">
-    <form #miForm="ngForm" class="form-horizontal mt-3">
+    <form #miForm="ngForm" (ngSubmit)="aceptar(miForm)" class="form-horizontal mt-3">
 
       <div class="form-group">
         <label for="nombre" class="control-label"> Nombre </label>
@@ -19,7 +19,7 @@
         <div class="col-6">
           <div class="form-group">
             <label for="DNI" class="control-label"> DNI </label>
-            <input required maxlength="20" minlength="8" [class.is-invalid]="dni.invalid && dni.touched"
+            <input required minlength="8" maxlength="12" [class.is-invalid]="dni.invalid && dni.touched"
               [readonly]="frmStatus==='Eliminar'" #dni="ngModel" [(ngModel)]="registro.dni" type="text" name="dni"
               class="form-control" />
             <small class="text-danger" [class.d-none]="dni.untouched || !dni.hasError('required')">El DNI es requerido</small>
@@ -31,13 +31,14 @@
           <div class="form-group">
             <label for="genero" class="control-label"> Genero </label>
             <select class="custom-select" [class.is-invalid]="genero.invalid && genero.touched"
+              (change)="buscarCategoria(fnacimiento.value, genero.value)"
               required [disabled]="frmStatus==='Eliminar'" 
               name="genero" #genero="ngModel" [(ngModel)]="registro.genero"> 
               <option value="registro.genero"></option>
               <option value="Masculino">Masculino</option>
               <option value="Femenino">Femenino</option>
             </select>
-            <small class="text-danger" [class.d-none]="fnacimiento.valid || fnacimiento.untouched">El genero es requerido</small>
+            <small class="text-danger" [class.d-none]="genero.valid || genero.untouched">El genero es requerido</small>
           </div>
         </div>
 
@@ -49,16 +50,25 @@
             <label for="fnacimiento" class="control-label"> F.  nacimiento </label>
             <input required [class.is-invalid]="fnacimiento.invalid && fnacimiento.touched"
               [readonly]="frmStatus==='Eliminar'" #fnacimiento="ngModel" [(ngModel)]="registro.fnacimiento" type="date" name="fnacimiento"
-              class="form-control" />
+              class="form-control" (change)="buscarCategoria(fnacimiento.value, genero.value)"/>
             <small class="text-danger" [class.d-none]="fnacimiento.valid || fnacimiento.untouched">La fecha de nacimiento es requerida</small>
           </div>
         </div>
 
+        <div class="col-6">
+          <div class="form-group">
+            <label for="categoria" class="control-label"> Categoría </label>
+            <input required [class.is-invalid]="(categoria.invalid && fnacimiento.touched)  || registro.categoria == 'No se encontró' "
+              [readonly]="true" #categoria="ngModel" [(ngModel)]="registro.categoria" type="text" name="categoria"
+              class="form-control" />
+            <small class="text-danger" [class.d-none]="categoria.valid || fnacimiento.untouched">La categoría es requerida</small>
+          </div>
+        </div>
       </div>
 
       <div class="form-group">
         <label for="club" class="control-label"> Club </label>
-        <input required maxlength="40" minlength="8" [class.is-invalid]="club.invalid && club.touched"
+        <input required maxlength="40" minlength="8" [class.is-invalid]="club.invalid && club.touched "
           [readonly]="frmStatus==='Eliminar'" #club="ngModel" [(ngModel)]="registro.club" type="text" name="club"
           class="form-control" />
         <small class="text-danger" [class.d-none]="club.untouched || !club.hasError('required')">El club es requerido</small>
@@ -67,12 +77,12 @@
 
       <div class="row">
         <div class="col-6">
-          <button [disabled]="miForm.form.invalid" type="button" class="btn btn-primary btn-block" (click)="aceptar()">
+          <button [disabled]="miForm.form.invalid || registro.categoria == 'No se encontró'" type="submit" class="btn btn-primary btn-block">
             Aceptar
           </button>
         </div>
         <div class="col-6">
-          <button type="button" class="btn btn-secondary btn-block" (click)="cancelar()">
+          <button type="button" class="btn btn-secondary btn-block" (click)="cancelar(miForm)">
             Cancelar
           </button>
         </div>
