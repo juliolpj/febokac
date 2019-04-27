@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { PalistaI } from 'src/app/models/palista';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -12,13 +13,16 @@ export class PalistasService {
   private palistasCollection: AngularFirestoreCollection<PalistaI>;
   private palistas: Observable<PalistaI[]>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore,
+              private authService: AuthService) {
     /* this.booksCollection = afs.collection<BookInterface>('books');
     this.books = this.booksCollection.valueChanges(); */
   }
 
   getPalistas$() {
-    this.palistasCollection = this.afs.collection<PalistaI>('palistas');
+    console.log('club', this.authService.user);
+    
+    this.palistasCollection = this.afs.collection<PalistaI>('palistas', ref => ref.where('club', '==', this.authService.user.club));
     return this.palistas = this.palistasCollection.snapshotChanges()
     .pipe( map( changes => {
       return changes.map( action => {
