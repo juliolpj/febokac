@@ -6,14 +6,29 @@
   <div class="card-body">
     <form #miForm="ngForm" (ngSubmit)="aceptar(miForm)" class="form-horizontal mt-3">
 
-      <div class="form-group">
-        <label for="nombre" class="control-label"> Nombre </label>
-        <input required maxlength="40" minlength="8" [class.is-invalid]="nombre.invalid && nombre.touched"
-          [readonly]="frmStatus==='Eliminar'" #nombre="ngModel" [(ngModel)]="registro.nombre" type="text" name="nombre"
-          class="form-control" />
-        <small class="text-danger" [class.d-none]="nombre.untouched || !nombre.hasError('required')">El nombre es requerido</small>
-        <small class="text-danger" [class.d-none]="nombre.untouched || !nombre.hasError('minlength')">La longitud mínima es 8</small>
-      </div> 
+      <div class="row">
+        <div class="col col-6">
+          <div class="form-group">
+            <label for="nombre" class="control-label"> Nombre </label>
+            <input required maxlength="30" minlength="2" [class.is-invalid]="nombre.invalid && nombre.touched"
+              [readonly]="frmStatus==='Eliminar'" #nombre="ngModel" [(ngModel)]="registro.nombre" type="text" name="nombre"
+              class="form-control" />
+            <small class="text-danger" [class.d-none]="nombre.untouched || !nombre.hasError('required')">El nombre es requerido</small>
+            <small class="text-danger" [class.d-none]="nombre.untouched || !nombre.hasError('minlength')">La longitud mínima es 2</small>
+          </div> 
+        </div>
+
+        <div class="col col-6">
+          <div class="form-group">
+            <label for="apellido" class="control-label"> Apellido </label>
+            <input required maxlength="30" minlength="2" [class.is-invalid]="apellido.invalid && apellido.touched"
+              [readonly]="frmStatus==='Eliminar'" #apellido="ngModel" [(ngModel)]="registro.apellido" type="text" name="apellido"
+              class="form-control" />
+            <small class="text-danger" [class.d-none]="apellido.untouched || !apellido.hasError('required')">El apellido es requerido</small>
+            <small class="text-danger" [class.d-none]="apellido.untouched || !apellido.hasError('minlength')">La longitud mínima es 2</small>
+          </div> 
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-6">
