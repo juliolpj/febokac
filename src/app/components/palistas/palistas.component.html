@@ -22,9 +22,24 @@
 <table [hidden]="frmStatus != 'Consultar'" class="table table-bordered table-hover">
   <thead>
     <tr>
-      <th>DNI</th>
-      <th>Nombre</th>
-      <th>F.Nacimiento</th>
+      <th [ngClass]="{'text-primary': tblOrden.dni !== 0, 'text-scondary': tblOrden.dni == 0 }">
+        <a (click)="ordenar('dni')" >
+            <i [ngClass]="{'fa-arrow-up': tblOrden.dni == 1, 
+            'fa-arrow-down': tblOrden.dni ==2 }" class="fa" ></i>&nbsp; DNI</a>
+      </th>
+     
+      <th [ngClass]="{'text-primary': tblOrden.nombre !== 0, 'text-scondary': tblOrden.nombre == 0 }">
+         <a (click)="ordenar('nombre')" >
+           <i [ngClass]="{'fa-arrow-up': tblOrden.nombre == 1, 
+                          'fa-arrow-down': tblOrden.nombre ==2 }" class="fa" ></i>&nbsp; Nombre</a>
+      </th>
+
+      <th [ngClass]="{'text-primary': tblOrden.fnacimiento !== 0, 'text-scondary': tblOrden.fnacimiento == 0 }">
+          <a (click)="ordenar('fnacimiento')" >
+            <i [ngClass]="{'fa-arrow-up': tblOrden.fnacimiento == 1, 
+                          'fa-arrow-down': tblOrden.fnacimiento ==2 }" class="fa" ></i>&nbsp; F.Nacimiento</a>
+       </th>
+
       <th>Genero</th>
       <th>Categoría</th>
       <th> </th>

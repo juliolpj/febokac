@@ -20,8 +20,6 @@ export class PalistasService {
   }
 
   getPalistas$() {
-    console.log('club', this.authService.user);
-    
     this.palistasCollection = this.afs.collection<PalistaI>('palistas', ref => ref.where('club', '==', this.authService.user.club));
     return this.palistas = this.palistasCollection.snapshotChanges()
     .pipe( map( changes => {

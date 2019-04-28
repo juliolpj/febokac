@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class PalistasComponent implements OnInit {
   frmStatus = 'Consultar';
+  tblOrden = {dni: 0, nombre: 0, fnacimiento:0};
   registro: PalistaI = {};
   palistas: Array<PalistaI>;
 
@@ -113,4 +114,24 @@ export class PalistasComponent implements OnInit {
       () => this.frmStatus = 'Consultar'
     )
   }
+
+  ordenar(propiedad) {
+    let orden = 0;
+    if (this.tblOrden[propiedad] === 1) {
+      orden = 2;
+      this.palistas.sort( 
+        (a, b) => a[propiedad] < b[propiedad] ? 1 : b[propiedad] < a[propiedad] ? -1 : 0 );
+    } else {
+      orden = 1;
+      this.palistas.sort( 
+        (a, b) => a[propiedad] > b[propiedad] ? 1 : b[propiedad] > a[propiedad] ? -1 : 0 );
+    }
+
+    for (const prop in this.tblOrden) {
+      this.tblOrden[prop] = 0;
+    }
+    this.tblOrden[propiedad] = orden;
+
+  }
+  
 }
