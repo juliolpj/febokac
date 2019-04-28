@@ -19,12 +19,17 @@
       <li *ngIf="!isLogged" class="nav-item">
         <a class="nav-link" routerLink="/login" routerLinkActive="active"> <strong>Ingresar</strong> </a>
       </li>
-      <li *ngIf="isLogged" class="nav-item">
-        <a class="nav-link" routerLink="/profile" routerLinkActive="active"> <strong>Profile</strong> </a>
+      
+      <li class="nav-item dropdown" *ngIf="isLogged">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" ></i>&nbsp;
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/profile"> <strong>Profile</strong> </a>
+          <a href="#" class="dropdown-item" (click)="onLogout()"> <strong>Logout</strong> </a>
+        </div>
       </li>
-      <li *ngIf="isLogged" class="nav-item">
-        <a href="#" class="nav-link" (click)="onLogout()"> <strong>Logout</strong> </a>
-      </li>
+
     </ul>
   </div>
 </nav>
