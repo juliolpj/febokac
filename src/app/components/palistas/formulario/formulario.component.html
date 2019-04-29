@@ -92,8 +92,10 @@
 
       <div class="row">
         <div class="col-6">
-          <button [disabled]="miForm.form.invalid || registro.categoria == 'No se encontró'" type="submit" class="btn btn-primary btn-block">
-            Aceptar
+          <button [disabled]="miForm.form.invalid || registro.categoria == 'No se encontró'" 
+          [ngClass]="frmStatus==='Eliminar' ? 'btn-danger' : 'btn-primary'" 
+            type="submit" class="btn btn-block">
+            {{ frmStatus==='Eliminar' ? 'Eliminar' : 'Aceptar' }}
           </button>
         </div>
         <div class="col-6">
