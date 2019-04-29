@@ -16,6 +16,9 @@
       <li *ngIf="isLogged" class="nav-item">
         <a class="nav-link" routerLink="/palistas" routerLinkActive="active"> <strong>Palistas</strong> </a>
       </li>
+      <li *ngIf="isLogged" class="nav-item">
+        <a class="nav-link" routerLink="/inscripciones" routerLinkActive="active"> <strong>Inscripciones</strong> </a>
+      </li>
       <li *ngIf="!isLogged" class="nav-item">
         <a class="nav-link" routerLink="/login" routerLinkActive="active"> <strong>Ingresar</strong> </a>
       </li>
@@ -25,8 +28,8 @@
           <i class="fa fa-user" ></i>&nbsp;
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/profile"> <strong>Profile</strong> </a>
-          <a href="#" class="dropdown-item" (click)="onLogout()"> <strong>Logout</strong> </a>
+          <a class="dropdown-item" routerLink="/profile"> <strong>Perfile</strong> </a>
+          <a href="#" class="dropdown-item" (click)="onLogout()"> <strong>Salir</strong> </a>
         </div>
       </li>
 

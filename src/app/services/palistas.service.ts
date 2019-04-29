@@ -32,10 +32,12 @@ export class PalistasService {
   }
 
   addRecord$(palista: PalistaI) {
+    palista.palista = palista.nombre.trim() + ' ' + palista.apellido.trim();
     return from(this.palistasCollection.add(palista));
   }
 
   updateRecord$(palista: PalistaI) {
+    palista.palista = palista.nombre.trim() + ' ' + palista.apellido.trim();
     return from(this.afs.doc<PalistaI>(`palistas/${palista.id}`).update(palista));
   }
 

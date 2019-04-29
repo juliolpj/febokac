@@ -1,0 +1,60 @@
+
+<div class="row">
+  <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
+    <app-formulario-inscripcion
+      [frmStatus]="frmStatus"
+      [registro]="registro"
+      [palistas]="palistas"
+      (botonCancelar)="recibirCancelar($event)"
+      (botonAceptar)="recibirAceptar($event)"
+    ></app-formulario-inscripcion>
+  </div>
+</div>
+
+<div [hidden]="frmStatus != 'Consultar'" class="card mt-3">
+<div class="card-header d-flex bg-scondary">
+  Inscripciones
+  <a (click)="agregar()" class="text-primary ml-auto">
+    <i class="fa fa-plus-circle fa-2x"></i>
+  </a>
+</div>
+</div>
+
+<table [hidden]="frmStatus != 'Consultar'" class="table table-bordered table-hover">
+<thead>
+  <tr>
+    <th [ngClass]="{'text-primary': tblOrden.dni !== 0, 'text-scondary': tblOrden.dni == 0 }">
+      <a (click)="ordenar('dni')" >
+          <i [ngClass]="{'fa-arrow-up': tblOrden.dni == 1, 
+          'fa-arrow-down': tblOrden.dni ==2 }" class="fa" ></i>&nbsp; DNI</a>
+    </th>
+   
+    <th [ngClass]="{'text-primary': tblOrden.nombre !== 0, 'text-scondary': tblOrden.nombre == 0 }">
+       <a (click)="ordenar('nombre')" >
+         <i [ngClass]="{'fa-arrow-up': tblOrden.nombre == 1, 
+                        'fa-arrow-down': tblOrden.nombre ==2 }" class="fa" ></i>&nbsp; Nombre</a>
+    </th>
+
+    <th>Genero</th>
+    <th>Categoría</th>
+    <th>Carrera</th>
+    <th> </th>
+  </tr>
+</thead>
+
+<tbody>
+  <tr *ngFor="let inscripcion of inscripciones">
+    <td (click)="modificar(inscripcion)"> {{ inscripcion.dni }} </td>
+    <td (click)="modificar(inscripcion)"> {{ inscripcion.apellido.trim() + ' ' + inscripcion.nombre }} </td>
+    <td (click)="modificar(inscripcion)"> {{ utilService.showDate(inscripcion.fnacimiento) }} </td>
+    <td (click)="modificar(inscripcion)"> {{ inscripcion.genero }} </td>
+    <td (click)="modificar(inscripcion)"> {{ inscripcion.categoria }} </td>
+    <td>
+      <a (click)="eliminar(inscripcion)" class="text-danger ml-auto">
+        <i class="fa fa-minus-circle fa-2x"></i>
+      </a>
+    </td>
+  </tr>
+</tbody>
+
+</table>
