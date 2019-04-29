@@ -11,7 +11,7 @@
           Nombre
         </label>
         <select class="custom-select" id="palista"
-          name="palista" #palista="ngModel" [(ngModel)]="registro.palista"  [disabled]="frmStatus==='Eliminar'"
+          name="palista" #palista="ngModel" [(ngModel)]="registro.palista"  [disabled]="frmStatus !== 'Agregar'"
           (change)="selectPalista(palista.value)" >
           <option value=""></option>
           <option *ngFor="let palista of palistas" >{{ palista.palista }}</option>

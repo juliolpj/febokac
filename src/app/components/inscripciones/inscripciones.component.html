@@ -46,9 +46,9 @@
   <tr *ngFor="let inscripcion of inscripciones">
     <td (click)="modificar(inscripcion)"> {{ inscripcion.dni }} </td>
     <td (click)="modificar(inscripcion)"> {{ inscripcion.apellido.trim() + ' ' + inscripcion.nombre }} </td>
-    <td (click)="modificar(inscripcion)"> {{ utilService.showDate(inscripcion.fnacimiento) }} </td>
     <td (click)="modificar(inscripcion)"> {{ inscripcion.genero }} </td>
     <td (click)="modificar(inscripcion)"> {{ inscripcion.categoria }} </td>
+    <td></td>
     <td>
       <a (click)="eliminar(inscripcion)" class="text-danger ml-auto">
         <i class="fa fa-minus-circle fa-2x"></i>
