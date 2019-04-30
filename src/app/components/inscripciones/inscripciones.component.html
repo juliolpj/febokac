@@ -48,7 +48,7 @@
     <td (click)="modificar(inscripcion)"> {{ inscripcion.apellido.trim() + ' ' + inscripcion.nombre }} </td>
     <td (click)="modificar(inscripcion)"> {{ inscripcion.genero }} </td>
     <td (click)="modificar(inscripcion)"> {{ inscripcion.categoria }} </td>
-    <td></td>
+    <td (click)="modificar(inscripcion)"> {{ mostrarCarreras(inscripcion) }} </td>
     <td>
       <a (click)="eliminar(inscripcion)" class="text-danger ml-auto">
         <i class="fa fa-minus-circle fa-2x"></i>

@@ -144,4 +144,25 @@ export class InscripcionesComponent implements OnInit {
 
   }
   
+  mostrarCarreras(inscripcion: InscripcionI) {
+    let carrera = '';
+    carrera += inscripcion.k1_1000 ? ' K1 - 1000,' : '';
+    carrera += inscripcion.k1_2000 ? ' K1 - 2000,' : '';
+    carrera += inscripcion.k1_4000 ? ' K1 - 4 Km,' : '';
+    carrera += inscripcion.k1_12000 ? ' K1 - 12 Km,' : '';
+    carrera += inscripcion.k1_16000 ? ' K1 - 16 Km,' : '';
+    
+    carrera += inscripcion.k2_1000 ? ' K2 - 1000,' : '';
+    carrera += inscripcion.k2_2000 ? ' K2 - 2000,' : '';
+    carrera += inscripcion.k2_4000 ? ' K2 - 4 Km,' : '';
+    carrera += inscripcion.k2_12000 ? ' K2 - 12 Km,' : '';
+    carrera += inscripcion.k2_16000 ? ' K1 - 16 Km,' : '';
+
+    carrera += inscripcion.k4_1000 ? ' 430 - 1000,' : '';
+    carrera += inscripcion.k4_2000 ? ' 430 - 2000,' : '';
+    carrera += inscripcion.k4_4000 ? ' 430 - 4 Km,' : '';
+    carrera += inscripcion.k4_12000 ? ' 430 - 12 Km,' : '';
+    carrera += inscripcion.k4_16000 ? ' 430 - 16 Km' : '';
+    return carrera;
+  }
 }
