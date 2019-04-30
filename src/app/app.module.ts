@@ -19,6 +19,8 @@ import { FormularioComponent } from './components/palistas/formulario/formulario
 import { MensajesComponent } from './components/mensajes/mensajes.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 import { FormularioInscripcionComponent } from './components/inscripciones/formulario-inscripcion/formulario-inscripcion.component';
+import { ClubesComponent } from './components/clubes/clubes.component';
+import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { FormularioInscripcionComponent } from './components/inscripciones/formu
     FormularioComponent,
     MensajesComponent,
     InscripcionesComponent,
-    FormularioInscripcionComponent
+    FormularioInscripcionComponent,
+    ClubesComponent,
+    FClubesComponent
   ],
   imports: [
     BrowserModule,

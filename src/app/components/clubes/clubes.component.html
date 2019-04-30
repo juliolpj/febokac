@@ -1,0 +1,55 @@
+
+<div class="row">
+  <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
+    <app-f-clubes
+      [frmStatus]="frmStatus"
+      [registro]="registro"
+      (botonCancelar)="recibirCancelar($event)"
+      (botonAceptar)="recibirAceptar($event)"
+    ></app-f-clubes>
+  </div>
+</div>
+
+<div [hidden]="frmStatus != 'Consultar'" class="card mt-3">
+<div class="card-header d-flex">
+  Clubes
+  <a (click)="agregar()" class="text-primary ml-auto">
+    <i class="fa fa-plus-circle fa-2x"></i>
+  </a>
+</div>
+</div>
+
+<table [hidden]="frmStatus != 'Consultar'" class="table table-bordered table-hover">
+<thead>
+  <tr>
+    <th [ngClass]="{'text-primary': tblOrden.nombre !== 0, 'text-scondary': tblOrden.nombre == 0 }">
+      <a (click)="ordenar('nombre')" >
+          <i [ngClass]="{'fa-arrow-up': tblOrden.nombre == 1, 
+          'fa-arrow-down': tblOrden.nombre ==2 }" class="fa" ></i>&nbsp; Nombre</a>
+    </th>
+   
+    <th [ngClass]="{'text-primary': tblOrden.descripcion !== 0, 'text-scondary': tblOrden.descripcion == 0 }">
+       <a (click)="ordenar('descripcion')" >
+         <i [ngClass]="{'fa-arrow-up': tblOrden.descripcion == 1, 
+                        'fa-arrow-down': tblOrden.descripcion ==2 }" class="fa" ></i>&nbsp; Descripción</a>
+    </th>
+
+    <th>Delegados</th>
+    <th> </th>
+  </tr>
+</thead>
+
+<tbody>
+  <tr *ngFor="let club of clubes">
+    <td (click)="modificar(club)"> {{ club.nombre }} </td>
+    <td (click)="modificar(club)"> {{ club.descripcion }} </td>
+    <td (click)="modificar(club)"> ... </td>
+    <td>
+      <a (click)="eliminar(club)" class="text-danger text-center">
+        <i class="fa fa-minus-circle fa-2x"></i>
+      </a>
+    </td>
+  </tr>
+</tbody>
+
+</table>
