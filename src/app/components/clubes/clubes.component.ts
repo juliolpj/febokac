@@ -86,6 +86,7 @@ export class ClubesComponent implements OnInit {
   }
 
   aceptarModificarRegistro(club: ClubI) {
+    club.delegados = ['Pedro Pérez', 'Maria Corina'];
     this.dataService.updateRecord$(club).subscribe(
       data => {
         this.msgService.sendMessage('Registro actualizado satisfactoriamente');

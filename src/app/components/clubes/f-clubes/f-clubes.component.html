@@ -29,6 +29,24 @@
           longitud mínima es 2</small>
       </div>
 
+      <div class="card">
+
+        <div class="card-header">
+          Delegados
+          <a (click)="agregarDelegado()" class="text-primary ml-auto">
+              <i class="fa fa-plus-circle fa-2x"></i>
+            </a>
+        </div>
+        <div class="card-body">
+          <div class="form-group" *ngFor="let delegado of registro.delegados; let i=index">
+            <input required maxlength="80" minlength="2" [class.is-invalid]="refDdelegado.invalid && refDdelegado.touched"
+            [readonly]="frmStatus==='Eliminar'" #refDdelegado="ngModel" [(ngModel)]="delegado" type="text"
+            name="delegado{{i}}" class="form-control" />
+          </div>
+        </div>
+        {{ registro.delegados }}
+      </div>
+
       <div class="row">
         <div class="col-6">
           <button [disabled]="miForm.form.invalid"

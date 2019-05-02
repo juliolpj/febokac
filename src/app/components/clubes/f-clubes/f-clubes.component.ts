@@ -29,4 +29,7 @@ export class FClubesComponent implements OnInit {
     miForm.resetForm();
   }
 
+  agregarDelegado() {
+    this.registro.delegados.push('');
+  }
 }
