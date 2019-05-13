@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { ClubI } from 'src/app/models/club';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,12 +11,15 @@ export class ClubesService {
   private clubesCollection: AngularFirestoreCollection<ClubI>;
   private clubes: Observable<ClubI[]>;
 
+  private clubDoc: AngularFirestoreDocument<ClubI>;
+  private club: Observable<ClubI>;
+
   constructor(private afs: AngularFirestore) {
     /* this.booksCollection = afs.collection<BookInterface>('books');
     this.books = this.booksCollection.valueChanges(); */
   }
 
-  getClubes$() {
+  getRecords$() {
     this.clubesCollection = this.afs.collection<ClubI>('clubes');
     return this.clubes = this.clubesCollection.snapshotChanges()
     .pipe( map( changes => {
@@ -28,12 +31,18 @@ export class ClubesService {
     }));
   }
 
-  addRecord$(club: ClubI) {
-    return from(this.clubesCollection.add(club));
+  getRecord$(id: string) {
+    this.clubDoc = this.afs.doc<ClubI>(`clubes/${id}`);
+    this.club = this.clubDoc.valueChanges();
+    return this.club;
   }
 
-  updateRecord$(club: ClubI) {
-    return from(this.afs.doc<ClubI>(`clubes/${club.id}`).update(club));
+  addRecord$(registro: ClubI) {
+    return from(this.clubesCollection.add(registro));
+  }
+
+  updateRecord$(id: string, registro: ClubI) {
+    return from(this.afs.doc<ClubI>(`clubes/${id}`).update(registro));
   }
 
   deleteRecord$(id: string) {

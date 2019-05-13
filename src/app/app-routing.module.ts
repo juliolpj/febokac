@@ -6,11 +6,15 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { PalistasComponent } from './components/palistas/palistas.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 import { ClubesComponent } from './components/clubes/clubes.component';
+import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'clubes', component: ClubesComponent},
+    { path: 'clubes/add', component: FClubesComponent },
+    { path: 'clubes/edit/:id', component: FClubesComponent },
+    { path: 'clubes/delete/:id', component: FClubesComponent },
   { path: 'palistas', component: PalistasComponent },
   { path: 'inscripciones', component: InscripcionesComponent },
   { path: 'login', component: LoginComponent },
