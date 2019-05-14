@@ -3,5 +3,6 @@ export interface ClubI {
     nombre?: string;
     descripcion?: string;
     delegado?: string,
-    entreador?: string
+    entreador?: string,
+    imageUrl?: string
 }

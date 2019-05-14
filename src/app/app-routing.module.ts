@@ -7,6 +7,7 @@ import { PalistasComponent } from './components/palistas/palistas.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 import { ClubesComponent } from './components/clubes/clubes.component';
 import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
+import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'clubes/add', component: FClubesComponent },
     { path: 'clubes/edit/:id', component: FClubesComponent },
     { path: 'clubes/delete/:id', component: FClubesComponent },
+    { path: 'clubes/logo/:id', component: SubirLogoComponent },
   { path: 'palistas', component: PalistasComponent },
   { path: 'inscripciones', component: InscripcionesComponent },
   { path: 'login', component: LoginComponent },

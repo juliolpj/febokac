@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -22,6 +23,7 @@ import { InscripcionesComponent } from './components/inscripciones/inscripciones
 import { FormularioInscripcionComponent } from './components/inscripciones/formulario-inscripcion/formulario-inscripcion.component';
 import { ClubesComponent } from './components/clubes/clubes.component';
 import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
+import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.componen
     InscripcionesComponent,
     FormularioInscripcionComponent,
     ClubesComponent,
-    FClubesComponent
+    FClubesComponent,
+    SubirLogoComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,10 @@ import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.componen
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [{ provide: FirestoreSettingsToken, useValue: {} }],
+  providers: [
+    { provide: FirestoreSettingsToken, useValue: {} },
+    AngularFireStorage
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
