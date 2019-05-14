@@ -13,7 +13,7 @@
             <label for="nombre" class="control-label"> Nombre </label>
             <input type="text" formControlName="nombre" [readonly]="titulo==='Eliminar'"
               [class.is-invalid]="nombre.invalid && nombre.touched" class="form-control" />
-            <small class="text-danger" [class.d-none]="nombre.untouched || !nombre.hasError('required')">El nombre es equerido</small>
+            <small class="text-danger" [class.d-none]="nombre.untouched || !nombre.hasError('required')">El nombre es requerido</small>
             <small class="text-danger" [class.d-none]="nombre.untouched || !nombre.hasError('minlength')">La longitud mínima es 2</small>
           </div>
 

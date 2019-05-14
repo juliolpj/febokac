@@ -24,6 +24,8 @@ import { FormularioInscripcionComponent } from './components/inscripciones/formu
 import { ClubesComponent } from './components/clubes/clubes.component';
 import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
 import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { FCategoriasComponent } from './components/categorias/f-categorias/f-categorias.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { SubirLogoComponent } from './components/subir-logo/subir-logo.component
     FormularioInscripcionComponent,
     ClubesComponent,
     FClubesComponent,
-    SubirLogoComponent
+    SubirLogoComponent,
+    CategoriasComponent,
+    FCategoriasComponent
   ],
   imports: [
     BrowserModule,

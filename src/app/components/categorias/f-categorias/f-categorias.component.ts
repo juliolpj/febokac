@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { generoValidator } from 'src/app/validators/genero-validator'
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { MensajesService } from 'src/app/services/mensajes.service';
-import { ClubesService } from 'src/app/services/clubes.service';
-import { ClubI } from 'src/app/models/club';
+import { CategoriasService } from 'src/app/services/categorias.service';
+import { CategoriaI } from 'src/app/models/categoria';
 
 @Component({
-  selector: 'app-f-clubes',
-  templateUrl: './f-clubes.component.html',
+  selector: 'app-f-categorias',
+  templateUrl: './f-categorias.component.html',
   styles: ['']
 })
-export class FClubesComponent implements OnInit {
+export class FCategoriasComponent implements OnInit {
   titulo = '';
-  style = '';
+  cardHeaderStyle = '';
   id = '';
   miForm: FormGroup;
 
   constructor(
-    public dataService: ClubesService, 
+    public dataService: CategoriasService, 
     public fb: FormBuilder,      
     private msgService: MensajesService,
     private location: Location, 
@@ -39,7 +40,7 @@ export class FClubesComponent implements OnInit {
     this.titulo = objTitulo[this.actRoute.snapshot.url[1].path];
     
     const objStyle = {add:'bg-primary', edit: 'bg-warning', delete: 'bg-danger'}
-    this.style = objStyle[this.actRoute.snapshot.url[1].path];
+    this.cardHeaderStyle = objStyle[this.actRoute.snapshot.url[1].path];
 
     this.id = this.actRoute.snapshot.paramMap.get('id');
     if (this.titulo !== 'Agregar') {
@@ -49,10 +50,10 @@ export class FClubesComponent implements OnInit {
 
   buildForm() {
     this.miForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(3)]],
-      descripcion: ['', [Validators.required, Validators.minLength(3)]],
-      delegado: ['', [Validators.required, Validators.minLength(3)]],
-      entrenador: ['', [Validators.required, Validators.minLength(3)]]
+      desde: ['', [Validators.required, Validators.min(1900), Validators.max(2020)] ],
+      hasta: ['', [Validators.required, Validators.min(1900), Validators.max(2020)] ],
+      genero: ['', [Validators.required, generoValidator] ],
+      categoria: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
@@ -64,17 +65,17 @@ export class FClubesComponent implements OnInit {
     );
   }
 
-  get nombre() {
-    return this.miForm.get('nombre');
+  get desde() {
+    return this.miForm.get('desde');
   }
-  get descripcion() {
-    return this.miForm.get('descripcion');
+  get hasta() {
+    return this.miForm.get('hasta');
   }
-  get delegado() {
-    return this.miForm.get('delegado');
+  get genero() {
+    return this.miForm.get('genero');
   }
-  get entrenador() {
-    return this.miForm.get('entrenador');
+  get categoria() {
+    return this.miForm.get('categoria');
   }
 
   onSubmit() {
@@ -93,25 +94,25 @@ export class FClubesComponent implements OnInit {
   
   aceptarAgregar() {
     this.dataService.addRecord$(this.miForm.value).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['nombre'].value + ' Agregado satisfactoriamente'),
+      data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Agregado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al agregar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.router.navigate(['clubes'])
+      () => this.router.navigate(['categorias'])
     );
   }
 
   aceptarEditar() {
     this.dataService.updateRecord$(this.id, this.miForm.value).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['nombre'].value + ' Actualizado satisfactoriamente'),
+      data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Actualizado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al actualizar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.router.navigate(['clubes'])
+      () => this.router.navigate(['categorias'])
     );
   }
 
   aceptarEliminar() {
     this.dataService.deleteRecord$(this.id).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['nombre'].value + ' Eliminado satisfactoriamente'),
+      data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Eliminado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al eliminar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.router.navigate(['clubes'])
+      () => this.router.navigate(['categorias'])
     );
   }
 
@@ -119,3 +120,4 @@ export class FClubesComponent implements OnInit {
     this.location.back();
   }
 }
+

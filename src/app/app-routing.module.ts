@@ -8,7 +8,8 @@ import { InscripcionesComponent } from './components/inscripciones/inscripciones
 import { ClubesComponent } from './components/clubes/clubes.component';
 import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
 import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
-
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { FCategoriasComponent } from './components/categorias/f-categorias/f-categorias.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,6 +18,10 @@ const routes: Routes = [
     { path: 'clubes/edit/:id', component: FClubesComponent },
     { path: 'clubes/delete/:id', component: FClubesComponent },
     { path: 'clubes/logo/:id', component: SubirLogoComponent },
+  { path: 'categorias', component: CategoriasComponent},
+    { path: 'categorias/add', component: FCategoriasComponent },
+    { path: 'categorias/edit/:id', component: FCategoriasComponent },
+    { path: 'categorias/delete/:id', component: FCategoriasComponent },
   { path: 'palistas', component: PalistasComponent },
   { path: 'inscripciones', component: InscripcionesComponent },
   { path: 'login', component: LoginComponent },
