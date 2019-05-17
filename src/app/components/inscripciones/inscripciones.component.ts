@@ -41,7 +41,7 @@ export class InscripcionesComponent implements OnInit {
   }
 
   getPalistas() {
-    this.palistaService.getPalistas$().subscribe(
+    this.palistaService.getRecords$().subscribe(
      ( data: PalistaI[]) => {
        this.palistas = data;
      }

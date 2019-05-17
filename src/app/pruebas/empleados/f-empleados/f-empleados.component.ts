@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { generoValidator } from 'src/app/validators/genero-validator'
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { MensajesService } from 'src/app/services/mensajes.service';
-import { CategoriasService } from 'src/app/services/categorias.service';
-import { CategoriaI } from 'src/app/models/categoria';
+import { EmpleadosService } from 'src/app/pruebas/empleados/services/empleados.service';
+import { EmpleadoI } from 'src/app/pruebas/empleados/empleados.interface';
 
 @Component({
-  selector: 'app-f-categorias',
-  templateUrl: './f-categorias.component.html',
+  selector: 'app-f-empleados',
+  templateUrl: './f-empleados.component.html',
   styles: ['']
 })
-export class FCategoriasComponent implements OnInit {
+export class FEmpleadosComponent implements OnInit {
   titulo = '';
   cardHeaderStyle = '';
   id = '';
   miForm: FormGroup;
 
   constructor(
-    public dataService: CategoriasService, 
+    public dataService: EmpleadosService, 
     public fb: FormBuilder,      
     private msgService: MensajesService,
     private location: Location, 
@@ -50,10 +49,8 @@ export class FCategoriasComponent implements OnInit {
 
   buildForm() {
     this.miForm = this.fb.group({
-      desde: ['', [Validators.required, Validators.min(1900), Validators.max(2020)] ],
-      hasta: ['', [Validators.required, Validators.min(1900), Validators.max(2020)] ],
-      genero: ['', [Validators.required, generoValidator] ],
-      categoria: ['', [Validators.required, Validators.minLength(3)]]
+      nombre: ['', [Validators.required] ],
+      apellido: ['', [Validators.required] ]
     });
   }
 
@@ -63,22 +60,14 @@ export class FCategoriasComponent implements OnInit {
         this.miForm.patchValue(data);
       }
     );
-    if (this.titulo==='Eliminar') {
-      this.miForm.controls.genero.disable();
-    }
+
   }
 
-  get desde() {
-    return this.miForm.get('desde');
+  get nombre() {
+    return this.miForm.get('nombre');
   }
-  get hasta() {
-    return this.miForm.get('hasta');
-  }
-  get genero() {
-    return this.miForm.get('genero');
-  }
-  get categoria() {
-    return this.miForm.get('categoria');
+  get apellido() {
+    return this.miForm.get('apellido');
   }
 
   onSubmit() {
@@ -97,25 +86,27 @@ export class FCategoriasComponent implements OnInit {
   
   aceptarAgregar() {
     this.dataService.addRecord$(this.miForm.value).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Agregado satisfactoriamente'),
+      data => this.msgService.sendMessage(this.miForm.controls['nombre'].value + ' Agregado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al agregar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.router.navigate(['categorias'])
+      () => this.router.navigate(['empleados'])
     );
   }
 
   aceptarEditar() {
     this.dataService.updateRecord$(this.id, this.miForm.value).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Actualizado satisfactoriamente'),
+      data => {
+        this.msgService.sendMessage(this.miForm.controls['nombre'].value + ' Actualizado satisfactoriamente')
+      },
       error => this.msgService.sendMessage('Error al actualizar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.router.navigate(['categorias'])
+      () => this.router.navigate(['empleados'])
     );
   }
 
   aceptarEliminar() {
     this.dataService.deleteRecord$(this.id).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Eliminado satisfactoriamente'),
+      data => this.msgService.sendMessage(this.miForm.controls['nombre'].value + ' Eliminado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al eliminar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.router.navigate(['categorias'])
+      () => this.router.navigate(['empleados'])
     );
   }
 

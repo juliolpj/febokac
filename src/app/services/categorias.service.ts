@@ -11,7 +11,7 @@ export class CategoriasService {
   private collection: AngularFirestoreCollection<CategoriaI>;
 
   constructor(private afs: AngularFirestore) {
-    this.collection = this.afs.collection<CategoriaI>("categorias");
+    this.collection = this.afs.collection<CategoriaI>("categorias", ref => ref.orderBy('desde'));
   }
 
   getRecords$(): Observable<CategoriaI[]> {

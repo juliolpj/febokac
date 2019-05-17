@@ -17,7 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 import { environment } from 'src/environments/environment';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PalistasComponent } from './components/palistas/palistas.component';
-import { FormularioComponent } from './components/palistas/formulario/formulario.component';
+import { FPalistasComponent } from './components/palistas/f-palistas/f-palistas.component';
 import { MensajesComponent } from './components/mensajes/mensajes.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 import { FormularioInscripcionComponent } from './components/inscripciones/formulario-inscripcion/formulario-inscripcion.component';
@@ -26,6 +26,9 @@ import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.componen
 import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { FCategoriasComponent } from './components/categorias/f-categorias/f-categorias.component';
+import { MockGuardarComponent } from './pruebas/mock-guardar/mock-guardar.component';
+import { EmpleadosComponent } from './pruebas/empleados/empleados.component';
+import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,7 @@ import { FCategoriasComponent } from './components/categorias/f-categorias/f-cat
     LoginComponent,
     ProfileComponent,
     PalistasComponent,
-    FormularioComponent,
+    FPalistasComponent,
     MensajesComponent,
     InscripcionesComponent,
     FormularioInscripcionComponent,
@@ -43,7 +46,10 @@ import { FCategoriasComponent } from './components/categorias/f-categorias/f-cat
     FClubesComponent,
     SubirLogoComponent,
     CategoriasComponent,
-    FCategoriasComponent
+    FCategoriasComponent,
+    MockGuardarComponent,
+    EmpleadosComponent,
+    FEmpleadosComponent    
   ],
   imports: [
     BrowserModule,
@@ -51,7 +57,7 @@ import { FCategoriasComponent } from './components/categorias/f-categorias/f-cat
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule
   ],
   providers: [

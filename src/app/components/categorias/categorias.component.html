@@ -5,9 +5,9 @@
       <i class="fa fa-plus-circle fa-2x"></i>
     </a>
   </div>
-  </div>
-  
-  <table class="table table-bordered table-hover">
+</div>
+
+<table class="table table-bordered table-hover">
   <thead>
     <tr>
       <th> Desde </th>
@@ -17,7 +17,7 @@
       <th> </th>
     </tr>
   </thead>
-  
+
   <tbody>
     <tr *ngFor="let registro of tabla">
       <td routerLink="/categorias/edit/{{registro.id}}"> {{ registro.desde }} </td>
@@ -31,6 +31,5 @@
       </td>
     </tr>
   </tbody>
-  
-  </table>
-  
+
+</table>

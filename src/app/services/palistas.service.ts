@@ -19,7 +19,7 @@ export class PalistasService {
     this.books = this.booksCollection.valueChanges(); */
   }
 
-  getPalistas$() {
+  getRecords$() {
     this.palistasCollection = this.afs.collection<PalistaI>('palistas', ref => ref.where('club', '==', this.authService.user.club));
     return this.palistas = this.palistasCollection.snapshotChanges()
     .pipe( map( changes => {
@@ -31,14 +31,18 @@ export class PalistasService {
     }));
   }
 
+  getRecord$(id: string): Observable<PalistaI> {
+    return this.afs.doc<PalistaI>(`palistas/${id}`).valueChanges();
+  }
+
   addRecord$(palista: PalistaI) {
     palista.palista = palista.nombre.trim() + ' ' + palista.apellido.trim();
     return from(this.palistasCollection.add(palista));
   }
 
-  updateRecord$(palista: PalistaI) {
+  updateRecord$(id: string, palista: PalistaI) {
     palista.palista = palista.nombre.trim() + ' ' + palista.apellido.trim();
-    return from(this.afs.doc<PalistaI>(`palistas/${palista.id}`).update(palista));
+    return from(this.afs.doc<PalistaI>(`palistas/${id}`).update(palista));
   }
 
   deleteRecord$(id: string) {
