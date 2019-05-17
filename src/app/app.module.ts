@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -15,10 +17,18 @@ import { LoginComponent } from './components/login/login.component';
 import { environment } from 'src/environments/environment';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PalistasComponent } from './components/palistas/palistas.component';
-import { FormularioComponent } from './components/palistas/formulario/formulario.component';
+import { FPalistasComponent } from './components/palistas/f-palistas/f-palistas.component';
 import { MensajesComponent } from './components/mensajes/mensajes.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 import { FormularioInscripcionComponent } from './components/inscripciones/formulario-inscripcion/formulario-inscripcion.component';
+import { ClubesComponent } from './components/clubes/clubes.component';
+import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
+import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { FCategoriasComponent } from './components/categorias/f-categorias/f-categorias.component';
+import { MockGuardarComponent } from './pruebas/mock-guardar/mock-guardar.component';
+import { EmpleadosComponent } from './pruebas/empleados/empleados.component';
+import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados.component';
 
 @NgModule({
   declarations: [
@@ -28,20 +38,32 @@ import { FormularioInscripcionComponent } from './components/inscripciones/formu
     LoginComponent,
     ProfileComponent,
     PalistasComponent,
-    FormularioComponent,
+    FPalistasComponent,
     MensajesComponent,
     InscripcionesComponent,
-    FormularioInscripcionComponent
+    FormularioInscripcionComponent,
+    ClubesComponent,
+    FClubesComponent,
+    SubirLogoComponent,
+    CategoriasComponent,
+    FCategoriasComponent,
+    MockGuardarComponent,
+    EmpleadosComponent,
+    FEmpleadosComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule
   ],
-  providers: [],
+  providers: [
+    { provide: FirestoreSettingsToken, useValue: {} },
+    AngularFireStorage
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,12 +4,37 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PalistasComponent } from './components/palistas/palistas.component';
+import { FPalistasComponent } from './components/palistas/f-palistas/f-palistas.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
-
+import { ClubesComponent } from './components/clubes/clubes.component';
+import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
+import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { FCategoriasComponent } from './components/categorias/f-categorias/f-categorias.component';
+import { MockGuardarComponent } from './pruebas/mock-guardar/mock-guardar.component';
+import { EmpleadosComponent } from './pruebas/empleados/empleados.component';
+import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados.component';
 
 const routes: Routes = [
+  { path: 'prueba', component: MockGuardarComponent},
+  { path: 'empleados', component: EmpleadosComponent},
+    { path: 'empleados/add', component: FEmpleadosComponent },
+    { path: 'empleados/edit/:id', component: FEmpleadosComponent },
+    { path: 'empleados/delete/:id', component: FEmpleadosComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'clubes', component: ClubesComponent},
+    { path: 'clubes/add', component: FClubesComponent },
+    { path: 'clubes/edit/:id', component: FClubesComponent },
+    { path: 'clubes/delete/:id', component: FClubesComponent },
+    { path: 'clubes/logo/:id', component: SubirLogoComponent },
+  { path: 'categorias', component: CategoriasComponent},
+    { path: 'categorias/add', component: FCategoriasComponent },
+    { path: 'categorias/edit/:id', component: FCategoriasComponent },
+    { path: 'categorias/delete/:id', component: FCategoriasComponent },
   { path: 'palistas', component: PalistasComponent },
+    { path: 'palistas/add', component: FPalistasComponent },
+    { path: 'palistas/edit/:id', component: FPalistasComponent },
+    { path: 'palistas/delete/:id', component: FPalistasComponent },
   { path: 'inscripciones', component: InscripcionesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },

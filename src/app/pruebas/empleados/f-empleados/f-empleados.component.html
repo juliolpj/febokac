@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
+
+    <div class="card mt-3">
+      <div class="card-header" [ngClass]="cardHeaderStyle">
+        {{ titulo + " registro" }}
+      </div>
+
+      <div class="card-body">
+        <form [formGroup]="miForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-group">
+            <label for="nombre" class="control-label"> Nombre </label>
+            <input type="text" formControlName="nombre" maxlength="80" [readonly]="titulo==='Eliminar'"
+              [class.is-invalid]="nombre.invalid && nombre.touched" class="form-control" />
+            <small class="text-danger" [class.d-none]="nombre.untouched || !nombre.hasError('required')">El nombre es requerido</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="apellido" class="control-label"> Apellido </label>
+            <input type="text" formControlName="apellido" maxlength="80" [readonly]="titulo==='Eliminar'"
+              [class.is-invalid]="apellido.invalid && apellido.touched" class="form-control" />
+            <small class="text-danger" [class.d-none]="apellido.untouched || !apellido.hasError('required')">El apellido es requerido</small>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <button [disabled]="!miForm.valid" [ngClass]="titulo==='Eliminar' ? 'btn-danger' : 'btn-primary'"
+                type="submit" class="btn btn-block">
+                {{ titulo === 'Eliminar' ? 'Eliminar' : 'Aceptar' }}
+              </button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-secondary btn-block" (click)="goBack()">
+                Cancelar
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
