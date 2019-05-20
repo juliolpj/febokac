@@ -14,11 +14,17 @@ import { FCategoriasComponent } from './components/categorias/f-categorias/f-cat
 import { MockGuardarComponent } from './pruebas/mock-guardar/mock-guardar.component';
 import { EmpleadosComponent } from './pruebas/empleados/empleados.component';
 import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { FUsuariosComponent } from './components/usuarios/f-usuarios/f-usuarios.component';
 
 const routes: Routes = [
-  { path: 'prueba', component: MockGuardarComponent},
-  { path: 'empleados', component: EmpleadosComponent},
-    { path: 'empleados/add', component: FEmpleadosComponent },
+  { path: 'prueba', component: MockGuardarComponent },
+  { path: 'usuarios', component: UsuariosComponent },
+    { path: 'usuarios/add', component: FUsuariosComponent },
+    { path: 'usuarios/edit/:id', component: FUsuariosComponent },
+     { path: 'usuarios/delete/:id', component: FUsuariosComponent },
+  { path: 'empleados', component: EmpleadosComponent },
+  { path: 'empleados/add', component: FEmpleadosComponent },
     { path: 'empleados/edit/:id', component: FEmpleadosComponent },
     { path: 'empleados/delete/:id', component: FEmpleadosComponent },
   { path: 'home', component: HomeComponent },

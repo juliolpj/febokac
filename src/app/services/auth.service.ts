@@ -5,10 +5,11 @@ import {
   AngularFirestoreCollection
 } from "@angular/fire/firestore";
 
-import { Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { Observable, from, combineLatest } from "rxjs";
+import { map, tap, mergeMap } from "rxjs/operators";
 
 import { UserI } from "src/app/models/user";
+import { UsuariosService } from './usuarios.service';
 
 @Injectable({
   providedIn: "root"
@@ -16,17 +17,44 @@ import { UserI } from "src/app/models/user";
 export class AuthService {
   public user: UserI = {};
 
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {}
+  constructor(public afAuth: AngularFireAuth, 
+              private afs: AngularFirestore,
+              private usuariosService: UsuariosService) {}
 
-  login(email: string, password: string) {
+  loginViejo(email: string, password: string) {
+    //this.signIn(email, password).subscribe();
+
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
         userData => {
           resolve(userData);
+          this.user.email = userData.user.email;
+          
         },
         err => reject(err)
       );
     });
+  }
+
+  login$(email: string, password:string) {
+    const fsSignIn$ = from(this.afAuth.auth.signInWithEmailAndPassword(email, password)).pipe(
+      tap( data => console.log('auth.signInWithEmail: ', data.user.email)),
+      map( data => data.user.email) );
+    
+    const usuario$ = this.usuariosService.getUsuarioByEmail(email).pipe(
+      tap( data => console.log('tabla user: ', data)) );
+    
+    const combinado$ = combineLatest(fsSignIn$,usuario$).pipe(
+      tap( data => console.log('combinado: ', data)),
+      map( (data) => {
+        console.log('data1', data[0]);
+        console.log('data2', data[1]);
+        return data[1];
+      }),
+      tap( data => console.log('solo data usuario:', data)),
+      tap( data => this.user = data) );
+    return combinado$;
+  
   }
 
   logoutUser() {
@@ -69,6 +97,17 @@ export class AuthService {
             });
         })
         .catch(err => console.log(err));
+    });
+  }
+
+  registerUser(email: string, pass: string) {
+    return new Promise( (resolve, reject) => {
+      this.afAuth.auth.createUserWithEmailAndPassword(email, pass)
+        .then(
+          userData => {
+            resolve(userData),
+            console.log(userData.user)
+          }).catch( err => console.log(reject(err)))
     });
   }
 }

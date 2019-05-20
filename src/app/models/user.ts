@@ -3,5 +3,8 @@ export interface UserI {
     name?: string;
     email?: string;
     photoUrl?: string,
-    club?: string
+    rol?: string,
+    club?: string,
+    password?: string,
+    password2?: string
 }

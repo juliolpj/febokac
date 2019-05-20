@@ -29,6 +29,8 @@ import { FCategoriasComponent } from './components/categorias/f-categorias/f-cat
 import { MockGuardarComponent } from './pruebas/mock-guardar/mock-guardar.component';
 import { EmpleadosComponent } from './pruebas/empleados/empleados.component';
 import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { FUsuariosComponent } from './components/usuarios/f-usuarios/f-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados
     FCategoriasComponent,
     MockGuardarComponent,
     EmpleadosComponent,
-    FEmpleadosComponent    
+    FEmpleadosComponent,
+    UsuariosComponent,
+    FUsuariosComponent    
   ],
   imports: [
     BrowserModule,
