@@ -31,6 +31,8 @@ import { EmpleadosComponent } from './pruebas/empleados/empleados.component';
 import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { FUsuariosComponent } from './components/usuarios/f-usuarios/f-usuarios.component';
+import { DistanciasComponent } from './components/distancias/distancias.component';
+import { FDistanciasComponent } from './components/f-distancias/f-distancias.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { FUsuariosComponent } from './components/usuarios/f-usuarios/f-usuarios.
     EmpleadosComponent,
     FEmpleadosComponent,
     UsuariosComponent,
-    FUsuariosComponent    
+    FUsuariosComponent,
+    DistanciasComponent,
+    FDistanciasComponent    
   ],
   imports: [
     BrowserModule,

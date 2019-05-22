@@ -12,21 +12,29 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/home" routerLinkActive="active"> <strong>Home</strong> </a>
       </li>
-      <li *ngIf="usuario.rol == 'Administración'" class="nav-item">
-        <a class="nav-link" routerLink="/usuarios" routerLinkActive="active"> <strong>Ususarios</strong> </a>
+      <li class="nav-item dropdown" *ngIf="usuario.rol == 'Administración'">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-table" ></i>&nbsp; Tablas
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/usuarios" routerLinkActive="active"> <strong>Ususarios</strong> </a>
+
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/clubes" routerLinkActive="active"> <strong>Clubes</strong> </a>
+
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/categorias" routerLinkActive="active"> <strong>Categorías</strong> </a>
+          </div>
       </li>
-      <li *ngIf="usuario.rol == 'Administración'" class="nav-item">
-        <a class="nav-link" routerLink="/clubes" routerLinkActive="active"> <strong>Clubes</strong> </a>
+
+      <li class="nav-item dropdown" *ngIf="isLogged">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-folder" ></i>&nbsp; Procesos
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/palistas" routerLinkActive="active"> <strong>Palistas</strong> </a>
+            <a class="dropdown-item" routerLink="/inscripciones" routerLinkActive="active"> <strong>Inscripciones</strong> </a>
+         </div>
       </li>
-      <li *ngIf="usuario.rol == 'Administración'" class="nav-item">
-        <a class="nav-link" routerLink="/categorias" routerLinkActive="active"> <strong>Categorías</strong> </a>
-      </li>
-      <li *ngIf="isLogged" class="nav-item">
-        <a class="nav-link" routerLink="/palistas" routerLinkActive="active"> <strong>Palistas</strong> </a>
-      </li>
-      <li *ngIf="isLogged" class="nav-item">
-        <a class="nav-link" routerLink="/inscripciones" routerLinkActive="active"> <strong>Inscripciones</strong> </a>
-      </li>
+
       <li *ngIf="!isLogged" class="nav-item">
         <a class="nav-link" routerLink="/login" routerLinkActive="active"> <strong>Ingresar</strong> </a>
       </li>
