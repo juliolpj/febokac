@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserI } from 'src/app/models/user';
 
@@ -11,14 +12,14 @@ export class NavbarComponent implements OnInit {
   public isLogged = false;
   public usuario: UserI ;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.getCurrentUser();
   }
 
   getCurrentUser() {
-    this.authService.getUser().subscribe(
+    this.authService.getUser$().subscribe(
       usuario => {
         this.usuario = usuario;
         this.isLogged = !!(usuario && usuario.name); 
@@ -27,5 +28,6 @@ export class NavbarComponent implements OnInit {
 
   onLogout() {
     this.authService.logoutUser();
+    this.router.navigate(['home'])
   }
 }

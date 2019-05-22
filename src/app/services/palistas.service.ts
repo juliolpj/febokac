@@ -19,10 +19,14 @@ export class PalistasService {
     this.books = this.booksCollection.valueChanges(); */
   }
 
-  getRecords$() {
-    console.log('club', this.authService.user.club);
+  getRecords$(club: string) {
+    console.log('palistasService - getRecords$ - club', club);
     
-    this.palistasCollection = this.afs.collection<PalistaI>('palistas', ref => ref.where('club', '==', this.authService.user.club));
+    if (club && club != 'FeBoCaK') {
+      this.palistasCollection = this.afs.collection<PalistaI>('palistas', ref => ref.where('club', '==', club));
+    } else {
+      this.palistasCollection = this.afs.collection<PalistaI>('palistas');
+    }
     return this.palistas = this.palistasCollection.snapshotChanges()
     .pipe( map( changes => {
       return changes.map( action => {

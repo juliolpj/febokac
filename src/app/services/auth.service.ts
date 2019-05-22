@@ -22,7 +22,10 @@ export class AuthService {
               private usuariosService: UsuariosService) {
   }
 
-  getUser(): Observable<UserI> {
+  getUser(): UserI {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+  getUser$(): Observable<UserI> {
     return this.subjectUsuario.asObservable();
   }
   sendUser(usuario: UserI) {

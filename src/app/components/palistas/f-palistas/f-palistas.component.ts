@@ -11,6 +11,7 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 import { CategoriaI } from 'src/app/models/categoria';
 import { PalistasService } from 'src/app/services/palistas.service';
 import { PalistaI } from 'src/app/models/palista';
+import { UserI } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { map } from 'rxjs/operators';
@@ -28,6 +29,7 @@ export class FPalistasComponent implements OnInit {
 
   categorias: CategoriaI[];
   tblClubes: string[] = [];
+  usuario: UserI;
 
   constructor(
     public dataService: PalistasService, 
@@ -42,6 +44,7 @@ export class FPalistasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usuario = this.authService.getUser();
     this.categoriaService.getRecords$().subscribe( data => this.categorias = data );
     this.msgService.clearMessages();
     this.setTblClubes();
@@ -50,8 +53,9 @@ export class FPalistasComponent implements OnInit {
   }
 
   setTblClubes() {
-    if (this.authService.user.club) {
-      this.tblClubes.push(this.authService.user.club);
+    console.log('SetClubes usuario',this.usuario);
+    if (this.usuario.club && this.usuario.club != 'FeBoCaK') {
+      this.tblClubes.push(this.usuario.club);
     } else { 
       this.clubesService.getRecords$().pipe(
         map(data => data.map(club => club.nombre))
@@ -85,7 +89,7 @@ export class FPalistasComponent implements OnInit {
       categoria: ['', [Validators.required] ],
       club: ['', [Validators.required, Validators.minLength(3)]]
     });
-    this.miForm.controls.club.setValue(this.authService.user.club);
+    this.miForm.controls.club.setValue(this.usuario.club);
   }
 
   setFormData() {
