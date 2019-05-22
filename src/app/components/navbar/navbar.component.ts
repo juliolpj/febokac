@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserI } from 'src/app/models/user';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styles: ['']
 })
 export class NavbarComponent implements OnInit {
   public isLogged = false;
+  public usuario: UserI ;
 
   constructor(private authService: AuthService) { }
 
@@ -16,13 +18,11 @@ export class NavbarComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.authService.isAuth().subscribe( auth => {
-      if (auth) {
-        this.isLogged = true;
-      } else {
-        this.isLogged = false;
-      }
-    })
+    this.authService.getUser().subscribe(
+      usuario => {
+        this.usuario = usuario;
+        this.isLogged = !!(usuario && usuario.name); 
+    });
   }
 
   onLogout() {

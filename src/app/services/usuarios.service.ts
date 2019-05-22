@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/fire
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserI } from "src/app/models/user";
 import { Observable, from } from "rxjs";
-import { map, tap, finalize, mergeMap } from "rxjs/operators";
+import { map, tap, flatMap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -33,9 +33,9 @@ export class UsuariosService {
 
   getUsuarioByEmail(email: string) {
     return this.afs.collection<UserI>("users", ref => ref.where('email', '==', email)).valueChanges()
-      .pipe( mergeMap( data => data));
+      .pipe( flatMap( data => data) );
   }
-
+  
   addRecord$(registro: UserI) {
     return from(this.collection.add(registro));
   }
