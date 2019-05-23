@@ -32,7 +32,7 @@ import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { FUsuariosComponent } from './components/usuarios/f-usuarios/f-usuarios.component';
 import { DistanciasComponent } from './components/distancias/distancias.component';
-import { FDistanciasComponent } from './components/f-distancias/f-distancias.component';
+import { FDistanciasComponent } from './components/distancias/f-distancias/f-distancias.component';
 
 @NgModule({
   declarations: [

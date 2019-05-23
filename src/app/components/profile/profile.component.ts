@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
-  styles: []
+  styles: ['']
 })
 export class ProfileComponent implements OnInit {
   user: UserI = {};
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.user = this.authService.user;
+    this.user = this.authService.getUser();
     console.log("NgOnInit Profile");
   }
 
@@ -51,11 +51,4 @@ export class ProfileComponent implements OnInit {
     console.log(this.user.photoUrl);
   }
 
-  fetchUser() {
-    this.user.name = this.authService.user.name;
-    this.user.email = this.authService.user.email;
-    this.user.photoUrl = this.authService.user.photoUrl;
-    this.user.uid = this.authService.user.uid;
-    this.user.club = this.authService.user.club;
-  }
 }

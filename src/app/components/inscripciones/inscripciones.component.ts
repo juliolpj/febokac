@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserI } from 'src/app/models/user';
 import { PalistaI } from 'src/app/models/palista';
 import { InscripcionI } from 'src/app/models/inscripcion';
 import { PalistasService } from 'src/app/services/palistas.service';
@@ -15,6 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class InscripcionesComponent implements OnInit {
   frmStatus = 'Consultar';
   tblOrden = {dni: 0, nombre: 0, fnacimiento:0};
+  usuario: UserI;
   registro: InscripcionI = {};
   inscripciones: Array<InscripcionI>;
   palistas: Array<PalistaI>;
@@ -26,8 +28,9 @@ export class InscripcionesComponent implements OnInit {
                public authService: AuthService) { }
 
   ngOnInit() {
+    this.usuario = this.authService.getUser();
     this.getRecords();
-    this.getPalistas();
+    this.getPalistas(this.usuario.club);
   }
 
   getRecords() {
@@ -40,8 +43,8 @@ export class InscripcionesComponent implements OnInit {
     );
   }
 
-  getPalistas() {
-    this.palistaService.getRecords$().subscribe(
+  getPalistas(club: string) {
+    this.palistaService.getRecords$(club).subscribe(
      ( data: PalistaI[]) => {
        this.palistas = data;
      }

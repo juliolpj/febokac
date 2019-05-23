@@ -20,7 +20,8 @@ export class InscripcionesService {
   }
 
   getInscripciones$() {
-    this.inscripcionesCollection = this.afs.collection<InscripcionI>('inscripciones', ref => ref.where('club', '==', this.authService.user.club));
+    const usuario = this.authService.getUser();
+    this.inscripcionesCollection = this.afs.collection<InscripcionI>('inscripciones', ref => ref.where('club', '==', usuario.club));
     return this.inscripciones = this.inscripcionesCollection.snapshotChanges()
     .pipe( map( changes => {
       return changes.map( action => {

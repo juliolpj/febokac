@@ -16,13 +16,19 @@ import { EmpleadosComponent } from './pruebas/empleados/empleados.component';
 import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { FUsuariosComponent } from './components/usuarios/f-usuarios/f-usuarios.component';
+import { DistanciasComponent } from './components/distancias/distancias.component';
+import { FDistanciasComponent } from './components/distancias/f-distancias/f-distancias.component';
 
 const routes: Routes = [
   { path: 'prueba', component: MockGuardarComponent },
   { path: 'usuarios', component: UsuariosComponent },
     { path: 'usuarios/add', component: FUsuariosComponent },
     { path: 'usuarios/edit/:id', component: FUsuariosComponent },
-     { path: 'usuarios/delete/:id', component: FUsuariosComponent },
+    { path: 'usuarios/delete/:id', component: FUsuariosComponent },
+  { path: 'distancias', component: DistanciasComponent },
+    { path: 'distancias/add', component: FDistanciasComponent },
+    { path: 'distancias/edit/:id', component: FDistanciasComponent },
+    { path: 'distancias/delete/:id', component: FDistanciasComponent },
   { path: 'empleados', component: EmpleadosComponent },
   { path: 'empleados/add', component: FEmpleadosComponent },
     { path: 'empleados/edit/:id', component: FEmpleadosComponent },

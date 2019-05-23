@@ -1,0 +1,33 @@
+<div class="card mt-3">
+    <div class="card-header d-flex">
+      Distancias
+      <a routerLink="/distancias/add" class="text-primary ml-auto">
+        <i class="fa fa-plus-circle fa-2x"></i>
+      </a>
+    </div>
+  </div>
+  
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th> Categoría </th>
+        <th> Bote </th>
+        <th> Distancia </th>
+        <th> </th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let registro of tabla">
+        <td routerLink="/distancias/edit/{{registro.id}}"> {{ registro.categoria }} </td>
+        <td routerLink="/distancias/edit/{{registro.id}}"> {{ registro.bote }} </td>
+        <td routerLink="/distancias/edit/{{registro.id}}"> {{ registro.distancia }} </td>
+        <td class="text-center">
+          <a routerLink="/distancias/delete/{{registro.id}}" class="text-danger">
+            <i class="fa fa-minus-circle fa-2x"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  
+  </table>
