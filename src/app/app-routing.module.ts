@@ -18,9 +18,13 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { FUsuariosComponent } from './components/usuarios/f-usuarios/f-usuarios.component';
 import { DistanciasComponent } from './components/distancias/distancias.component';
 import { FDistanciasComponent } from './components/distancias/f-distancias/f-distancias.component';
+import { CompetenciasComponent } from './components/competencias/competencias.component';
+import { FCompetenciasComponent } from './components/competencias/f-competencias/f-competencias.component';
+import { ConsolaComponent } from './components/consola/consola.component';
 
 const routes: Routes = [
   { path: 'prueba', component: MockGuardarComponent },
+  { path: 'consola', component: ConsolaComponent },
   { path: 'usuarios', component: UsuariosComponent },
     { path: 'usuarios/add', component: FUsuariosComponent },
     { path: 'usuarios/edit/:id', component: FUsuariosComponent },
@@ -29,6 +33,10 @@ const routes: Routes = [
     { path: 'distancias/add', component: FDistanciasComponent },
     { path: 'distancias/edit/:id', component: FDistanciasComponent },
     { path: 'distancias/delete/:id', component: FDistanciasComponent },
+  { path: 'competencias', component: CompetenciasComponent },
+    { path: 'competencias/add', component: FCompetenciasComponent },
+    { path: 'competencias/edit/:id', component: FCompetenciasComponent },
+    { path: 'competencias/delete/:id', component: FCompetenciasComponent },
   { path: 'empleados', component: EmpleadosComponent },
   { path: 'empleados/add', component: FEmpleadosComponent },
     { path: 'empleados/edit/:id', component: FEmpleadosComponent },

@@ -24,6 +24,8 @@
             <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/categorias" routerLinkActive="active"> <strong>Categorías</strong> </a>
 
             <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/distancias" routerLinkActive="active"> <strong>Distancias</strong> </a>
+            
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/competencias" routerLinkActive="active"> <strong>Competencias</strong> </a>
           </div>
       </li>
 
@@ -34,6 +36,8 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" routerLink="/palistas" routerLinkActive="active"> <strong>Palistas</strong> </a>
             <a class="dropdown-item" routerLink="/inscripciones" routerLinkActive="active"> <strong>Inscripciones</strong> </a>
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/consola" routerLinkActive="active"> <strong>Consola</strong> </a>
+
          </div>
       </li>
 

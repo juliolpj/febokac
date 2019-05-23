@@ -142,7 +142,7 @@ export class FPalistasComponent implements OnInit {
   
   aceptarAgregar() {
     this.dataService.addRecord$(this.miForm.value).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Agregado satisfactoriamente'),
+      data => this.msgService.sendMessage(this.miForm.controls['nombre'].value + ' Agregado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al agregar los datos: ' + error.statusText, 'alert-danger'),
       () => this.router.navigate(['palistas'])
     );
@@ -150,7 +150,7 @@ export class FPalistasComponent implements OnInit {
 
   aceptarEditar() {
     this.dataService.updateRecord$(this.id, this.miForm.value).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Actualizado satisfactoriamente'),
+      data => this.msgService.sendMessage(this.miForm.controls['nombre'].value + ' Actualizado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al actualizar los datos: ' + error.statusText, 'alert-danger'),
       () => this.router.navigate(['palistas'])
     );
@@ -158,7 +158,7 @@ export class FPalistasComponent implements OnInit {
 
   aceptarEliminar() {
     this.dataService.deleteRecord$(this.id).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Eliminado satisfactoriamente'),
+      data => this.msgService.sendMessage(this.miForm.controls['nombre'].value + ' Eliminado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al eliminar los datos: ' + error.statusText, 'alert-danger'),
       () => this.router.navigate(['palistas'])
     );

@@ -33,6 +33,9 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { FUsuariosComponent } from './components/usuarios/f-usuarios/f-usuarios.component';
 import { DistanciasComponent } from './components/distancias/distancias.component';
 import { FDistanciasComponent } from './components/distancias/f-distancias/f-distancias.component';
+import { CompetenciasComponent } from './components/competencias/competencias.component';
+import { FCompetenciasComponent } from './components/competencias/f-competencias/f-competencias.component';
+import { ConsolaComponent } from './components/consola/consola.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { FDistanciasComponent } from './components/distancias/f-distancias/f-dis
     UsuariosComponent,
     FUsuariosComponent,
     DistanciasComponent,
-    FDistanciasComponent    
+    FDistanciasComponent,
+    CompetenciasComponent,
+    FCompetenciasComponent,
+    ConsolaComponent    
   ],
   imports: [
     BrowserModule,
