@@ -21,9 +21,11 @@ import { FDistanciasComponent } from './components/distancias/f-distancias/f-dis
 import { CompetenciasComponent } from './components/competencias/competencias.component';
 import { FCompetenciasComponent } from './components/competencias/f-competencias/f-competencias.component';
 import { ConsolaComponent } from './components/consola/consola.component';
+import { DownloadComponent } from './pruebas/download/download.component';
 
 const routes: Routes = [
   { path: 'prueba', component: MockGuardarComponent },
+  { path: 'pruebas/download', component: DownloadComponent },
   { path: 'consola', component: ConsolaComponent },
   { path: 'usuarios', component: UsuariosComponent },
     { path: 'usuarios/add', component: FUsuariosComponent },

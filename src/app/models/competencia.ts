@@ -1,8 +1,8 @@
 export interface CompetenciaI {
     id?: string;
     competencia: string;
-    desde?: number;
-    hasta?: number;
+    desde?: string;
+    hasta?: string;
     club?: string;
     status?: string
 }

@@ -36,6 +36,9 @@ import { FDistanciasComponent } from './components/distancias/f-distancias/f-dis
 import { CompetenciasComponent } from './components/competencias/competencias.component';
 import { FCompetenciasComponent } from './components/competencias/f-competencias/f-competencias.component';
 import { ConsolaComponent } from './components/consola/consola.component';
+import { ModalCompetenciaComponent } from './components/modal-competencia/modal-competencia.component';
+import { DownloadComponent } from './pruebas/download/download.component';
+import { ModalDownloadComponent } from './components/modal-download/modal-download.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,10 @@ import { ConsolaComponent } from './components/consola/consola.component';
     FDistanciasComponent,
     CompetenciasComponent,
     FCompetenciasComponent,
-    ConsolaComponent    
+    ConsolaComponent,
+    ModalCompetenciaComponent,
+    DownloadComponent,
+    ModalDownloadComponent    
   ],
   imports: [
     BrowserModule,

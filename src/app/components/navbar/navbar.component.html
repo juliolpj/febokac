@@ -17,15 +17,20 @@
             <i class="fa fa-table" ></i>&nbsp; Tablas
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/usuarios" routerLinkActive="active"> <strong>Ususarios</strong> </a>
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" 
+              routerLink="/usuarios" routerLinkActive="active"> <strong>Ususarios</strong> </a>
 
-            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/clubes" routerLinkActive="active"> <strong>Clubes</strong> </a>
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" 
+              routerLink="/clubes" routerLinkActive="active"> <strong>Clubes</strong> </a>
 
-            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/categorias" routerLinkActive="active"> <strong>Categorías</strong> </a>
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" 
+              routerLink="/categorias" routerLinkActive="active"> <strong>Categorías</strong> </a>
 
-            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/distancias" routerLinkActive="active"> <strong>Distancias</strong> </a>
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" 
+              routerLink="/distancias" routerLinkActive="active"> <strong>Distancias</strong> </a>
             
-            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/competencias" routerLinkActive="active"> <strong>Competencias</strong> </a>
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" 
+              routerLink="/competencias" routerLinkActive="active"> <strong>Competencias</strong> </a>
           </div>
       </li>
 
@@ -34,9 +39,25 @@
             <i class="fa fa-folder" ></i>&nbsp; Procesos
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a *ngIf="usuario.rol == 'Competencias'" class="dropdown-item" 
+              routerLink="/consola" routerLinkActive="active"> <strong>Importar inscripciones</strong> </a>
+
             <a class="dropdown-item" routerLink="/palistas" routerLinkActive="active"> <strong>Palistas</strong> </a>
             <a class="dropdown-item" routerLink="/inscripciones" routerLinkActive="active"> <strong>Inscripciones</strong> </a>
-            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" routerLink="/consola" routerLinkActive="active"> <strong>Consola</strong> </a>
+
+            <a *ngIf="usuario.rol == 'Administración'" class="dropdown-item" 
+              routerLink="/consola" routerLinkActive="active"> <strong>Consola</strong> </a>
+
+            <a *ngIf="usuario.rol == 'Competencias'" class="dropdown-item" 
+              routerLink="/consola" routerLinkActive="active"> <strong>Generar carreras</strong> </a>
+            <a *ngIf="usuario.rol == 'Competencias'" class="dropdown-item" 
+              routerLink="/consola" routerLinkActive="active"> <strong>Editar carreras</strong> </a>
+            <a *ngIf="usuario.rol == 'Competencias'" class="dropdown-item" 
+              routerLink="/consola" routerLinkActive="active"> <strong>Cargar tiempos</strong> </a>
+            <a *ngIf="usuario.rol == 'Competencias'" class="dropdown-item" 
+              routerLink="/consola" routerLinkActive="active"> <strong>Emitir resultados</strong> </a>
+            <a *ngIf="usuario.rol == 'Competencias'" class="dropdown-item" 
+              routerLink="/consola" routerLinkActive="active"> <strong>Exportar resultados</strong> </a>
 
          </div>
       </li>
