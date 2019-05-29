@@ -3,38 +3,38 @@
 
     <div class="card mt-3">
       <div class="card-header" [ngClass]="cardHeaderStyle">
-        {{ titulo + " registro" }}
+        {{ titulo + " distancia" }}
       </div>
 
       <div class="card-body">
         <form [formGroup]="miForm" (ngSubmit)="onSubmit()">
 
-          <div class="form-group">
-            <label for="categoria" class="control-label"> Categoría </label>
-            <select formControlName="categoria" required [class.is-invalid]="categoria.invalid && categoria.touched" class="custom-select">
-              <option value="categoria"></option>
-              <option *ngFor="let registro of tblCategorias">{{ registro }}</option>
-            </select>
-            <small class="text-danger" [class.d-none]="categoria.untouched || !categoria.hasError('required')">La categoría es requerida</small>
-          </div>
-
           <div class="row">
-            <div class="col-6">
+            <div class="col-4">
               <div class="form-group">
-                <label for="bote" class="control-label"> Embarcación </label>
-                <select formControlName="bote" required [disabled]="titulo==='Eliminar'"
-                  [class.is-invalid]="bote.invalid && bote.touched" class="custom-select">
-                  <option value="bote"></option>
+                <label for="embarcacion" class="control-label"> Embarcación </label>
+                <select formControlName="embarcacion" required
+                  [class.is-invalid]="embarcacion.invalid && embarcacion.touched" class="custom-select">
+                  <option value="embarcacion"></option>
                   <option value="K1">K1</option>
                   <option value="K2">K2</option>
                   <option value="430">430</option>
                   <option value="canoa">Canoa</option>
                 </select>
-                <small class="text-danger" [class.d-none]="bote.untouched || !bote.hasError('required')">El tipo de embarcación es requerido</small>
+                <small class="text-danger" [class.d-none]="embarcacion.untouched || !embarcacion.hasError('required')">El tipo de embarcación es requerido</small>
               </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-4">
+              <div class="form-group">
+                <label for="metros" class="control-label"> Metros </label>
+                <input type="number" formControlName="metros" maxlength="80" [readonly]="titulo==='Eliminar'"
+                  [class.is-invalid]="metros.invalid && metros.touched" class="form-control" />
+                <small class="text-danger" [class.d-none]="metros.untouched || !metros.hasError('required')">La distancia en metros es requerida</small>
+              </div>
+            </div>
+
+            <div class="col-4">
               <div class="form-group">
                 <label for="distancia" class="control-label"> Distancia </label>
                 <input type="text" formControlName="distancia" maxlength="80" [readonly]="titulo==='Eliminar'"

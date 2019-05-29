@@ -1,6 +1,6 @@
 export interface DistanciaI {
     id?: string;
-    categoria?: string;
-    bote?: string;
+    embarcacion?: string;
     distancia?: string;
+    metros?: number;
 }

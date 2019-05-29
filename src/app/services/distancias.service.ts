@@ -11,7 +11,8 @@ export class DistanciasService {
   private collection: AngularFirestoreCollection<DistanciaI>;
 
   constructor(private afs: AngularFirestore) {
-    this.collection = this.afs.collection<DistanciaI>("distancias");
+    this.collection = this.afs.collection<DistanciaI>("distancias", 
+      ref => ref.orderBy('embarcacion').orderBy('metros'));
   }
 
   getRecords$(): Observable<DistanciaI[]> {

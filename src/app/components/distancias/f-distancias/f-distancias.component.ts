@@ -6,7 +6,6 @@ import { Location } from '@angular/common';
 
 import { MensajesService } from 'src/app/services/mensajes.service';
 import { DistanciasService } from 'src/app/services/distancias.service';
-import { CategoriasService } from 'src/app/services/categorias.service';
 import { DistanciaI } from 'src/app/models/distancia';
 import { map } from 'rxjs/operators';
 
@@ -21,11 +20,9 @@ export class FDistanciasComponent implements OnInit {
   id = '';
   miForm: FormGroup;
 
-  tblCategorias: string[];
 
   constructor(
     public dataService: DistanciasService, 
-    private categoriasService: CategoriasService,
     public fb: FormBuilder,      
     private msgService: MensajesService,
     private location: Location, 
@@ -35,17 +32,8 @@ export class FDistanciasComponent implements OnInit {
 
   ngOnInit() {
     this.msgService.clearMessages();
-    this.setTblClubes();
     this.buildForm();
     this.setState();
-  }
-
-  setTblClubes() {
-    this.categoriasService.getRecords$().pipe(
-      map(data => data.map(categoria => categoria.categoria))).subscribe( 
-        data => this.tblCategorias = data,
-        error =>this.msgService.sendMessage("Error al cargar la tabla de categorias: " + error.statusText, "alert-danger")
-    );
   }
 
   setState() {
@@ -63,8 +51,8 @@ export class FDistanciasComponent implements OnInit {
 
   buildForm() {
     this.miForm = this.fb.group({
-      categoria: ['', [Validators.required] ],
-      bote: ['', [Validators.required] ],
+      embarcacion: ['', [Validators.required] ],
+      metros: [0, [Validators.required] ],
       distancia: ['', [Validators.required] ]
     });
   }
@@ -72,23 +60,24 @@ export class FDistanciasComponent implements OnInit {
   setFormData() {
     this.dataService.getRecord$(this.id).subscribe(
       data => {
-        this.miForm.patchValue(data);
+        if (data !== undefined) {
+          this.miForm.patchValue(data);
+        } 
       }
     );
     if (this.titulo==='Eliminar') {
-      this.miForm.controls.categoria.disable();
-      this.miForm.controls.bote.disable();
+      this.miForm.controls.embarcacion.disable();
     }
   }
 
-  get categoria() {
-    return this.miForm.get('categoria');
-  }
-  get bote() {
-    return this.miForm.get('bote');
+  get embarcacion() {
+    return this.miForm.get('embarcacion');
   }
   get distancia() {
     return this.miForm.get('distancia');
+  }
+  get metros() {
+    return this.miForm.get('metros');
   }
 
   onSubmit() {

@@ -169,6 +169,8 @@ export class FPalistasComponent implements OnInit {
   }
 
   buscarCategoria(fecha: string, genero: string) {
+    console.log('buscarCategoria', this.categorias);
+    
     const año = parseInt( fecha.substring(0,4));
     if (!año || año < 1900) {
       this.miForm.controls.categoria.setValue('No se encontró')

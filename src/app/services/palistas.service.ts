@@ -20,8 +20,6 @@ export class PalistasService {
   }
 
   getRecords$(club: string) {
-    console.log('palistasService - getRecords$ - club', club);
-    
     if (club && club != 'FeBoCaK') {
       this.palistasCollection = this.afs.collection<PalistaI>('palistas', ref => ref.where('club', '==', club));
     } else {

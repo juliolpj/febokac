@@ -10,8 +10,7 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <th> Categoría </th>
-        <th> Bote </th>
+        <th> Embarcación </th>
         <th> Distancia </th>
         <th> </th>
       </tr>
@@ -19,8 +18,7 @@
   
     <tbody>
       <tr *ngFor="let registro of tabla">
-        <td routerLink="/distancias/edit/{{registro.id}}"> {{ registro.categoria }} </td>
-        <td routerLink="/distancias/edit/{{registro.id}}"> {{ registro.bote }} </td>
+        <td routerLink="/distancias/edit/{{registro.id}}"> {{ registro.embarcacion }} </td>
         <td routerLink="/distancias/edit/{{registro.id}}"> {{ registro.distancia }} </td>
         <td class="text-center">
           <a routerLink="/distancias/delete/{{registro.id}}" class="text-danger">

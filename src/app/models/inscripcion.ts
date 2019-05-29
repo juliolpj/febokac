@@ -10,20 +10,5 @@ export interface InscripcionI {
     seguro?: string;
     club?: string;
     embarcacion?: string;
-    distancia?: number;
-    k1_1000?: boolean;
-    k1_2000?: boolean;
-    k1_4000?: boolean;
-    k1_12000?: boolean;
-    k1_16000?: boolean;
-    k2_1000?: boolean;
-    k2_2000?: boolean;
-    k2_4000?: boolean;
-    k2_12000?: boolean;
-    k2_16000?: boolean;
-    k4_1000?: boolean;
-    k4_2000?: boolean;
-    k4_4000?: boolean;
-    k4_12000?: boolean;
-    k4_16000?: boolean
+    distancia?: string[];
 }

@@ -20,7 +20,7 @@ import { PalistasComponent } from './components/palistas/palistas.component';
 import { FPalistasComponent } from './components/palistas/f-palistas/f-palistas.component';
 import { MensajesComponent } from './components/mensajes/mensajes.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
-import { FormularioInscripcionComponent } from './components/inscripciones/formulario-inscripcion/formulario-inscripcion.component';
+import { FInscripcionesComponent } from './components/inscripciones/f-inscripciones/f-inscripciones.component';
 import { ClubesComponent } from './components/clubes/clubes.component';
 import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
 import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
@@ -51,7 +51,7 @@ import { ModalDownloadComponent } from './components/modal-download/modal-downlo
     FPalistasComponent,
     MensajesComponent,
     InscripcionesComponent,
-    FormularioInscripcionComponent,
+    FInscripcionesComponent,    
     ClubesComponent,
     FClubesComponent,
     SubirLogoComponent,
@@ -69,7 +69,7 @@ import { ModalDownloadComponent } from './components/modal-download/modal-downlo
     ConsolaComponent,
     ModalCompetenciaComponent,
     DownloadComponent,
-    ModalDownloadComponent    
+    ModalDownloadComponent
   ],
   imports: [
     BrowserModule,

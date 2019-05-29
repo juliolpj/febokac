@@ -6,6 +6,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { PalistasComponent } from './components/palistas/palistas.component';
 import { FPalistasComponent } from './components/palistas/f-palistas/f-palistas.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
+import { FInscripcionesComponent } from './components/inscripciones/f-inscripciones/f-inscripciones.component';
 import { ClubesComponent } from './components/clubes/clubes.component';
 import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
 import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
@@ -58,8 +59,11 @@ const routes: Routes = [
     { path: 'palistas/edit/:id', component: FPalistasComponent },
     { path: 'palistas/delete/:id', component: FPalistasComponent },
   { path: 'inscripciones', component: InscripcionesComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
+    { path: 'inscripciones/add', component: FInscripcionesComponent },
+    { path: 'inscripciones/edit/:id', component: FInscripcionesComponent },
+    { path: 'inscripciones/delete/:id', component: FInscripcionesComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 

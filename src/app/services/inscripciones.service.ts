@@ -10,19 +10,22 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class InscripcionesService {
-  private inscripcionesCollection: AngularFirestoreCollection<InscripcionI>;
+  private collection: AngularFirestoreCollection<InscripcionI>;
   private inscripciones: Observable<InscripcionI[]>;
 
   constructor(private afs: AngularFirestore,
               private authService: AuthService) {
-    /* this.booksCollection = afs.collection<BookInterface>('books');
-    this.books = this.booksCollection.valueChanges(); */
+    this.collection = afs.collection<InscripcionI>('inscripciones');
+   
   }
 
-  getInscripciones$() {
-    const usuario = this.authService.getUser();
-    this.inscripcionesCollection = this.afs.collection<InscripcionI>('inscripciones', ref => ref.where('club', '==', usuario.club));
-    return this.inscripciones = this.inscripcionesCollection.snapshotChanges()
+  getRecords$(club: string) {
+    if (club && club != 'FeBoCaK') {
+      this.collection = this.afs.collection<InscripcionI>('inscripciones', ref => ref.where('club', '==', club));
+    } else {
+      this.collection = this.afs.collection<InscripcionI>('inscripciones');
+    }
+    return this.inscripciones = this.collection.snapshotChanges()
     .pipe( map( changes => {
       return changes.map( action => {
         const data = action.payload.doc.data() as InscripcionI;
@@ -32,12 +35,16 @@ export class InscripcionesService {
     }));
   }
 
-  addRecord$(inscripcion: InscripcionI) {
-    return from(this.inscripcionesCollection.add(inscripcion));
+  getRecord$(id: string): Observable<InscripcionI> {
+    return this.afs.doc<InscripcionI>(`inscripciones/${id}`).valueChanges();
   }
 
-  updateRecord$(inscripcion: InscripcionI) {
-    return from(this.afs.doc<InscripcionI>(`inscripciones/${inscripcion.id}`).update(inscripcion));
+  addRecord$(inscripcion: InscripcionI) {
+    return from(this.collection.add(inscripcion));
+  }
+
+  updateRecord$(id: string, inscripcion: InscripcionI) {
+    return from(this.afs.doc<InscripcionI>(`inscripciones/${id}`).update(inscripcion));
   }
 
   deleteRecord$(id: string) {
