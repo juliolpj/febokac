@@ -23,10 +23,12 @@ import { CompetenciasComponent } from './components/competencias/competencias.co
 import { FCompetenciasComponent } from './components/competencias/f-competencias/f-competencias.component';
 import { ConsolaComponent } from './components/consola/consola.component';
 import { DownloadComponent } from './pruebas/download/download.component';
+import { ImportarComponent } from './components/mcompetencia/importar/importar.component';
 
 const routes: Routes = [
-  { path: 'prueba', component: MockGuardarComponent },
-  { path: 'pruebas/download', component: DownloadComponent },
+  // { path: 'prueba', component: MockGuardarComponent },
+  // { path: 'pruebas/download', component: DownloadComponent },
+  { path: 'importar-inscripciones', component: ImportarComponent },
   { path: 'consola', component: ConsolaComponent },
   { path: 'usuarios', component: UsuariosComponent },
     { path: 'usuarios/add', component: FUsuariosComponent },

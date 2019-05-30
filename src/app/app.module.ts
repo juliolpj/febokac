@@ -39,6 +39,7 @@ import { ConsolaComponent } from './components/consola/consola.component';
 import { ModalCompetenciaComponent } from './components/modal-competencia/modal-competencia.component';
 import { DownloadComponent } from './pruebas/download/download.component';
 import { ModalDownloadComponent } from './components/modal-download/modal-download.component';
+import { ImportarComponent } from './components/mcompetencia/importar/importar.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { ModalDownloadComponent } from './components/modal-download/modal-downlo
     ConsolaComponent,
     ModalCompetenciaComponent,
     DownloadComponent,
-    ModalDownloadComponent
+    ModalDownloadComponent,
+    ImportarComponent
   ],
   imports: [
     BrowserModule,

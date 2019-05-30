@@ -111,12 +111,12 @@ export class FInscripcionesComponent implements OnInit {
 
   marcarDistancias(arrayDistancias){
     const options = this.selectDistancia.nativeElement.options;
-        for ( let i = 0, len = options.length, option; i < len; i++ ) {
-          option = options[i];
-          if ( arrayDistancias.indexOf( option.text ) != -1 ) {
-            option.selected = true;
-          }
-        }
+    for ( let i = 0, len = options.length, option; i < len; i++ ) {
+      option = options[i];
+      if ( arrayDistancias.indexOf( option.text ) != -1 ) {
+        option.selected = true;
+      }
+    }
   }
 
   setFormData() {
