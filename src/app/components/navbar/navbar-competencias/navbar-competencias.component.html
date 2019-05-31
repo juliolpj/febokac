@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <img class="mr-4" src="assets/img/icono.png" />
+  <a class="navbar-brand" href="#">
+    <h4> <strong>FeBoCaK</strong> - {{ usuario.rol }}</h4>
+    <h6> {{ usuario.rol == 'Inscripciones' ? usuario.club : 'Federación Bonairense de Canoas y Kayaks' }} </h6>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active"> <strong>Home</strong> </a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-table"></i>&nbsp; Tablas
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/usuarios"
+            routerLinkActive="active"> <strong>Ususarios</strong> </a>
+
+          <a class="dropdown-item" routerLink="/clubes"
+            routerLinkActive="active"> <strong>Clubes</strong> </a>
+
+          <a class="dropdown-item" routerLink="/categorias"
+            routerLinkActive="active"> <strong>Categorías</strong> </a>
+
+          <a class="dropdown-item" routerLink="/distancias"
+            routerLinkActive="active"> <strong>Distancias</strong> </a>
+
+          <a class="dropdown-item" routerLink="/competencias"
+            routerLinkActive="active"> <strong>Competencias</strong> </a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-folder"></i>&nbsp; Procesos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/importar-inscripciones"
+            routerLinkActive="active"> <strong>Importar inscripciones</strong> </a>
+
+          <a class="dropdown-item" routerLink="/competencias/palistas" routerLinkActive="active">
+            <strong>Palistas</strong> </a>
+          <a class="dropdown-item" routerLink="/competencias/inscripciones" routerLinkActive="active">
+            <strong>Inscripciones</strong> </a>
+
+          <a class="dropdown-item" routerLink="/consola"
+            routerLinkActive="active"> <strong>Generar carreras</strong> </a>
+          <a class="dropdown-item" routerLink="/consola"
+            routerLinkActive="active"> <strong>Editar carreras</strong> </a>
+          <a class="dropdown-item" routerLink="/consola"
+            routerLinkActive="active"> <strong>Cargar tiempos</strong> </a>
+          <a class="dropdown-item" routerLink="/consola"
+            routerLinkActive="active"> <strong>Emitir resultados</strong> </a>
+          <a class="dropdown-item" routerLink="/consola"
+            routerLinkActive="active"> <strong>Exportar resultados</strong> </a>
+
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{ usuario.name }} &nbsp; <i class="fa fa-user"></i>&nbsp;
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/profile"> <strong>Perfil</strong> </a>
+          <a class="dropdown-item" (click)="onLogout()"> <strong>Salir</strong> </a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</nav>

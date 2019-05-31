@@ -22,11 +22,14 @@ export class PalistasComponent implements OnInit {
 
   ngOnInit() {
     this.usuario = this.authService.getUser();
+    console.warn(this.usuario);
+    
     this.getRecords();
   }
 
   getRecords() {
-    this.dataService.getRecords$(this.usuario.club).subscribe(
+    const club = this.usuario.rol == 'Inscripciones' ? this.usuario.club : '';
+    this.dataService.getRecords$(club).subscribe(
       (data: PalistaI[]) => {
         this.tabla = data;
       }

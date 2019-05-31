@@ -25,9 +25,16 @@ import { ConsolaComponent } from './components/consola/consola.component';
 import { DownloadComponent } from './pruebas/download/download.component';
 import { ImportarComponent } from './components/mcompetencia/importar/importar.component';
 
+const competenciasRutas = [
+  { path: 'competencias/palistas', component: PalistasComponent },
+    { path: 'competencias/palistas/add', component: FPalistasComponent },
+    { path: 'competencias/palistas/edit/:id', component: FPalistasComponent },
+    { path: 'competencias/palistas/delete/:id', component: FPalistasComponent }
+];
 const routes: Routes = [
   // { path: 'prueba', component: MockGuardarComponent },
   // { path: 'pruebas/download', component: DownloadComponent },
+  ...competenciasRutas,
   { path: 'importar-inscripciones', component: ImportarComponent },
   { path: 'consola', component: ConsolaComponent },
   { path: 'usuarios', component: UsuariosComponent },

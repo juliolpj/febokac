@@ -40,6 +40,9 @@ import { ModalCompetenciaComponent } from './components/modal-competencia/modal-
 import { DownloadComponent } from './pruebas/download/download.component';
 import { ModalDownloadComponent } from './components/modal-download/modal-download.component';
 import { ImportarComponent } from './components/mcompetencia/importar/importar.component';
+import { NavbarCompetenciasComponent } from './components/navbar/navbar-competencias/navbar-competencias.component';
+import { NavbarInscripcionesComponent } from './components/navbar/navbar-inscripciones/navbar-inscripciones.component';
+import { NavbarAdministracionComponent } from './components/navbar/navbar-administracion/navbar-administracion.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,10 @@ import { ImportarComponent } from './components/mcompetencia/importar/importar.c
     ModalCompetenciaComponent,
     DownloadComponent,
     ModalDownloadComponent,
-    ImportarComponent
+    ImportarComponent,
+    NavbarCompetenciasComponent,
+    NavbarInscripcionesComponent,
+    NavbarAdministracionComponent
   ],
   imports: [
     BrowserModule,
