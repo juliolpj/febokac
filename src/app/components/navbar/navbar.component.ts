@@ -9,21 +9,16 @@ import { UserI } from 'src/app/models/user';
   styles: ['']
 })
 export class NavbarComponent implements OnInit {
-  public isLogged = false;
-  public usuario: UserI ;
+  public usuario: UserI; 
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.getCurrentUser();
-  }
-
-  getCurrentUser() {
+  
     this.authService.getUser$().subscribe(
-      usuario => {
-        this.usuario = usuario;
-        this.isLogged = !!(usuario && usuario.name); 
-    });
+      usuario => this.usuario = usuario
+    );
+    
   }
 
   onLogout() {

@@ -1,12 +1,9 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
-import {
-  AngularFirestore,
-  AngularFirestoreCollection
-} from "@angular/fire/firestore";
+import { AngularFirestore } from "@angular/fire/firestore";
 
-import { Observable, from, combineLatest, of, Subject, BehaviorSubject } from "rxjs";
-import { map, tap, flatMap } from "rxjs/operators";
+import { from, combineLatest, BehaviorSubject, Observable } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
 import { UserI } from "src/app/models/user";
 import { UsuariosService } from './usuarios.service';
@@ -15,7 +12,7 @@ import { UsuariosService } from './usuarios.service';
   providedIn: "root"
 })
 export class AuthService {
-  private subjectUsuario = new BehaviorSubject<UserI>(JSON.parse(localStorage.getItem('currentUser'))); 
+  private subjectUsuario = new BehaviorSubject<UserI>( this.getUser() ); 
 
   constructor(public afAuth: AngularFireAuth, 
               private afs: AngularFirestore,
@@ -23,15 +20,19 @@ export class AuthService {
   }
 
   getUser(): UserI {
-    return JSON.parse(localStorage.getItem('currentUser'));
+    let usuario = JSON.parse(sessionStorage.getItem('currentUser'));
+    console.warn({usuario});
+    
+    return !!usuario ? usuario : {};
   }
+
   getUser$(): Observable<UserI> {
     return this.subjectUsuario.asObservable();
   }
   sendUser(usuario: UserI) {
     this.subjectUsuario.next(usuario);
   }
-
+  
   login$(email: string, password:string) {
     const fsSignIn$ = from(this.afAuth.auth.signInWithEmailAndPassword(email, password))
       .pipe( map( data => data.user.email) );
@@ -39,48 +40,21 @@ export class AuthService {
     const usuario$ = this.usuariosService.getUsuarioByEmail(email);
     
     const combinado$ = combineLatest(fsSignIn$, usuario$)
-      .pipe( map( data => data[1]), tap(user => this.setUsuario(user)) );
+      .pipe( map( data => data[1]), 
+             tap( user => this.setAndSendUsuario(user))
+           );
     return combinado$;
   
   }
 
   logoutUser() {
-    this.setUsuario({});
+    this.setAndSendUsuario({});
     return this.afAuth.auth.signOut();
   }
 
-  isAuthViejo() {
-    const email$ = this.afAuth.authState.pipe( map( data => data.email) );
-    const usuarios$ = this.usuariosService.getRecords$();
-
-    const combinado$ = combineLatest(email$, usuarios$).pipe(
-      map( ([email, usuarios]: [string, UserI[]]) => 
-        usuarios.find( usuario => usuario.email === email) ),
-      tap(user => this.setUsuario(user))
-    );
-    return combinado$;
-  }
-
-  isAuth() {
-    const usuario = JSON.parse(localStorage.getItem('currentUser'));
+  setAndSendUsuario(usuario: UserI) {
+    sessionStorage.setItem('currentUser', JSON.stringify(usuario));
     this.sendUser(usuario);
-    console.log(usuario);
-    return of(usuario);
-  }
-
-  setUsuario(usuario: UserI) {
-    localStorage.setItem('currentUser', JSON.stringify(usuario));
-    this.sendUser(usuario);
-  }
-
-  fetchUser(user) {
-    if (user) {
-
-    }
-  }
-
-  getProfile(id: string): Observable<UserI> {
-    return this.afs.doc(`users/${id}`).valueChanges();
   }
 
   updateUser(user) {

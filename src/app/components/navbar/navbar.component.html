@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-success" *ngIf="!!!usuario.rol">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success" *ngIf="! (!!usuario && !!usuario.rol)">
   <img class="mr-4" src="assets/img/icono.png" />
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="#" *ngIf="! (!!usuario)">
     <h4> <strong>FeBoCaK</strong> - {{ usuario.rol }}</h4>
     <h6> {{ usuario.rol == 'Inscripciones' ? usuario.club : 'Federación Bonairense de Canoas y Kayaks' }} </h6>
   </a>
@@ -13,7 +13,7 @@
         <a class="nav-link" routerLink="/home" routerLinkActive="active"> <strong>Home</strong> </a>
       </li>
       
-      <li *ngIf="!isLogged" class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" routerLink="/login" routerLinkActive="active"> <strong>Ingresar</strong> </a>
       </li>
       
