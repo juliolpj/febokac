@@ -1,4 +1,9 @@
+
 <div class="container-fluid">
+  <div class="spinner" [class.d-none]="!loading">
+    <i class="fa fa-spinner fa-spin fa-4x"></i>
+  </div>
+  
   <app-navbar></app-navbar>
 
   <app-mensajes></app-mensajes>

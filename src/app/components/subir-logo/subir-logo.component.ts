@@ -6,7 +6,6 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 import { ClubesService } from 'src/app/services/clubes.service';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-subir-logo',

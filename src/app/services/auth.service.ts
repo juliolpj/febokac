@@ -21,7 +21,6 @@ export class AuthService {
 
   getUser(): UserI {
     let usuario = JSON.parse(sessionStorage.getItem('currentUser'));
-    console.warn({usuario});
     
     return !!usuario ? usuario : {};
   }
@@ -37,7 +36,7 @@ export class AuthService {
     const fsSignIn$ = from(this.afAuth.auth.signInWithEmailAndPassword(email, password))
       .pipe( map( data => data.user.email) );
     
-    const usuario$ = this.usuariosService.getUsuarioByEmail(email);
+    const usuario$ = this.usuariosService.getUsuarioByEmail$(email);
     
     const combinado$ = combineLatest(fsSignIn$, usuario$)
       .pipe( map( data => data[1]), 

@@ -25,8 +25,6 @@ export class PalistasService {
   }
 
   getRecords$(club: string = ''): Observable<PalistaI[]> {
-    console.warn(this.usuario.rol, this.usuario.name);
-    
     return this.usuario.rol === 'Competencias' ? this.getRecordsLS$() : this.getRecordsFB$(club);
   }
   getRecordsLS$(): Observable<PalistaI[]> {
