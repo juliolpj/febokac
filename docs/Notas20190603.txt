@@ -1,0 +1,142 @@
+X - Leer artículo de medium sobre console.log
+refactorizar. 
+	- Verificar cuando los servicios son públicos o privados.
+		- Privados debe ser lo más recomendable.
+
+	X- Los títulos de los formularios solo dicen Agregar registro (pero que tabla es?)
+
+	- Reorganizar proyectos.
+		- Reestructurar la carpeta y crear módulos.
+
+
+X- Home
+	X- Tomar datos de la tabla competencias, mostrar status y módulo.
+	X- Eliminar botón inscripciones.
+
+X- Mostrar spinner
+
+- Cambiar mensaje
+	- Debería ser flotante o quizá modal.
+
+- Validaciones para eliminar registros
+
+- Crear Guards
+
+- Crear pantalla para inscripciones por parejas
+
+X- Perfil de usuario 
+	X- Tomar los datos de la tabla users, actualmente los toma de Angular Auth
+	- Como sería el proceso de modificación de contraseña?
+	- En LocalStorage debería guardar la contraseña con hash
+	X- Por lo pronto que solo muestre datos para consultar.
+
+- Usuarios
+	- Definir el uso del termino ROL y su relación con los módulos.
+	- El ROL administrador debe estar casado con club FeBoCaK
+	- Validar que las contraseñas sea iguales
+	
+- Clubes
+	- Quedaría muy bonito mostrar el logo del club en la tabla / lista
+
+- Categorías
+	- Verificar que los rangos no se solapen
+
+- Competencias
+	- No puede eliminar competencias que tengan un status
+
+- Palistas e inscripciones
+	- Que puede hacer usuario administración?
+		- Cómo se comunican los cambios que realize?
+	- Que puede hacer el usuario competencia?
+		- Cómo se comunican y actualizan los cambios que realice?
+
+
+- Inscripciones
+	- Tener una tabla independiente por competencia.
+	- Tanto para inscripciones individuales como de pareja.
+
+- Limitar operaciones dependiendo del status de la competencia.
+
+- Competencia
+	- Falta mucho de este módulo
+	- Ponerse a trabajar en esto.
+
+** Módulo de competencias.
+	- Alerta al importar archivos, porque se perderá lo que actualmente esté en el sistema.
+	- Alguna validación del status. Por ejemplo que esté vacio o que ya hallan exportado los datos.
+
+Consolas, 'Courier New', monospace
+
+*****************************************
+- Eliminar variable isLogged
+- auth.service
+	- updateUser -> se utiliza para actualizar user auth de firebase, pero ya no es necesario.
+	- Eliminarlo y tomar todos los datos de la tabla User.
+
+
+************** REFACTORIZADO ************************
+	- Los títulos de los formularios solo dicen Agregar registro (pero que tabla es?)
+
+X- Home
+	X- Tomar datos de la tabla competencias, mostrar status y módulo.
+	X- Eliminar botón inscripciones.
+
+X- Perfil de usuario 
+	X- Tomar los datos de la tabla users, actualmente los toma de Angular Auth
+	- Como sería el proceso de modificación de contraseña?
+	X- Por lo pronto que solo muestre datos para consultar.
+X- Mostrar spinner
+----------------------------------------------------------------------------------------
+Preparar presentación
+- Cómo debe lucir la aplicación al principio?
+- Competencias
+	- Colocar la fecha en el formato adecuado.
+	- La longitud máxima era 30 caracteres lo cambie a 80 caracteres.
+- Corregir mensaje en titulo de la consola al iniciar proceso.
+- Palistas y descripciones
+	- Impedir hacer correcciones según el status de la consola.
+- Seleccionar competencias.
+	- Impedir seleccionar una competencia que ya está cerrada
+		-> La competencia debe tener un status y este debe cambiar 
+			- Al ser seleccionada?
+			- Al cerrar las competencias?
+- Consola
+	- Establecer competencia y abrir inscripciones podría ser solo uno
+	- Así se le da un lapso de tiempo a FeBoCaK para que decida cuando permitirá inscribir.
+
+- Guards por roles.
+	- Atento al usuario que muestra al cambiar de usuarios.
+
+- Palistas
+	- Si el rol es inscripciones mostrar seleccionar automáticamente el club del usuario
+
+2003-2004 Cadetes
+2005	  Menores A
+2006	  Menores B
+2007-2008 Infantiles
+2009      Preinfantiles
+
+
+
+
+DNI		Nombre			F. Nacimiento	Genero		Categoría	
+12345003	Larry Rodriguez		28/12/2005	Masculino	Menores B	
+12345004	Enrique Rodriguez	21/07/2003	Masculino	Cadetes	
+12345005	Gabriela Rodriguez	23/03/2003	Femenino	Cadetes	
+12345001	Diego Chacon		30/10/2008	Masculino	Infantiles	
+12345002	Matias Cardozo		08/01/2009	Masculino	Pre infantiles
+
+-------------------------
+Presentación
+	- Destacar que existen 3 módulos
+		* Dependiendo del rol del usuario se entra a un módulo u otro.
+	- Explicar el módulo de administración o configuración.
+		* Configuración para trabajar sin depender del programador.
+		* Dirigir los pasos del proceso.
+	- Explicar el módulo de inscripciones.
+	- Explicar el módulo de competencias.
+
+** Exportar inscripciones
+	- Solo debería pasar los datos de la competencia actual en la tabla competencias.
+	- En cuanto a los usuarios. Solo debe exportar a los usuarios de rol competencia.
+ 

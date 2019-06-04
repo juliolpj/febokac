@@ -51,6 +51,7 @@ export class PalistasService {
   }
 
   addRecord$(registro: PalistaI){
+    registro.palista = registro.nombre.trim() + ' ' + registro.apellido.trim();
     return this.usuario.rol === 'Competencias' ? this.addRecordLS$(registro) : this.addRecordFB$(registro);
   }
   addRecordLS$(registro: PalistaI) {
@@ -61,11 +62,11 @@ export class PalistasService {
     return from(tabla);
   }
   addRecordFB$(registro: PalistaI) {
-    registro.palista = registro.nombre.trim() + ' ' + registro.apellido.trim();
     return from(this.collection.add(registro));
   }
 
   updateRecord$(id: string, registro: PalistaI): Observable<any> {
+    registro.palista = registro.nombre.trim() + ' ' + registro.apellido.trim();
     return this.usuario.rol === 'Competencias' ? this.updateRecordLS$(id, registro) : this.updateRecordFB$(id, registro);
   }
   updateRecordLS$(id: string, registro: PalistaI): Observable<any> {
@@ -76,7 +77,6 @@ export class PalistasService {
     return of(registro);
   }
   updateRecordFB$(id: string, registro: PalistaI): Observable<any> {
-    registro.palista = registro.nombre.trim() + ' ' + registro.apellido.trim();
     return from(this.afs.doc<PalistaI>(`palistas/${id}`).update(registro));
   }
 

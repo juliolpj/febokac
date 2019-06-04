@@ -26,6 +26,7 @@ import { DownloadComponent } from './pruebas/download/download.component';
 import { ImportarComponent } from './components/mcompetencia/importar/importar.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import { GenerarCarrerasComponent } from './components/mcompetencia/generar-carreras/generar-carreras.component';
 
 const competenciasRutas = [
   { path: 'competencias/palistas', component: PalistasComponent, canActivate: [AuthGuard] },
@@ -38,6 +39,7 @@ const routes: Routes = [
   // { path: 'pruebas/download', component: DownloadComponent },
   ...competenciasRutas,
   { path: 'importar-inscripciones', component: ImportarComponent, canActivate: [AuthGuard] },
+  { path: 'generar-carreras', component: GenerarCarrerasComponent, canActivate: [AuthGuard] },
   { path: 'consola', component: ConsolaComponent, canActivate: [AuthGuard] },
   { path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard] },
     { path: 'usuarios/add', component: FUsuariosComponent, canActivate: [AuthGuard] },

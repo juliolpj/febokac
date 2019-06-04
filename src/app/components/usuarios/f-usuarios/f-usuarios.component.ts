@@ -11,7 +11,7 @@ import { UserI } from 'src/app/models/user';
 import { ClubI } from 'src/app/models/club';
 
 @Component({
-  selector: 'app-f-ususarios',
+  selector: 'app-f-usuarios',
   templateUrl: './f-usuarios.component.html',
   styles: ['']
 })

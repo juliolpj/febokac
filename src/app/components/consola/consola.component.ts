@@ -16,6 +16,7 @@ export class ConsolaComponent implements OnInit {
   tblCompetencias: CompetenciaI[];
   registro: CompetenciaI;
   nivelStatus = 0;
+  desStatus = '';
 
   constructor(private dataService: ConsolaService, 
               private msgService: MensajesService,
@@ -46,24 +47,31 @@ export class ConsolaComponent implements OnInit {
     switch (this.registro.status) {
       case 'Establecer próxima competencia':
         this.nivelStatus = 1;
+        this.desStatus = 'Próxima competencia';
         break;
       case 'Abrir inscripciones':
         this.nivelStatus = 2;
+        this.desStatus = 'Inscripciones abiertas';
         break;
       case 'Cerrar inscripciones':
         this.nivelStatus = 3;
+        this.desStatus = 'Inscripciones cerradas';
         break;
       case 'Exportar datos':
         this.nivelStatus = 4;
+        this.desStatus = 'Inscripciones cerradas - Datos exportados';
         break;
       case 'Abrir competencia':
         this.nivelStatus = 5;
+        this.desStatus = 'En competencia';
         break;
       case 'Importar datos':
         this.nivelStatus = 6;
+        this.desStatus = 'Resultados de la competencia cargados';
         break;
       case 'Cerrar competencia':
-        this.nivelStatus = 7;
+        this.nivelStatus = 0;
+        this.desStatus = 'Competencia guardada en el histórico';
         break;
    
       default:
@@ -97,8 +105,8 @@ export class ConsolaComponent implements OnInit {
   }
 
   abrirInscirpciones() {
-    if (this.nivelStatus > 1) {
-      this.msgService.sendMessage('Este proceso ya se realizó');
+    if (this.nivelStatus > 4) {
+      this.msgService.sendMessage('No puede reabrir las inscripciones después de haber importado los datos de la competencia');
       return 
     }
     if (this.nivelStatus < 1) {
@@ -183,7 +191,7 @@ export class ConsolaComponent implements OnInit {
     this.guardarStatus('Datos importados satisfactoriamente');
   }
 
-  cerrarCompetecia() {
+  cerrarCompetencia() {
     if (this.nivelStatus > 6) {
       this.msgService.sendMessage('Este proceso ya se realizó');
       return 
@@ -192,7 +200,7 @@ export class ConsolaComponent implements OnInit {
       this.msgService.sendMessage('Primero debe importar los datos');
       return 
     }
-    this.registro.status = 'Receso';
+    this.registro.status = 'Cerrar competencia';
     this.nivelStatus++;
 
     this.guardarStatus('Competencia cerrada satisfactoriamente');

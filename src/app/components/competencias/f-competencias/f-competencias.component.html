@@ -35,7 +35,7 @@
 
               <div class="form-group">
                 <label for="competencia" class="control-label"> Descripción </label>
-                <input type="text" formControlName="competencia" [readonly]="titulo==='Eliminar'" required maxlength="30"
+                <input type="text" formControlName="competencia" [readonly]="titulo==='Eliminar'" required maxlength="80"
                   [class.is-invalid]="competencia.invalid && competencia.touched" class="form-control" />
                 <small class="text-danger" [class.d-none]="competencia.untouched || !competencia.hasError('required')">La descripción es requerida</small>
                 <small class="text-danger" [class.d-none]="competencia.untouched || !competencia.hasError('minlength')">La longitud mínima es 2</small>

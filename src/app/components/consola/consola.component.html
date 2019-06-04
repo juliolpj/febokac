@@ -4,7 +4,7 @@
     <div class="card mt-3">
       <div class="card-header text-center">
         <div *ngIf="!!registro" class="">
-          Próxima competencia [ {{ nivelStatus }} ]<br>
+          {{ desStatus }} [ {{ nivelStatus }} ]<br>
           {{ registro.competencia }} <br>
           {{ registro.club}}
         </div>
@@ -61,7 +61,7 @@
             <button class="btn btn-block btn-lg" 
             data-toggle="modal" data-target="#modalDownload"
             [ngClass]="nivelStatus >= 4 ? 'btn-primary' : 'btn-outline-primary'">
-              Exportar datos
+              Exportar datos de las inscripciones
             </button>
           </div>
           <div class="col-2">
@@ -89,7 +89,7 @@
           <div class="col-10">
             <button class="btn btn-block btn-lg" (click)="importarDatos()"
               [ngClass]="nivelStatus >= 6 ? 'btn-primary' : 'btn-outline-primary'">
-              Importar datos
+              Importar datos de la competencia
             </button>
           </div>
           <div class="col-2">
@@ -101,7 +101,7 @@
 
         <div class="row mt-3">
           <div class="col-10">
-            <button class="btn btn-block btn-lg" (click)="cerrarCompetecia()"
+            <button class="btn btn-block btn-lg" (click)="cerrarCompetencia()"
               [ngClass]="nivelStatus >= 7 ? 'btn-primary' : 'btn-outline-primary'">
               Cerrar competencia
             </button>

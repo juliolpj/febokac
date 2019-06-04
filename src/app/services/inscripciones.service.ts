@@ -19,7 +19,7 @@ export class InscripcionesService {
    
   }
 
-  getRecords$(club: string) {
+  getRecords$(club: string = '') {
     if (club && club != 'FeBoCaK') {
       this.collection = this.afs.collection<InscripcionI>('inscripciones', ref => ref.where('club', '==', club));
     } else {

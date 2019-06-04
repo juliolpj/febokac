@@ -43,6 +43,7 @@ import { ImportarComponent } from './components/mcompetencia/importar/importar.c
 import { NavbarCompetenciasComponent } from './components/navbar/navbar-competencias/navbar-competencias.component';
 import { NavbarInscripcionesComponent } from './components/navbar/navbar-inscripciones/navbar-inscripciones.component';
 import { NavbarAdministracionComponent } from './components/navbar/navbar-administracion/navbar-administracion.component';
+import { GenerarCarrerasComponent } from './components/mcompetencia/generar-carreras/generar-carreras.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { NavbarAdministracionComponent } from './components/navbar/navbar-admini
     ImportarComponent,
     NavbarCompetenciasComponent,
     NavbarInscripcionesComponent,
-    NavbarAdministracionComponent
+    NavbarAdministracionComponent,
+    GenerarCarrerasComponent
   ],
   imports: [
     BrowserModule,

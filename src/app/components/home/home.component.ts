@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
         this.competencia.club = data.club;
         this.competencia.descripcion = data.competencia;
         this.competencia.status = this.descripcionDelStatus(data.status);
+        console.log(data.status);
+        console.log(this.competencia.status);
       }
     )
   }
