@@ -12,7 +12,9 @@ import { CarrerasService } from 'src/app/services/carreras.service';
   styles: []
 })
 export class GenerarCarrerasComponent implements OnInit {
+  inscripciones = [];
   carreras = [];
+  detalleCarreras = [];
   clubes = [];
   constructor(private router: Router, 
     private location: Location,
@@ -23,55 +25,85 @@ export class GenerarCarrerasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.cargarInscripciones();
     this.generarCarreras();
 
   }
-  /*
-  Recorre la tabla de inscripciones y genera una carrera por categoría, genero y distancia.
-  */
-  generarCarreras() {
-    console.log('Entro a cargar tabla');
-    let tabla = [];
-    let clubes = [];
-    let indice = 0;
+
+  cargarInscripciones() {
 
     this.inscripcionesService.getRecords$().subscribe(
       data => {
-        let registro = this.generarObjetoCarrera(data[0], 0);
-        tabla.push(registro);
-        clubes.push(data[0].club);
-        
         for (let i = 0; i < data.length; i++) {
-          clubes.indexOf(data[i].club) === -1 ? clubes.push(data[i].club) : null;
           for (let j = 0; j < data[i].distancia.length; j++) {
-            registro = this.generarObjetoCarrera(data[i], j);
-
-            indice = tabla.findIndex( 
-              elemento => elemento.categoria === registro.categoria && 
-                          elemento.genero === registro.genero &&
-                          elemento.distancia === registro.distancia
-            );
-            
-            if (indice === -1) {
-              indice = tabla.push(registro) - 1;
-            }
-            tabla[indice].cantidad++;
-
+            this.inscripciones.push({...data[i], distancia: data[i].distancia[j]});
           }
         }
-        this.carreras = tabla;
-        this.clubes = clubes;
+        this.generarClubes();
+        this.generarCarreras();
+        this.generarDetalleCarreras();
       }
     )
   }
 
-  generarObjetoCarrera(data: InscripcionI, indiceDistancia: number) {
+  generarClubes() {
+    this.inscripciones.forEach( elemento => {
+      if (this.clubes.indexOf(elemento.club) === -1) {
+        this.clubes.push(elemento.club);
+      }
+    });
+  }
+
+  generarCarreras() {
+    let contador = 1;
+    this.inscripciones.forEach( inscripcion => {
+      let registro = this.generarObjetoCarrera(inscripcion, contador);
+      let indice = this.carreras.findIndex( 
+        elemento => elemento.categoria === registro.categoria && 
+                    elemento.genero === registro.genero &&
+                    elemento.distancia === registro.distancia
+      );
+      if (indice === -1) {
+        indice = this.carreras.push(registro) - 1;
+        contador = contador + 1;
+      }
+      this.carreras[indice].cantidad++;
+    });
+  }
+
+  generarObjetoCarrera(data, contador: number) {
     return { 
+      id: contador.toString().padStart(4, '0'),
       categoria: data.categoria, 
       genero: data.genero, 
-      distancia: data.distancia[indiceDistancia],
+      distancia: data.distancia,
       cantidad: 0
     };
+  }
+
+  
+  /*
+  Recorre la tabla de inscripciones e incluir a cada participante en su respectiva carrera.
+  */
+  generarDetalleCarreras() {
+    this.inscripciones.forEach( inscripcion => {
+      let carrera = this.carreras.find( 
+                      carrera => carrera.categoria === inscripcion.categoria && 
+                      carrera.genero === inscripcion.genero &&
+                      carrera.distancia === inscripcion.distancia
+      );
+      if (! !!carrera) {
+        console.error('No se genero una carrera para esta inscripción');
+      }
+      this.detalleCarreras.push({
+        ...inscripcion, 
+        idCarrera: carrera.id,
+        tiempo: '',
+        nTiempo: 0,
+      });
+    });
+
+    console.table(this.detalleCarreras);
   }
 
   onGenerar() {
@@ -79,8 +111,11 @@ export class GenerarCarrerasComponent implements OnInit {
         si hay carreras mostrar warning, 
         si las carreras tienen tiempos cargados impedir generar carreras.
     */
-    this.dataService.addRecordsLS$(this.carreras).subscribe(
-      () => this.msgService.sendMessage('Proceso realizado satisfactoriamente'),
+    this.dataService.addCarrerasLS$(this.carreras).subscribe(
+      () => 
+        this.dataService.addDetalleCarrerasLS$(this.detalleCarreras).subscribe(
+          () => this.msgService.sendMessage('Proceso realizado satisfactoriamente')
+      ),
       () => this.msgService.sendMessage('Error generando las carreras', 'alert-danger'),
       () => this.router.navigate(['home'])
     );

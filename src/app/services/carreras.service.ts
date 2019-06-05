@@ -19,7 +19,7 @@ export class CarrerasService {
 
   constructor(private afs: AngularFirestore,
               private authService: AuthService,
-              private util: UtilService) {
+              public util: UtilService) {
     this.usuario = this.authService.getUser();
   }
 
@@ -86,9 +86,13 @@ export class CarrerasService {
     return from(this.afs.doc<CarreraI>(`palistas/${id}`).delete());
   }
 
-  addRecordsLS$(tabla ) {
-    tabla.forEach(elemento => elemento.id = this.util.generarID());
+  addCarrerasLS$(tabla ) {
     localStorage.setItem('carreras', JSON.stringify(tabla));
+    return from(tabla);
+  }
+
+  addDetalleCarrerasLS$(tabla ) {
+    localStorage.setItem('detalleCcarreras', JSON.stringify(tabla));
     return from(tabla);
   }
 }
