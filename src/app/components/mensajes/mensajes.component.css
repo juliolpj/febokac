@@ -1,0 +1,23 @@
+.mi-alert{
+    position: absolute;
+    padding: 1.25rem;
+    width: 300px;
+    margin-top: 40px;
+    border-radius: 15px;
+    background-color: #FFF;
+    color: #283896;
+}
+
+.pull-right {
+    position: fixed !important;
+    right: 5%;
+    z-index: 1030 !important;
+}
+
+#miMensaje {
+    position: fixed !important; 
+    left: 50%; 
+    z-index: 1030 !important; 
+    transform: translate(-50%, -50%);
+
+}

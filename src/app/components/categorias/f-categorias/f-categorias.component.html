@@ -3,7 +3,7 @@
 
     <div class="card mt-3">
       <div class="card-header" [ngClass]="cardHeaderStyle">
-        {{ titulo + " registro" }}
+        {{ titulo + " categoría" }}
       </div>
 
       <div class="card-body">
@@ -29,7 +29,7 @@
                 <input type="number" formControlName="hasta" [readonly]="titulo==='Eliminar'"
                 min="1900" max="2020"
                   [class.is-invalid]="hasta.invalid && hasta.touched" class="form-control" />
-                <small class="text-danger" [class.d-none]="hasta.untouched || !hasta.hasError('required')">El hasta es requerido</small>
+                <small class="text-danger" [class.d-none]="hasta.untouched || !hasta.hasError('required')">El campo hasta es requerido</small>
                 <small class="text-danger" [class.d-none]="hasta.untouched || !hasta.hasError('min')">Debe colocar un valor mayor a 1900</small>
                 <small class="text-danger" [class.d-none]="hasta.untouched || !hasta.hasError('max')">Debe colocar un valor menor a 2020</small>
               </div>
@@ -45,7 +45,7 @@
               <option value="genero"></option>
               <option value="Masculino">Masculino</option>
               <option value="Femenino">Femenino</option>
-              <option value="Femenino">Femenino y Masculino</option>
+              <option value="Masculino y Femenino">Masculino y Femenino</option>
             </select>
             <small class="text-danger" [class.d-none]="genero.untouched || !genero.hasError('required')">El genero es requerido</small>
             <small class="text-danger" [class.d-none]="genero.untouched || !genero.hasError('invalidGenero')">Seleccione el genero</small>

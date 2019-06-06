@@ -1,27 +1,42 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { PalistaI } from 'src/app/models/palista';
-import { Observable, from } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { UserI } from '../models/user';
+import { UtilService } from './util.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PalistasService {
-  private palistasCollection: AngularFirestoreCollection<PalistaI>;
+  private collection: AngularFirestoreCollection<PalistaI>;
   private palistas: Observable<PalistaI[]>;
+  private usuario: UserI;
+
+  
 
   constructor(private afs: AngularFirestore,
-              private authService: AuthService) {
-    /* this.booksCollection = afs.collection<BookInterface>('books');
-    this.books = this.booksCollection.valueChanges(); */
+              private authService: AuthService,
+              private util: UtilService) {
+    this.usuario = this.authService.getUser();
   }
 
-  getRecords$() {
-    this.palistasCollection = this.afs.collection<PalistaI>('palistas', ref => ref.where('club', '==', this.authService.user.club));
-    return this.palistas = this.palistasCollection.snapshotChanges()
+  getRecords$(club: string = ''): Observable<PalistaI[]> {
+    return this.usuario.rol === 'Competencias' ? this.getRecordsLS$() : this.getRecordsFB$(club);
+  }
+  getRecordsLS$(): Observable<PalistaI[]> {
+    return of( JSON.parse(localStorage.getItem('palistas') ));
+  }
+  getRecordsFB$(club: string = '') {
+    if (club) {
+      this.collection = this.afs.collection<PalistaI>('palistas', ref => ref.where('club', '==', club));
+    } else {
+      this.collection = this.afs.collection<PalistaI>('palistas');
+    }
+    return this.palistas = this.collection.snapshotChanges()
     .pipe( map( changes => {
       return changes.map( action => {
         const data = action.payload.doc.data() as PalistaI;
@@ -35,17 +50,46 @@ export class PalistasService {
     return this.afs.doc<PalistaI>(`palistas/${id}`).valueChanges();
   }
 
-  addRecord$(palista: PalistaI) {
-    palista.palista = palista.nombre.trim() + ' ' + palista.apellido.trim();
-    return from(this.palistasCollection.add(palista));
+  addRecord$(registro: PalistaI){
+    registro.palista = registro.nombre.trim() + ' ' + registro.apellido.trim();
+    return this.usuario.rol === 'Competencias' ? this.addRecordLS$(registro) : this.addRecordFB$(registro);
+  }
+  addRecordLS$(registro: PalistaI) {
+    const tabla = JSON.parse(localStorage.getItem('palistas'));
+    registro.id = this.util.generarID();
+    tabla.push(registro);
+    localStorage.setItem('palistas', JSON.stringify(tabla));
+    return from(tabla);
+  }
+  addRecordFB$(registro: PalistaI) {
+    return from(this.collection.add(registro));
   }
 
-  updateRecord$(id: string, palista: PalistaI) {
-    palista.palista = palista.nombre.trim() + ' ' + palista.apellido.trim();
-    return from(this.afs.doc<PalistaI>(`palistas/${id}`).update(palista));
+  updateRecord$(id: string, registro: PalistaI): Observable<any> {
+    registro.palista = registro.nombre.trim() + ' ' + registro.apellido.trim();
+    return this.usuario.rol === 'Competencias' ? this.updateRecordLS$(id, registro) : this.updateRecordFB$(id, registro);
+  }
+  updateRecordLS$(id: string, registro: PalistaI): Observable<any> {
+    registro.id = id;
+    const tabla = JSON.parse(localStorage.getItem('palistas'));
+    tabla.splice( tabla.findIndex(element => element.id === id), 1, registro );
+    localStorage.setItem('palistas', JSON.stringify(tabla));
+    return of(registro);
+  }
+  updateRecordFB$(id: string, registro: PalistaI): Observable<any> {
+    return from(this.afs.doc<PalistaI>(`palistas/${id}`).update(registro));
   }
 
-  deleteRecord$(id: string) {
+  deleteRecord$(id: string): Observable<any> {
+    return this.usuario.rol === 'Competencias' ? this.deleteRecordLS$(id) : this.deleteRecordFB$(id);
+  }
+  deleteRecordLS$(id: string): Observable<any> {
+    const tabla = JSON.parse(localStorage.getItem('palistas'));
+    tabla.splice( tabla.findIndex(element => element.id === id), 1 );
+    localStorage.setItem('palistas', JSON.stringify(tabla));
+    return from(tabla);
+  }
+  deleteRecordFB$(id: string): Observable<any> {
     return from(this.afs.doc<PalistaI>(`palistas/${id}`).delete());
   }
 }

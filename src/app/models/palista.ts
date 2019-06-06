@@ -5,8 +5,8 @@ export interface PalistaI {
     apellido?: string;
     nombre?: string;
     fnacimiento?: string;
-    genero?: string,
-    categoria?: string,
-    seguro?: string,
+    genero?: string;
+    categoria?: string;
+    seguro?: string;
     club?: string
 }

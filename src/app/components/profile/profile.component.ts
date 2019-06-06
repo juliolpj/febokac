@@ -1,61 +1,49 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { UserI } from "src/app/models/user";
 import { Router } from '@angular/router';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { ClubesService } from 'src/app/services/clubes.service';
+import { Observable } from 'rxjs';
+import { map, tap, flatMap } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
-  styles: []
+  styles: ['']
 })
 export class ProfileComponent implements OnInit {
-  user: UserI = {};
-  clubArray = [
-    {
-      nombre: "El Club de Remo y Náutica Belén de Escobar",
-      img: "assets/img/clubes/crnbe1.png"
-    },
-    {
-      nombre: "Club de Regatas La Plata",
-      img: "assets/img/clubes/crlp1.png"
-    },
-    {
-      nombre: "Las Canaletas San Pedro",
-      img: "assets/img/clubes/cpcn_villa gesel1.png"
-    },
-    {
-      nombre: "Centro Náutico del Fuerte Tandil",
-      img: "assets/img/clubes/cnf_tandil1.png"
-    },
-    {
-      nombre: "Club Atlético Estudiantes de Olavarría",
-      img: "assets/img/clubes/cae_olavarria1.png"
-    }
-  ];
-  constructor(public authService: AuthService, private router: Router) {}
+  @ViewChild('clubImage') clubImage: ElementRef;
+  usuario$: Observable<any>;
+  
+  constructor(private authService: AuthService, 
+              private usuarioService: UsuariosService,
+              private clubService:ClubesService,
+              private router: Router,
+              private storage: AngularFireStorage) {}
 
   ngOnInit() {
-    this.user = this.authService.user;
-    console.log("NgOnInit Profile");
+    console.log(this.clubImage);
+    const email = this.authService.getUser().email;
+    this.usuario$ = this.usuarioService.getUsuarioByEmail$(email).pipe(
+      flatMap( usuario => this.clubService.getClubBy$('nombre', usuario.club).pipe(
+        map(club => { 
+          const gsReference = this.storage.storage.refFromURL(club.imageUrl);
+          gsReference.getDownloadURL().then(
+            url => { 
+              this.clubImage.nativeElement.src = url;
+            }
+          )
+          return { ...usuario, 'imageUrl': club.imageUrl };
+        }),
+        tap(data => console.log(data.imageUrl))
+      ))
+    );
   }
 
   onSubmit() {
-    this.authService.updateUser(this.user);
     this.router.navigate(["home"]);
   }
 
-  updatePhotoUrl(nombreClub) {
-    this.user.photoUrl = this.clubArray.find(
-      data => data.nombre == nombreClub
-    ).img;
-    console.log(this.user.photoUrl);
-  }
-
-  fetchUser() {
-    this.user.name = this.authService.user.name;
-    this.user.email = this.authService.user.email;
-    this.user.photoUrl = this.authService.user.photoUrl;
-    this.user.uid = this.authService.user.uid;
-    this.user.club = this.authService.user.club;
-  }
 }

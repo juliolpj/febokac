@@ -20,7 +20,7 @@ import { PalistasComponent } from './components/palistas/palistas.component';
 import { FPalistasComponent } from './components/palistas/f-palistas/f-palistas.component';
 import { MensajesComponent } from './components/mensajes/mensajes.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
-import { FormularioInscripcionComponent } from './components/inscripciones/formulario-inscripcion/formulario-inscripcion.component';
+import { FInscripcionesComponent } from './components/inscripciones/f-inscripciones/f-inscripciones.component';
 import { ClubesComponent } from './components/clubes/clubes.component';
 import { FClubesComponent } from './components/clubes/f-clubes/f-clubes.component';
 import { SubirLogoComponent } from './components/subir-logo/subir-logo.component';
@@ -29,6 +29,23 @@ import { FCategoriasComponent } from './components/categorias/f-categorias/f-cat
 import { MockGuardarComponent } from './pruebas/mock-guardar/mock-guardar.component';
 import { EmpleadosComponent } from './pruebas/empleados/empleados.component';
 import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { FUsuariosComponent } from './components/usuarios/f-usuarios/f-usuarios.component';
+import { DistanciasComponent } from './components/distancias/distancias.component';
+import { FDistanciasComponent } from './components/distancias/f-distancias/f-distancias.component';
+import { CompetenciasComponent } from './components/competencias/competencias.component';
+import { FCompetenciasComponent } from './components/competencias/f-competencias/f-competencias.component';
+import { ConsolaComponent } from './components/consola/consola.component';
+import { ModalCompetenciaComponent } from './components/modal-competencia/modal-competencia.component';
+import { DownloadComponent } from './pruebas/download/download.component';
+import { ModalDownloadComponent } from './components/modal-download/modal-download.component';
+import { ImportarComponent } from './components/mcompetencia/importar/importar.component';
+import { NavbarCompetenciasComponent } from './components/navbar/navbar-competencias/navbar-competencias.component';
+import { NavbarInscripcionesComponent } from './components/navbar/navbar-inscripciones/navbar-inscripciones.component';
+import { NavbarAdministracionComponent } from './components/navbar/navbar-administracion/navbar-administracion.component';
+import { GenerarCarrerasComponent } from './components/mcompetencia/generar-carreras/generar-carreras.component';
+import { CargarTiemposComponent } from './components/mcompetencia/cargar-tiempos/cargar-tiempos.component';
+import { DetalleComponent } from './components/mcompetencia/cargar-tiempos/detalle/detalle.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +58,7 @@ import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados
     FPalistasComponent,
     MensajesComponent,
     InscripcionesComponent,
-    FormularioInscripcionComponent,
+    FInscripcionesComponent,    
     ClubesComponent,
     FClubesComponent,
     SubirLogoComponent,
@@ -49,7 +66,24 @@ import { FEmpleadosComponent } from './pruebas/empleados/f-empleados/f-empleados
     FCategoriasComponent,
     MockGuardarComponent,
     EmpleadosComponent,
-    FEmpleadosComponent    
+    FEmpleadosComponent,
+    UsuariosComponent,
+    FUsuariosComponent,
+    DistanciasComponent,
+    FDistanciasComponent,
+    CompetenciasComponent,
+    FCompetenciasComponent,
+    ConsolaComponent,
+    ModalCompetenciaComponent,
+    DownloadComponent,
+    ModalDownloadComponent,
+    ImportarComponent,
+    NavbarCompetenciasComponent,
+    NavbarInscripcionesComponent,
+    NavbarAdministracionComponent,
+    GenerarCarrerasComponent,
+    CargarTiemposComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,

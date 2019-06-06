@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { MensajesService } from 'src/app/services/mensajes.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { CategoriaI } from 'src/app/models/categoria';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-f-categorias',
@@ -24,6 +25,7 @@ export class FCategoriasComponent implements OnInit {
     public dataService: CategoriasService, 
     public fb: FormBuilder,      
     private msgService: MensajesService,
+    private spinner: SpinnerService,
     private location: Location, 
     private actRoute: ActivatedRoute,
     private router: Router) {
@@ -82,6 +84,7 @@ export class FCategoriasComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner.on();
     switch (this.titulo) {
       case 'Agregar':
         this.aceptarAgregar();
@@ -99,7 +102,7 @@ export class FCategoriasComponent implements OnInit {
     this.dataService.addRecord$(this.miForm.value).subscribe(
       data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Agregado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al agregar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.router.navigate(['categorias'])
+      () => this.retornar()
     );
   }
 
@@ -107,7 +110,7 @@ export class FCategoriasComponent implements OnInit {
     this.dataService.updateRecord$(this.id, this.miForm.value).subscribe(
       data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Actualizado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al actualizar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.router.navigate(['categorias'])
+      () => this.retornar()
     );
   }
 
@@ -115,8 +118,13 @@ export class FCategoriasComponent implements OnInit {
     this.dataService.deleteRecord$(this.id).subscribe(
       data => this.msgService.sendMessage(this.miForm.controls['categoria'].value + ' Eliminado satisfactoriamente'),
       error => this.msgService.sendMessage('Error al eliminar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.router.navigate(['categorias'])
+      () => this.retornar()
     );
+  }
+
+  retornar() {
+    this.spinner.off();
+    this.router.navigate(['categorias']);
   }
 
   goBack() {

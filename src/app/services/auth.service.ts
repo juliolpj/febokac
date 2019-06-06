@@ -1,58 +1,59 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
-import {
-  AngularFirestore,
-  AngularFirestoreCollection
-} from "@angular/fire/firestore";
+import { AngularFirestore } from "@angular/fire/firestore";
 
-import { Observable } from "rxjs";
+import { from, combineLatest, BehaviorSubject, Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
 import { UserI } from "src/app/models/user";
+import { UsuariosService } from './usuarios.service';
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
-  public user: UserI = {};
+  private subjectUsuario = new BehaviorSubject<UserI>( this.getUser() ); 
 
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {}
+  constructor(public afAuth: AngularFireAuth, 
+              private afs: AngularFirestore,
+              private usuariosService: UsuariosService) {
+  }
 
-  login(email: string, password: string) {
-    return new Promise((resolve, reject) => {
-      this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
-        userData => {
-          resolve(userData);
-        },
-        err => reject(err)
-      );
-    });
+  getUser(): UserI {
+    let usuario = JSON.parse(sessionStorage.getItem('currentUser'));
+    
+    return !!usuario ? usuario : {};
+  }
+
+  getUser$(): Observable<UserI> {
+    return this.subjectUsuario.asObservable();
+  }
+  sendUser(usuario: UserI) {
+    this.subjectUsuario.next(usuario);
+  }
+  
+  login$(email: string, password:string) {
+    const fsSignIn$ = from(this.afAuth.auth.signInWithEmailAndPassword(email, password))
+      .pipe( map( data => data.user.email) );
+    
+    const usuario$ = this.usuariosService.getUsuarioByEmail$(email);
+    
+    const combinado$ = combineLatest(fsSignIn$, usuario$)
+      .pipe( map( data => data[1]), 
+             tap( user => this.setAndSendUsuario(user))
+           );
+    return combinado$;
+  
   }
 
   logoutUser() {
+    this.setAndSendUsuario({});
     return this.afAuth.auth.signOut();
   }
 
-  isAuth() {
-    return this.afAuth.authState.pipe(
-      tap(user => this.fetchUser(user))
-    );
-  }
-
-  fetchUser(user) {
-    if (user) {
-      this.user.name = user.displayName;
-      this.user.email = user.email;
-      this.user.photoUrl = user.photoURL;
-      this.user.uid = user.uid;
-      this.getProfile(this.user.uid).subscribe(data => {
-        this.user.club = data.club;
-      });
-    }
-  }
-
-  getProfile(id: string): Observable<UserI> {
-    return this.afs.doc(`users/${id}`).valueChanges();
+  setAndSendUsuario(usuario: UserI) {
+    sessionStorage.setItem('currentUser', JSON.stringify(usuario));
+    this.sendUser(usuario);
   }
 
   updateUser(user) {
@@ -65,10 +66,11 @@ export class AuthService {
             .doc(`users/${user.uid}`)
             .set(user)
             .then(() => {
-              this.user = user;
+              //this.user = user;
             });
         })
         .catch(err => console.log(err));
     });
   }
+
 }
