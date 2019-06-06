@@ -140,3 +140,12 @@ Presentación
 	- Solo debería pasar los datos de la competencia actual en la tabla competencias.
 	- En cuanto a los usuarios. Solo debe exportar a los usuarios de rol competencia.
  
+---------------------------
+Cargar tiempos
+	- Poner un orden, permitir buscar por varios campos
+
+:checkered_flag: 05:35 Competencias - registrar resultados. Ya muestra las carreras. Al seleccionar la carrera ya carga los competidores. Falta mostrarlos.
+
+05:45
+- detalleCcarreras -> Está guardando con un nombre errado en LocalStorage.
+

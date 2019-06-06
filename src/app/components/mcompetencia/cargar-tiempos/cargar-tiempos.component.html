@@ -1,0 +1,33 @@
+<div class="card mt-3">
+    <div class="card-header d-flex">
+      Cargar tiempos
+      <a routerLink="/categorias/add" class="text-primary ml-auto">
+        <i class="fa fa-plus-circle fa-2x"></i>
+      </a>
+    </div>
+  </div>
+  
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th> Genero </th>
+        <th> Categoría </th>
+        <th> Distancia </th>
+        <th> </th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let registro of tabla">
+        <td routerLink="/cargar-tiempos/detalle/{{registro.id}}"> {{ registro.genero }} </td>
+        <td routerLink="/cargar-tiempos/detalle/{{registro.id}}"> {{ registro.categoria }} </td>
+        <td routerLink="/cargar-tiempos/detalle/{{registro.id}}"> {{ registro.distancia }} </td>
+        <td class="text-center">
+          <a routerLink="/cargar-tiempos/delete/{{registro.id}}" class="text-success">
+            <i class="fa fa-clock-o fa-2x"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  
+  </table>

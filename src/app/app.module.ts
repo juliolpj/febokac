@@ -44,6 +44,8 @@ import { NavbarCompetenciasComponent } from './components/navbar/navbar-competen
 import { NavbarInscripcionesComponent } from './components/navbar/navbar-inscripciones/navbar-inscripciones.component';
 import { NavbarAdministracionComponent } from './components/navbar/navbar-administracion/navbar-administracion.component';
 import { GenerarCarrerasComponent } from './components/mcompetencia/generar-carreras/generar-carreras.component';
+import { CargarTiemposComponent } from './components/mcompetencia/cargar-tiempos/cargar-tiempos.component';
+import { DetalleComponent } from './components/mcompetencia/cargar-tiempos/detalle/detalle.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { GenerarCarrerasComponent } from './components/mcompetencia/generar-carr
     NavbarCompetenciasComponent,
     NavbarInscripcionesComponent,
     NavbarAdministracionComponent,
-    GenerarCarrerasComponent
+    GenerarCarrerasComponent,
+    CargarTiemposComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,

@@ -27,6 +27,8 @@ import { ImportarComponent } from './components/mcompetencia/importar/importar.c
 
 import { AuthGuard } from './guards/auth.guard';
 import { GenerarCarrerasComponent } from './components/mcompetencia/generar-carreras/generar-carreras.component';
+import { CargarTiemposComponent } from './components/mcompetencia/cargar-tiempos/cargar-tiempos.component';
+import { DetalleComponent } from './components/mcompetencia/cargar-tiempos/detalle/detalle.component';
 
 const competenciasRutas = [
   { path: 'competencias/palistas', component: PalistasComponent, canActivate: [AuthGuard] },
@@ -40,6 +42,8 @@ const routes: Routes = [
   ...competenciasRutas,
   { path: 'importar-inscripciones', component: ImportarComponent, canActivate: [AuthGuard] },
   { path: 'generar-carreras', component: GenerarCarrerasComponent, canActivate: [AuthGuard] },
+  { path: 'cargar-tiempos', component: CargarTiemposComponent, canActivate: [AuthGuard]},
+  { path: 'cargar-tiempos/detalle/:id', component: DetalleComponent, canActivate: [AuthGuard]},
   { path: 'consola', component: ConsolaComponent, canActivate: [AuthGuard] },
   { path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard] },
     { path: 'usuarios/add', component: FUsuariosComponent, canActivate: [AuthGuard] },

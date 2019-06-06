@@ -1,0 +1,50 @@
+<div class="card mt-3">
+    <div class="card-header">
+      <div class="row">
+
+        <div class="col-2">
+          <h5>Cargar tiempos</h5>
+        </div>
+        <div class="col-2">
+          <strong>Categoría: </strong>  {{ tabla[0].categoria }}
+        </div>
+        <div class="col-2">
+          <strong>Genero: </strong> {{ tabla[0].genero }}
+        </div>
+        <div class="col-2">
+          <strong>Distancia: </strong> {{ tabla[0].distancia }}
+        </div>
+
+        <div class="col-2">
+          <button class="btn btn-block btn-primary" (click)="onSave()">
+            <i class="fa fa-save "></i> Guardar
+          </button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-block btn-secondary" (click)="goBack()">
+              <i class="fa fa-undo "></i> Cancelar
+            </button>
+          </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th> Palista </th>
+        <th> Club </th>
+        <th> Tiempo </th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let registro of tabla; let i=index">
+        <td> {{ registro.palista }} </td>
+        <td> {{ registro.club }} </td>
+        <td> <input type="text" class="form-control" [(ngModel)]="tabla[i].tiempo"> </td>
+      </tr>
+    </tbody>
+  
+  </table>

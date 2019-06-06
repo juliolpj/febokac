@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { CarreraI } from 'src/app/models/carrera';
+import { CarreraI, DetalleCarreraI } from 'src/app/models/carrera';
 import { Observable, from, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
@@ -94,5 +94,11 @@ export class CarrerasService {
   addDetalleCarrerasLS$(tabla ) {
     localStorage.setItem('detalleCcarreras', JSON.stringify(tabla));
     return from(tabla);
+  }
+
+  getDetalleCarreraLS$(id: string): Observable<DetalleCarreraI[]> {
+    const carreras: DetalleCarreraI[] = JSON.parse(localStorage.getItem('detalleCcarreras'));
+    const carrera = carreras.filter( elemento => elemento.idCarrera === id);
+    return of( carrera );
   }
 }
