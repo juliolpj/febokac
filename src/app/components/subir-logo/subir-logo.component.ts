@@ -65,8 +65,6 @@ export class SubirLogoComponent implements OnInit {
   }
 
   onUpload() {
-    console.log('On upload');
-    
     this.storage.upload('febocak/clubes/' + this.id, this.imgFile).snapshotChanges()
     .subscribe(
       data => { 

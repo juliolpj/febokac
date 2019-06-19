@@ -23,18 +23,20 @@
   </div>
 </nav>
 
-<ng-container *ngIf="usuario.rol === 'Administración'">
-  <app-navbar-administracion 
-    [usuario]="usuario" (emitLogout)="onLogout()">
-  </app-navbar-administracion>
-</ng-container>
-<ng-container *ngIf="usuario.rol === 'Competencias'">
-  <app-navbar-competencias 
-    [usuario]="usuario" (emitLogout)="onLogout()">
-  </app-navbar-competencias>
-</ng-container>
-<ng-container *ngIf="usuario.rol === 'Inscripciones'">
-  <app-navbar-inscripciones 
-    [usuario]="usuario" (emitLogout)="onLogout()">
-  </app-navbar-inscripciones>
+<ng-container  *ngIf="!!usuario && !!usuario.rol">
+  <ng-container *ngIf="usuario.rol === 'Administración'">
+    <app-navbar-administracion 
+      [usuario]="usuario" (emitLogout)="onLogout()">
+    </app-navbar-administracion>
+  </ng-container>
+  <ng-container *ngIf="usuario.rol === 'Competencias'">
+    <app-navbar-competencias 
+      [usuario]="usuario" (emitLogout)="onLogout()">
+    </app-navbar-competencias>
+  </ng-container>
+  <ng-container *ngIf="usuario.rol === 'Inscripciones'">
+    <app-navbar-inscripciones 
+      [usuario]="usuario" (emitLogout)="onLogout()">
+    </app-navbar-inscripciones>
+  </ng-container>
 </ng-container>

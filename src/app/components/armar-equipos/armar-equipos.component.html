@@ -1,0 +1,36 @@
+<div class="card mt-3">
+    <div class="card-header d-flex">
+      Armar equipos
+      <a routerLink="/armar-equipos/add" class="text-primary ml-auto">
+        <i class="fa fa-plus-circle fa-2x"></i>
+      </a>
+    </div>
+  </div>
+  
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th> Genero </th>
+        <th> Categoría </th>
+        <th> Distancia </th>
+        <th> Palistas </th>
+        <th> </th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let registro of tabla">
+        <td routerLink="modificar()"> {{ registro.genero }} </td>
+        <td routerLink="modificar()"> {{ registro.categoria }} </td>
+        <td routerLink="modificar()"> {{ registro.distancia }} </td>
+        <td routerLink="modificar()"> {{ registro.palista1 + ', ' + registro.palista2 + ', ' + 
+                                         registro.palista3 + ', ' + registro.palista4 }} </td>
+        <td class="text-center">
+          <a routerLink="/armar-equipos/delete/{{registro.id}}" class="text-danger">
+            <i class="fa fa-minus-circle fa-2x"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  
+  </table>

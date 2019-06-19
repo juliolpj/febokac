@@ -53,7 +53,6 @@ export class FPalistasComponent implements OnInit {
   }
 
   setTblClubes() {
-    console.log('SetClubes usuario',this.usuario);
     if (this.usuario.club && this.usuario.club != 'FeBoCaK') {
       this.tblClubes.push(this.usuario.club);
     } else { 
@@ -169,7 +168,6 @@ export class FPalistasComponent implements OnInit {
   }
 
   buscarCategoria(fecha: string, genero: string) {
-    console.log('buscarCategoria', this.categorias);
     
     const año = parseInt( fecha.substring(0,4));
     if (!año || año < 1900) {
