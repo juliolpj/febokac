@@ -6,7 +6,7 @@ import { MensajesService } from 'src/app/services/mensajes.service';
 @Component({
   selector: 'app-clubes',
   templateUrl: './clubes.component.html',
-  styleUrls: ['./clubes.component.css']
+  styles: ['']
 })
 export class ClubesComponent implements OnInit {
   tblOrden = {dni: 0, nombre: 0, fnacimiento:0};

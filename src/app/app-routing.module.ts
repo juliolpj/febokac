@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { AuthGuard } from './guards/auth.guard';
+import { AuthLocalGuard } from './guards/authLocal.guard';
+
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -24,11 +28,14 @@ import { FCompetenciasComponent } from './components/competencias/f-competencias
 import { ConsolaComponent } from './components/consola/consola.component';
 import { DownloadComponent } from './pruebas/download/download.component';
 import { ImportarComponent } from './components/mcompetencia/importar/importar.component';
-
-import { AuthGuard } from './guards/auth.guard';
 import { GenerarCarrerasComponent } from './components/mcompetencia/generar-carreras/generar-carreras.component';
 import { CargarTiemposComponent } from './components/mcompetencia/cargar-tiempos/cargar-tiempos.component';
 import { DetalleComponent } from './components/mcompetencia/cargar-tiempos/detalle/detalle.component';
+import { InicializarCompetenciaComponent } from './components/mcompetencia/inicializar-competencia/inicializar-competencia.component';
+import { RedireccionarLoginComponent } from './components/mcompetencia/redireccionar-login/redireccionar-login.component';
+import { ArmarEquiposComponent } from './components/armar-equipos/armar-equipos.component';
+import { FArmarEquiposComponent } from './components/armar-equipos/f-armar-equipos/f-armar-equipos.component';
+import { FlatComponent } from './pruebas/ProgramacionFuncional/flat/flat.component';
 
 const competenciasRutas = [
   { path: 'competencias/palistas', component: PalistasComponent, canActivate: [AuthGuard] },
@@ -39,8 +46,15 @@ const competenciasRutas = [
 const routes: Routes = [
   // { path: 'prueba', component: MockGuardarComponent },
   // { path: 'pruebas/download', component: DownloadComponent },
+  { path: 'flat', component: FlatComponent},
+  { path: 'redireccionar-login', component: RedireccionarLoginComponent },
+  { path: 'inicializar-competencia', component: InicializarCompetenciaComponent },
   ...competenciasRutas,
-  { path: 'importar-inscripciones', component: ImportarComponent, canActivate: [AuthGuard] },
+  { path: 'armar-equipos', component: ArmarEquiposComponent, canActivate: [AuthGuard] },
+    { path: 'armar-equipos/add', component: FArmarEquiposComponent, canActivate: [AuthGuard] },
+    { path: 'armar-equipos/edit/:id', component: FArmarEquiposComponent, canActivate: [AuthGuard] },
+    { path: 'armar-equipos/delete/:id', component: FArmarEquiposComponent, canActivate: [AuthGuard] },
+  { path: 'importar-inscripciones', component: ImportarComponent },
   { path: 'generar-carreras', component: GenerarCarrerasComponent, canActivate: [AuthGuard] },
   { path: 'cargar-tiempos', component: CargarTiemposComponent, canActivate: [AuthGuard]},
   { path: 'cargar-tiempos/detalle/:id', component: DetalleComponent, canActivate: [AuthGuard]},
@@ -79,7 +93,7 @@ const routes: Routes = [
     { path: 'inscripciones/add', component: FInscripcionesComponent, canActivate: [AuthGuard] },
     { path: 'inscripciones/edit/:id', component: FInscripcionesComponent, canActivate: [AuthGuard] },
     { path: 'inscripciones/delete/:id', component: FInscripcionesComponent, canActivate: [AuthGuard] },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent, canActivate: [AuthLocalGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 ];

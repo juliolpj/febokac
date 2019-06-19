@@ -5,3 +5,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+/* Cambiar el color de fondo a los item de menú */
+.dropdown-item:hover {
+  background-color: rgba(50, 115, 220, 0.3);
+}

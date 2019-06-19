@@ -32,6 +32,7 @@ export class UsuariosService {
   }
 
   getUsuarioByEmail$(email: string) {
+    console.log('getUsuarioByEmail');
     return this.afs.collection<UserI>("users", ref => ref.where('email', '==', email)).valueChanges()
       .pipe( flatMap( data => data) );
   }

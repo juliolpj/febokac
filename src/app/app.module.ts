@@ -46,6 +46,11 @@ import { NavbarAdministracionComponent } from './components/navbar/navbar-admini
 import { GenerarCarrerasComponent } from './components/mcompetencia/generar-carreras/generar-carreras.component';
 import { CargarTiemposComponent } from './components/mcompetencia/cargar-tiempos/cargar-tiempos.component';
 import { DetalleComponent } from './components/mcompetencia/cargar-tiempos/detalle/detalle.component';
+import { InicializarCompetenciaComponent } from './components/mcompetencia/inicializar-competencia/inicializar-competencia.component';
+import { RedireccionarLoginComponent } from './components/mcompetencia/redireccionar-login/redireccionar-login.component';
+import { ArmarEquiposComponent } from './components/armar-equipos/armar-equipos.component';
+import { FArmarEquiposComponent } from './components/armar-equipos/f-armar-equipos/f-armar-equipos.component';
+import { FlatComponent } from './pruebas/ProgramacionFuncional/flat/flat.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +88,12 @@ import { DetalleComponent } from './components/mcompetencia/cargar-tiempos/detal
     NavbarAdministracionComponent,
     GenerarCarrerasComponent,
     CargarTiemposComponent,
-    DetalleComponent
+    DetalleComponent,
+    InicializarCompetenciaComponent,
+    RedireccionarLoginComponent,
+    ArmarEquiposComponent,
+    FArmarEquiposComponent,
+    FlatComponent
   ],
   imports: [
     BrowserModule,

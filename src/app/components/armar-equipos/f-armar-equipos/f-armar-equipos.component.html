@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
+  
+      <div class="card mt-3">
+        <div class="card-header" [ngClass]="cardHeaderStyle">
+          {{ titulo + " equipos" }}
+        </div>
+  
+        <div class="card-body">
+          <form [formGroup]="miForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="genero" class="control-label"> Genero </label>
+                  <select formControlName="genero" required
+                    (change)="onChangeGenero(genero.value)"
+                    [class.is-invalid]="genero.invalid && genero.touched" class="custom-select" > 
+                    <option value="genero"></option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                  </select>
+                  <small class="text-danger" [class.d-none]="genero.untouched || !genero.hasError('required')">El genero es requerido</small>
+                  <small class="text-danger" [class.d-none]="genero.untouched || !genero.hasError('invalidGenero')">Seleccione el genero</small>
+                </div>
+              </div>
+              
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="categoria" class="control-label"> Categoría </label>
+                  <select formControlName="categoria" required
+                    (change)="onChangeCategoria(genero.value, categoria.value)"
+                    [class.is-invalid]="categoria.invalid && categoria.touched" class="custom-select">
+                    <option value="categoria"></option>
+                    <option *ngFor="let registro of tblCategorias" >{{ registro }}</option>
+                  </select>
+                  <small class="text-danger" [class.d-none]="categoria.untouched || !categoria.hasError('required')">La Categoría es requerida</small>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="distancia" class="control-label"> Distancia </label>
+                  <select formControlName="distancia" required
+                    (change)="onChangeDistancia(genero.value, categoria.value, distancia.value)"
+                    [class.is-invalid]="distancia.invalid && distancia.touched" class="custom-select">
+                    <option value="distancia"></option>
+                    <option *ngFor="let registro of tblDistancias" >{{ registro }}</option>
+                  </select>
+                  <small class="text-danger" [class.d-none]="distancia.untouched || !distancia.hasError('required')">La Categoría es requerida</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="palista1" class="control-label"> Palista </label>
+              <select formControlName="palista1" required
+                (change)="onChangePalista1(palista1.value)"
+                [class.is-invalid]="palista1.invalid && palista1.touched" class="custom-select">
+                <option value="palista1"></option>
+                <option *ngFor="let registro of tblInscripciones" >{{ registro }}</option>
+              </select>
+              <small class="text-danger" [class.d-none]="palista1.untouched || !palista1.hasError('required')">El palista es requerido</small>
+            </div>
+
+            <div class="form-group">
+              <select formControlName="palista2" required
+                (change)="onChangePalista2(palista2.value)"
+                [class.is-invalid]="palista2.invalid && palista2.touched" class="custom-select">
+                <option value="palista2"></option>
+                <option *ngFor="let registro of tblInscripciones2" >{{ registro }}</option>
+              </select>
+              <small class="text-danger" [class.d-none]="palista2.untouched || !palista2.hasError('required')">El palista es requerido</small>
+            </div>
+
+            <ng-container *ngIf="titulo === 'Eliminar' || distancia.value.substr(0,2) === 'K4'">
+              <div class="form-group">
+                <select formControlName="palista3" required
+                  (change)="onChangePalista3(palista3.value)"
+                  [class.is-invalid]="palista3.invalid && palista3.touched" class="custom-select">
+                  <option value="palista3"></option>
+                  <option *ngFor="let registro of tblInscripciones3" >{{ registro }}</option>
+                </select>
+                <small class="text-danger" [class.d-none]="palista3.untouched || !palista3.hasError('required')">El palista es requerido</small>
+              </div>
+              <div class="form-group">
+                <select formControlName="palista4" required
+                  [class.is-invalid]="palista4.invalid && palista4.touched" class="custom-select">
+                  <option value="palista4"></option>
+                  <option *ngFor="let registro of tblInscripciones4" >{{ registro }}</option>
+                </select>
+                <small class="text-danger" [class.d-none]="palista4.untouched || !palista4.hasError('required')">El palista es requerido</small>
+              </div>
+            </ng-container>
+            
+
+            <div class="row">
+              <div class="col-6">
+                <button [disabled]="!miForm.valid && titulo !== 'Eliminar'"
+                  [ngClass]="titulo==='Eliminar' ? 'btn-danger' : 'btn-primary'"
+                  type="submit" class="btn btn-block">
+                  {{ titulo === 'Eliminar' ? 'Eliminar' : 'Aceptar' }}
+                </button>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-secondary btn-block" (click)="goBack()">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+  
+          </form>
+  
+        </div>
+      </div>
+  
+    </div>
+  </div>

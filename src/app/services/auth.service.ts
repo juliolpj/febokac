@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 
-import { from, combineLatest, BehaviorSubject, Observable } from "rxjs";
+import { from, combineLatest, BehaviorSubject, Observable, of } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
 import { UserI } from "src/app/models/user";
@@ -20,9 +20,13 @@ export class AuthService {
   }
 
   getUser(): UserI {
-    let usuario = JSON.parse(sessionStorage.getItem('currentUser'));
-    
-    return !!usuario ? usuario : {};
+    let usuario = {};
+    let strUsuario = sessionStorage.getItem('currentUser');
+    if (strUsuario !== null && strUsuario !== 'undefined') {
+      usuario = JSON.parse(strUsuario);
+    }
+   
+    return usuario;
   }
 
   getUser$(): Observable<UserI> {
@@ -44,6 +48,13 @@ export class AuthService {
            );
     return combinado$;
   
+  }
+
+  loginLocal$(email: string, password:string) {
+    const usuarios = JSON.parse(localStorage.getItem('users'));
+    const usuario = usuarios.find(elemento => elemento.email === email && elemento.password === password);
+    this.setAndSendUsuario(usuario);
+    return of(usuario);
   }
 
   logoutUser() {
