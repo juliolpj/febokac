@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { map, tap } from 'rxjs/operators';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ExportarService } from 'src/app/services/exportar.service';
 import { merge } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { CompetenciaI } from 'src/app/models/competencia';
 
 @Component({
   selector: 'app-modal-download',
@@ -9,6 +12,7 @@ import { merge } from 'rxjs';
   styles: []
 })
 export class ModalDownloadComponent implements OnInit {
+  @Input() competencia: CompetenciaI;
   @ViewChild('btCloseDownload') btClose: ElementRef;
   @ViewChild('aDownload') aDownload: ElementRef;
   @Output() emitExportar = new EventEmitter<string>();
@@ -46,7 +50,14 @@ export class ModalDownloadComponent implements OnInit {
     const distancias$ = this.exportarService.getDistancias$();
     nombres.push('distancias');
 
-    const competencias$ = this.exportarService.getCompetencias$();
+    console.log(this.competencia);
+    const competencias$ = this.exportarService.getCompetencias$().pipe(
+      map( data => data.filter( elemento => elemento.club === this.competencia.club &&
+                                elemento.competencia === this.competencia.competencia &&
+                                elemento.desde === this.competencia.desde &&
+                                elemento.hasta === this.competencia.hasta))
+    );
+
     nombres.push('competencias');
     const consola$ = this.exportarService.getConsola$();
     nombres.push('consola');
@@ -54,7 +65,10 @@ export class ModalDownloadComponent implements OnInit {
     nombres.push('inscripciones');
     const palistas$ = this.exportarService.getPalistas$();
     nombres.push('palistas');
-    const users$ = this.exportarService.getUsers$();
+
+    const users$ = this.exportarService.getUsers$().pipe(
+      map(data => data.filter( usuario => usuario.rol === 'Competencias'))
+    );
     nombres.push('users');
 
     const result$ = merge(categorias$, clubes$, distancias$, competencias$, consola$, inscripciones$, palistas$, users$);
@@ -66,7 +80,6 @@ export class ModalDownloadComponent implements OnInit {
         if (contador == nombres.length) {
           jsonData = jsonData + '}';
           this.downloadJsonHref = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(jsonData));
-          console.log('jsonData', jsonData);
           this.mensaje = 'Preparación finalizada';
           this.preparacionStatus = 2;
         } else {
