@@ -10,3 +10,9 @@
 .dropdown-item:hover {
   background-color: rgba(50, 115, 220, 0.3);
 }
+
+.swal-modal {
+ position: absolute;
+ top: 5%;
+ right: 5%;
+}

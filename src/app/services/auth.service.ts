@@ -25,7 +25,7 @@ export class AuthService {
     if (strUsuario !== null && strUsuario !== 'undefined') {
       usuario = JSON.parse(strUsuario);
     }
-   
+    
     return usuario;
   }
 
@@ -38,7 +38,9 @@ export class AuthService {
   
   login$(email: string, password:string) {
     const fsSignIn$ = from(this.afAuth.auth.signInWithEmailAndPassword(email, password))
-      .pipe( map( data => data.user.email) );
+      .pipe(
+        tap( data => console.log("TCL: AuthService -> data", data.user)),
+        map( data => data.user.email) );
     
     const usuario$ = this.usuariosService.getUsuarioByEmail$(email);
     

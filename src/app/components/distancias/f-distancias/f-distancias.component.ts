@@ -4,10 +4,10 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { MensajesService } from 'src/app/services/mensajes.service';
 import { DistanciasService } from 'src/app/services/distancias.service';
 import { DistanciaI } from 'src/app/models/distancia';
 import { map } from 'rxjs/operators';
+import { MsgService } from 'src/app/services/msg.service';
 
 @Component({
   selector: 'app-f-distancias',
@@ -23,15 +23,14 @@ export class FDistanciasComponent implements OnInit {
 
   constructor(
     public dataService: DistanciasService, 
-    public fb: FormBuilder,      
-    private msgService: MensajesService,
+    public fb: FormBuilder,
+    private msg: MsgService,      
     private location: Location, 
     private actRoute: ActivatedRoute,
     private router: Router) {
   }
 
   ngOnInit() {
-    this.msgService.clearMessages();
     this.buildForm();
     this.setState();
   }
@@ -96,24 +95,24 @@ export class FDistanciasComponent implements OnInit {
   
   aceptarAgregar() {
     this.dataService.addRecord$(this.miForm.value).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['distancia'].value + ' Agregado satisfactoriamente'),
-      error => this.msgService.sendMessage('Error al agregar los datos: ' + error.statusText, 'alert-danger'),
+      data => this.msg.ok(this.miForm.controls['distancia'].value + ' Agregado satisfactoriamente'),
+      error => this.msg.error('Error al agregar los datos: ' + error.statusText),
       () => this.router.navigate(['distancias'])
     );
   }
 
   aceptarEditar() {
     this.dataService.updateRecord$(this.id, this.miForm.value).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['distancia'].value + ' Actualizado satisfactoriamente'),
-      error => this.msgService.sendMessage('Error al actualizar los datos: ' + error.statusText, 'alert-danger'),
+      data => this.msg.ok(this.miForm.controls['distancia'].value + ' Actualizado satisfactoriamente'),
+      error => this.msg.error('Error al actualizar los datos: ' + error.statusText),
       () => this.router.navigate(['distancias'])
     );
   }
 
   aceptarEliminar() {
     this.dataService.deleteRecord$(this.id).subscribe(
-      data => this.msgService.sendMessage(this.miForm.controls['distancia'].value + ' Eliminado satisfactoriamente'),
-      error => this.msgService.sendMessage('Error al eliminar los datos: ' + error.statusText, 'alert-danger'),
+      data => this.msg.ok(this.miForm.controls['distancia'].value + ' Eliminado satisfactoriamente'),
+      error => this.msg.error('Error al eliminar los datos: ' + error.statusText),
       () => this.router.navigate(['distancias'])
     );
   }
