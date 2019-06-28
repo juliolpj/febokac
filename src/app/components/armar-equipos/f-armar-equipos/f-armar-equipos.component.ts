@@ -136,7 +136,6 @@ export class FArmarEquiposComponent implements OnInit {
         console.log(this.miForm.controls.palista1.valid);
         console.log(this.miForm.controls.palista2.valid);
         console.log(this.miForm.controls.palista3.valid);
-        console.log(this.miForm.controls.palista4);
       }
     );
     
@@ -213,9 +212,8 @@ export class FArmarEquiposComponent implements OnInit {
 
   onChangeDistancia(genero, categoria, distancia) {
     this.tblInscripciones = this.inscripciones
-                          .filter( elemento => 
-                            elemento.genero === genero && elemento.categoria === categoria && elemento.distancia === distancia)
-                          .map( palista => palista.palista);
+      .filter( elemento => elemento.genero === genero && elemento.categoria === categoria && elemento.distancia === distancia)
+      .map( palista => palista.palista);
     this.tblInscripciones2 = this.tblInscripciones.slice();
     this.miForm.controls.palista1.setValue('');
     this.miForm.controls.palista2.setValue('');
@@ -225,7 +223,7 @@ export class FArmarEquiposComponent implements OnInit {
     }
     else if (this.miForm.controls.palista3) {
       this.miForm.removeControl('palista3');
-      this.miForm.removeControl('palista4s');
+      this.miForm.removeControl('palista4');
     }              
   }
 
@@ -241,6 +239,10 @@ export class FArmarEquiposComponent implements OnInit {
   }
 
   onChangePalista2(palista) {
+    console.log(this.miForm.controls);
+    if (this.miForm.controls.distancia.value.substr(0,2) !== 'K4') {
+      return ;
+    }
     this.tblInscripciones3 = this.tblInscripciones2.slice();
     if (palista) {
       const indice = this.tblInscripciones3.indexOf(palista);
@@ -249,6 +251,7 @@ export class FArmarEquiposComponent implements OnInit {
       }
       this.miForm.controls.palista3.setValue('');                          
     }
+
   }
 
   onChangePalista3(palista) {

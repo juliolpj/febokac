@@ -51,7 +51,6 @@ export class GenerarCarrerasService {
         
       }
     }
-    console.log('flatInscripciones', arr)
     return arr;
   }
 
