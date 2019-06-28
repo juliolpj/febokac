@@ -1,0 +1,85 @@
+<div id="modalFiltro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Filtro </h5>
+        <button #btClose type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form [formGroup]="miForm" (ngSubmit)="onSubmit()">
+ 
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="genero" class="control-label"> Genero </label>
+                <select formControlName="genero"
+                  [class.is-invalid]="genero.invalid && genero.touched" class="custom-select">
+                  <option value=""></option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                  </select>
+                  <small class="text-danger" [class.d-none]="genero.valid || genero.untouched">El genero es requerido</small>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="form-group">
+                <label for="categoria" class="control-label"> Categoría </label>
+                <select formControlName="categoria"
+                  [class.is-invalid]="(categoria.invalid && categoria.touched)"class="custom-select"> 
+                  <option value=""></option>
+                  <option *ngFor="let registro of tblCategorias" >{{ registro.categoria }}</option>
+                </select>
+                <small class="text-danger" [class.d-none]="categoria.valid || categoria.untouched">La categoría es requerida</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="distancia" class="control-label"> Distancia </label>
+                <select formControlName="distancia" 
+                  [class.is-invalid]="distancia.invalid && distancia.touched" class="custom-select">
+                  <option value=""></option>
+                  <option *ngFor="let registro of tblDistancias" >{{ registro.embarcacion + ' ' + registro.distancia }}</option>
+                </select>
+                <small class="text-danger" [class.d-none]="distancia.untouched || !distancia.hasError('required')">La distancia es requerida</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="club" class="control-label"> Club </label>
+            <select formControlName="club" 
+              [class.is-invalid]="club.invalid && club.touched" class="custom-select">
+              <option value=""></option>
+              <option *ngFor="let registro of tblClubes" >{{ registro.nombre }}</option>
+            </select>
+            <small class="text-danger" [class.d-none]="club.untouched || !club.hasError('required')">El club es requerido</small>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <button [disabled]="!miForm.valid" 
+                type="submit" class="btn btn-block btn-primary" (click)="consultar()">
+                Aceptar
+              </button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-secondary btn-block" (click)="cancelar()">
+                Cancelar
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

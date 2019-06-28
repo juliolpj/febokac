@@ -35,6 +35,25 @@ export class InscripcionesService {
     }));
   }
 
+  queryRecords$(inscripciones: InscripcionI[], objConsulta) {
+    console.log("TCL: InscripcionesService -> objConsulta", objConsulta)
+    let resultado = [...inscripciones];
+
+    if (objConsulta.club) {
+      resultado = resultado.filter( elemento => elemento.club === objConsulta.club);
+    }
+    if (objConsulta.categoria) {
+      resultado = resultado.filter( elemento => elemento.categoria === objConsulta.categoria);
+    }
+    if (objConsulta.genero) {
+      resultado = resultado.filter( elemento => elemento.genero === objConsulta.genero);
+    }
+    if (objConsulta.distancia) {
+      resultado = resultado.filter( elemento => elemento.distancia.includes( objConsulta.distancia));
+    }
+    return resultado;
+  }
+
   getRecord$(id: string): Observable<InscripcionI> {
     return this.afs.doc<InscripcionI>(`inscripciones/${id}`).valueChanges();
   }

@@ -36,6 +36,7 @@ import { RedireccionarLoginComponent } from './components/mcompetencia/redirecci
 import { ArmarEquiposComponent } from './components/armar-equipos/armar-equipos.component';
 import { FArmarEquiposComponent } from './components/armar-equipos/f-armar-equipos/f-armar-equipos.component';
 import { FlatComponent } from './pruebas/ProgramacionFuncional/flat/flat.component';
+import { ConsultarInscripcionesComponent } from './components/inscripciones/consultar-inscripciones/consultar-inscripciones.component';
 
 const competenciasRutas = [
   { path: 'competencias/palistas', component: PalistasComponent, canActivate: [AuthGuard] },
@@ -46,6 +47,7 @@ const competenciasRutas = [
 const routes: Routes = [
   // { path: 'prueba', component: MockGuardarComponent },
   // { path: 'pruebas/download', component: DownloadComponent },
+  { path: 'consultar-inscripciones', component: ConsultarInscripcionesComponent, canActivate: [AuthGuard]},
   { path: 'flat', component: FlatComponent},
   { path: 'redireccionar-login', component: RedireccionarLoginComponent },
   { path: 'inicializar-competencia', component: InicializarCompetenciaComponent },

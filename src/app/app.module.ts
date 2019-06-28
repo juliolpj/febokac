@@ -51,6 +51,8 @@ import { RedireccionarLoginComponent } from './components/mcompetencia/redirecci
 import { ArmarEquiposComponent } from './components/armar-equipos/armar-equipos.component';
 import { FArmarEquiposComponent } from './components/armar-equipos/f-armar-equipos/f-armar-equipos.component';
 import { FlatComponent } from './pruebas/ProgramacionFuncional/flat/flat.component';
+import { ConsultarInscripcionesComponent } from './components/inscripciones/consultar-inscripciones/consultar-inscripciones.component';
+import { FiltroComponent } from './components/inscripciones/consultar-inscripciones/filtro.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,9 @@ import { FlatComponent } from './pruebas/ProgramacionFuncional/flat/flat.compone
     RedireccionarLoginComponent,
     ArmarEquiposComponent,
     FArmarEquiposComponent,
-    FlatComponent
+    FlatComponent,
+    ConsultarInscripcionesComponent,
+    FiltroComponent
   ],
   imports: [
     BrowserModule,

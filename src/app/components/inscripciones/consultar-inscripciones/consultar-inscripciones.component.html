@@ -1,0 +1,40 @@
+<div class="card mt-3">
+  <div class="card-header d-flex">
+    Consultar inscripciones
+    <button class="btn btn-primary ml-auto" data-toggle="modal" data-target="#modalFiltro" >
+      <i class="fa fa-filter fa-2x"></i> Filtrar
+    </button>
+  </div>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>DNI </th>
+      <th>Nombre </th>
+      <th>Genero</th>
+      <th>Club</th>
+      <th>Categoría</th>
+      <th>Carrera</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let registro of tabla">
+      <td routerLink="/inscripciones/edit/{{registro.id}}"> {{ registro.dni }} </td>
+      <td routerLink="/inscripciones/edit/{{registro.id}}"> {{ registro.palista }} </td>
+      <td routerLink="/inscripciones/edit/{{registro.id}}"> {{ registro.genero }} </td>
+      <td routerLink="/inscripciones/edit/{{registro.id}}"> {{ registro.club }} </td>
+      <td routerLink="/inscripciones/edit/{{registro.id}}"> {{ registro.categoria }} </td>
+      <td routerLink="/inscripciones/edit/{{registro.id}}"> {{ registro.distancia }} </td>
+    </tr>
+  </tbody>
+
+</table>
+
+<app-filtro
+  [tblClubes]="tblClubes"
+  [tblCategorias]="tblCategorias"
+  [tblDistancias]="tblDistancias"
+  (emitFiltrar)="filtrarInscripciones($event)"
+></app-filtro>
