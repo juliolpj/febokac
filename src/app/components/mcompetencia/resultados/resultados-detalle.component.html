@@ -1,0 +1,45 @@
+<div class="card mt-3">
+  <div class="card-header">
+    <div class="row">
+
+      <div class="col-2">
+        <h5>Resultados</h5>
+      </div>
+      <div class="col-2">
+        <strong>Categoría: </strong> {{ tabla[0].categoria }}
+      </div>
+      <div class="col-2">
+        <strong>Genero: </strong> {{ tabla[0].genero }}
+      </div>
+      <div class="col-2">
+        <strong>Distancia: </strong> {{ tabla[0].distancia }}
+      </div>
+
+      <div class="offset-2 col-2">
+        <button class="btn btn-block btn-secondary" (click)="goBack()">
+          <i class="fa fa-arrow-circle-left fa-2x"></i> Regresar
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th> Palista </th>
+      <th> Club </th>
+      <th> Tiempo </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let registro of tabla; let i=index">
+      <td> {{ registro.palista }} </td>
+      <td> {{ registro.club }} </td>
+      <td> {{ registro.tiempo}} </td>
+    </tr>
+  </tbody>
+
+</table>

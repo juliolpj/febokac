@@ -1,0 +1,14 @@
+Inscripciones en blanco?
+Cuanto me puedo tardar inscribiendo?
+Crear dos palistas más para poder armar equipo de 4.
+- No se pueden armar equipos de 2
+	- Aparece desactivado.
+- Crear usuarios para los clubes que ya tengo.
+	- Con el nombre del club
+- Cargar tiempos
+	- Colocar campo para hora: minutos: segundos :milisegundos
+	- Valor por defecto 00 para todos
+
+- Trabajar en emitir resultados
+- Trabajar en exportar datos de la carrera
+

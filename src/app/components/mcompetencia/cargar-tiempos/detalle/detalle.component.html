@@ -43,7 +43,11 @@
       <tr *ngFor="let registro of tabla; let i=index">
         <td> {{ registro.palista }} </td>
         <td> {{ registro.club }} </td>
-        <td> <input type="text" class="form-control" [(ngModel)]="tabla[i].tiempo"> </td>
+        <td> 
+          <input type="tel" class="form-control" size="8"
+            pattern="[0-9]{2}:[0-9]{2}:[2]{4}"
+            [(ngModel)]="tabla[i].tiempo"> 
+        </td>
       </tr>
     </tbody>
   

@@ -53,6 +53,8 @@ import { FArmarEquiposComponent } from './components/armar-equipos/f-armar-equip
 import { FlatComponent } from './pruebas/ProgramacionFuncional/flat/flat.component';
 import { ConsultarInscripcionesComponent } from './components/inscripciones/consultar-inscripciones/consultar-inscripciones.component';
 import { FiltroComponent } from './components/inscripciones/consultar-inscripciones/filtro.component';
+import { ResultadosComponent } from './components/mcompetencia/resultados/resultados.component';
+import { ResultadosDetalleComponent } from './components/mcompetencia/resultados/resultados-detalle.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +99,9 @@ import { FiltroComponent } from './components/inscripciones/consultar-inscripcio
     FArmarEquiposComponent,
     FlatComponent,
     ConsultarInscripcionesComponent,
-    FiltroComponent
+    FiltroComponent,
+    ResultadosComponent,
+    ResultadosDetalleComponent
   ],
   imports: [
     BrowserModule,
