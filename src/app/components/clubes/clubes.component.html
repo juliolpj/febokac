@@ -10,18 +10,8 @@
 <table class="table table-bordered table-hover">
 <thead>
   <tr>
-    <th [ngClass]="{'text-primary': tblOrden.nombre !== 0, 'text-scondary': tblOrden.nombre == 0 }">
-      <a (click)="ordenar('nombre')" >
-          <i [ngClass]="{'fa-arrow-up': tblOrden.nombre == 1, 
-          'fa-arrow-down': tblOrden.nombre ==2 }" class="fa" ></i>&nbsp; Nombre</a>
-    </th>
-   
-    <th [ngClass]="{'text-primary': tblOrden.descripcion !== 0, 'text-scondary': tblOrden.descripcion == 0 }">
-       <a (click)="ordenar('descripcion')" >
-         <i [ngClass]="{'fa-arrow-up': tblOrden.descripcion == 1, 
-                        'fa-arrow-down': tblOrden.descripcion ==2 }" class="fa" ></i>&nbsp; Descripción</a>
-    </th>
-
+    <th>Nombre</th>
+    <th>Descripción</th>
     <th>Logo</th>
     <th> </th>
   </tr>
