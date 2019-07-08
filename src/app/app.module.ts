@@ -43,7 +43,7 @@ import { ImportarComponent } from './components/mcompetencia/importar/importar.c
 import { NavbarCompetenciasComponent } from './components/navbar/navbar-competencias/navbar-competencias.component';
 import { NavbarInscripcionesComponent } from './components/navbar/navbar-inscripciones/navbar-inscripciones.component';
 import { NavbarAdministracionComponent } from './components/navbar/navbar-administracion/navbar-administracion.component';
-import { GenerarCarrerasComponent } from './components/mcompetencia/generar-carreras/generar-carreras.component';
+import { GenerarSeriesComponent } from './components/mcompetencia/generar-series/generar-series.component';
 import { CargarTiemposComponent } from './components/mcompetencia/cargar-tiempos/cargar-tiempos.component';
 import { DetalleComponent } from './components/mcompetencia/cargar-tiempos/detalle/detalle.component';
 import { InicializarCompetenciaComponent } from './components/mcompetencia/inicializar-competencia/inicializar-competencia.component';
@@ -55,6 +55,8 @@ import { ConsultarInscripcionesComponent } from './components/inscripciones/cons
 import { FiltroComponent } from './components/inscripciones/consultar-inscripciones/filtro.component';
 import { ResultadosComponent } from './components/mcompetencia/resultados/resultados.component';
 import { ResultadosDetalleComponent } from './components/mcompetencia/resultados/resultados-detalle.component';
+import { AsignarNumeroComponent } from './components/mcompetencia/asignar-numero/asignar-numero.component';
+import { AsignarNumeroDetalleComponent } from './components/mcompetencia/asignar-numero/asignar-numero-detalle.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,7 @@ import { ResultadosDetalleComponent } from './components/mcompetencia/resultados
     NavbarCompetenciasComponent,
     NavbarInscripcionesComponent,
     NavbarAdministracionComponent,
-    GenerarCarrerasComponent,
+    GenerarSeriesComponent,
     CargarTiemposComponent,
     DetalleComponent,
     InicializarCompetenciaComponent,
@@ -101,7 +103,9 @@ import { ResultadosDetalleComponent } from './components/mcompetencia/resultados
     ConsultarInscripcionesComponent,
     FiltroComponent,
     ResultadosComponent,
-    ResultadosDetalleComponent
+    ResultadosDetalleComponent,
+    AsignarNumeroComponent,
+    AsignarNumeroDetalleComponent
   ],
   imports: [
     BrowserModule,

@@ -3,11 +3,11 @@ import { SeriesService } from 'src/app/services/series.service';
 import { SerieI } from 'src/app/models/serie';
 
 @Component({
-  selector: 'app-resultados',
-  templateUrl: './resultados.component.html',
+  selector: 'app-asignar-numero',
+  templateUrl: './asignar-numero.component.html',
   styles: []
 })
-export class ResultadosComponent implements OnInit {
+export class AsignarNumeroComponent implements OnInit {
   tabla: SerieI[];
 
   constructor(private dataService: SeriesService) {

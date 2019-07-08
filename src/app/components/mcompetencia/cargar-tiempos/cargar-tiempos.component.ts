@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CarrerasService } from 'src/app/services/carreras.service';
-import { CarreraI } from 'src/app/models/carrera';
+import { SeriesService } from 'src/app/services/series.service';
+import { SerieI } from 'src/app/models/serie';
 
 @Component({
   selector: 'app-cargar-tiempos',
@@ -8,9 +8,9 @@ import { CarreraI } from 'src/app/models/carrera';
   styles: []
 })
 export class CargarTiemposComponent implements OnInit {
-  tabla: CarreraI[];
+  tabla: SerieI[];
 
-  constructor(private dataService: CarrerasService) {
+  constructor(private dataService: SeriesService) {
 
   }
 
@@ -20,7 +20,7 @@ export class CargarTiemposComponent implements OnInit {
 
   getRecords() {
     this.dataService.getRecords$().subscribe(
-      (data: CarreraI[]) => {
+      (data: SerieI[]) => {
         this.tabla = data;
       }
     );

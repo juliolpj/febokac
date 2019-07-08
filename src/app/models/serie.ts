@@ -1,13 +1,16 @@
-export interface CarreraI {
+export interface SerieI {
     id?: string;
     genero?: string;
     categoria?: string;
     embarcacion?: string;
     distancia?: string;
+    cantidad?: string;
 }
-export interface DetalleCarreraI {
+export interface DetalleSerieI {
     id?: string;
-    idCarrera?: string;
+    idSerie?: string;
+    numero?: string;
+    carril?: string;
     dni?: string;
     palista?: string;
     apellido?: string;

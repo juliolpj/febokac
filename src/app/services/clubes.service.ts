@@ -18,7 +18,7 @@ export class ClubesService {
   }
 
   getRecords$() {
-    this.collection = this.afs.collection<ClubI>('clubes');
+    this.collection = this.afs.collection<ClubI>('clubes', ref => ref.orderBy('nombre'));
     return this.clubes = this.collection.snapshotChanges()
     .pipe( map( changes => {
       return changes.map( action => {
