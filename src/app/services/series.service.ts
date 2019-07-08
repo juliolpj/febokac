@@ -105,7 +105,10 @@ export class SeriesService {
 
   getDetalleSerieLS$(id: string): Observable<DetalleSerieI[]> {
     const series: DetalleSerieI[] = JSON.parse(localStorage.getItem('detalleSeries'));
-    const serie = series.filter( elemento => elemento.idSerie === id);
+    let serie = series.filter( elemento => elemento.idSerie === id)
+    console.log("TCL: SeriesService -> serie", serie)
+    serie = serie.sort((a, b) => parseInt(a.carril) - parseInt(b.carril) < 0 ? -1 : 0);
+    console.log("TCL: SeriesService -> serie", serie)
     return of( serie );
   }
 }
