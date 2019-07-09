@@ -46,7 +46,7 @@ export class DetalleComponent implements OnInit {
   }
 
   onSave() {
-    this.dataService.addDetalleSeriesLS$(this.tabla).subscribe(
+    this.dataService.updateDetalleSeriesLS$(this.id, this.tabla).subscribe(
       data => this.msgService.sendMessage(' Tiempos guardados satisfactoriamente'),
       error => this.msgService.sendMessage('Error al guardar los datos: ' + error.statusText, 'alert-danger'),
       () => this.retornar()

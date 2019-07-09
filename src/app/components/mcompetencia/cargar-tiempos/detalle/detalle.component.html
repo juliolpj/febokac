@@ -48,7 +48,8 @@
         <td> {{ registro.palista }} </td>
         <td> {{ registro.club }} </td>
         <td width="15%"> 
-          <input type="tel" class="form-control" [(ngModel)]="registro.tiempo"> 
+          <input type="tel" class="form-control" [(ngModel)]="registro.tiempo" 
+          [(appTimeFormat)]="registro.tiempo" placeholder="hh:mm:ss.00"> 
         </td>
       </tr>
     </tbody>

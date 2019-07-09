@@ -57,6 +57,7 @@ import { ResultadosComponent } from './components/mcompetencia/resultados/result
 import { ResultadosDetalleComponent } from './components/mcompetencia/resultados/resultados-detalle.component';
 import { AsignarNumeroComponent } from './components/mcompetencia/asignar-numero/asignar-numero.component';
 import { AsignarNumeroDetalleComponent } from './components/mcompetencia/asignar-numero/asignar-numero-detalle.component';
+import { TimeFormatDirective } from './directives/time-format.directive';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { AsignarNumeroDetalleComponent } from './components/mcompetencia/asignar
     ResultadosComponent,
     ResultadosDetalleComponent,
     AsignarNumeroComponent,
-    AsignarNumeroDetalleComponent
+    AsignarNumeroDetalleComponent,
+    TimeFormatDirective
   ],
   imports: [
     BrowserModule,
