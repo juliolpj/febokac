@@ -44,8 +44,7 @@ import { NavbarCompetenciasComponent } from './components/navbar/navbar-competen
 import { NavbarInscripcionesComponent } from './components/navbar/navbar-inscripciones/navbar-inscripciones.component';
 import { NavbarAdministracionComponent } from './components/navbar/navbar-administracion/navbar-administracion.component';
 import { GenerarSeriesComponent } from './components/mcompetencia/generar-series/generar-series.component';
-import { CargarTiemposComponent } from './components/mcompetencia/cargar-tiempos/cargar-tiempos.component';
-import { DetalleComponent } from './components/mcompetencia/cargar-tiempos/detalle/detalle.component';
+import { CargarTiemposComponent } from './components/mcompetencia/series/cargar-tiempos/cargar-tiempos.component';
 import { InicializarCompetenciaComponent } from './components/mcompetencia/inicializar-competencia/inicializar-competencia.component';
 import { RedireccionarLoginComponent } from './components/mcompetencia/redireccionar-login/redireccionar-login.component';
 import { ArmarEquiposComponent } from './components/armar-equipos/armar-equipos.component';
@@ -53,10 +52,9 @@ import { FArmarEquiposComponent } from './components/armar-equipos/f-armar-equip
 import { FlatComponent } from './pruebas/ProgramacionFuncional/flat/flat.component';
 import { ConsultarInscripcionesComponent } from './components/inscripciones/consultar-inscripciones/consultar-inscripciones.component';
 import { FiltroComponent } from './components/inscripciones/consultar-inscripciones/filtro.component';
-import { ResultadosComponent } from './components/mcompetencia/resultados/resultados.component';
-import { ResultadosDetalleComponent } from './components/mcompetencia/resultados/resultados-detalle.component';
-import { AsignarNumeroComponent } from './components/mcompetencia/asignar-numero/asignar-numero.component';
-import { AsignarNumeroDetalleComponent } from './components/mcompetencia/asignar-numero/asignar-numero-detalle.component';
+import { ResultadosComponent } from './components/mcompetencia/series/resultados/resultados.component';
+import { SeriesComponent } from './components/mcompetencia/series/series.component';
+import { AsignarNumeroComponent } from './components/mcompetencia/series/asignar-numero/asignar-numero.component';
 import { TimeFormatDirective } from './directives/time-format.directive';
 
 @NgModule({
@@ -95,7 +93,6 @@ import { TimeFormatDirective } from './directives/time-format.directive';
     NavbarAdministracionComponent,
     GenerarSeriesComponent,
     CargarTiemposComponent,
-    DetalleComponent,
     InicializarCompetenciaComponent,
     RedireccionarLoginComponent,
     ArmarEquiposComponent,
@@ -104,9 +101,8 @@ import { TimeFormatDirective } from './directives/time-format.directive';
     ConsultarInscripcionesComponent,
     FiltroComponent,
     ResultadosComponent,
-    ResultadosDetalleComponent,
+    SeriesComponent,
     AsignarNumeroComponent,
-    AsignarNumeroDetalleComponent,
     TimeFormatDirective
   ],
   imports: [

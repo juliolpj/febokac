@@ -7,11 +7,11 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-detalle',
-  templateUrl: './detalle.component.html',
+  selector: 'app-cargar-tiempos',
+  templateUrl: './cargar-tiempos.component.html',
   styles: []
 })
-export class DetalleComponent implements OnInit {
+export class CargarTiemposComponent implements OnInit {
   titulo = '';
   id = '';
   tabla: DetalleSerieI[];

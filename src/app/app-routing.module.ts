@@ -29,18 +29,16 @@ import { ConsolaComponent } from './components/consola/consola.component';
 import { DownloadComponent } from './pruebas/download/download.component';
 import { ImportarComponent } from './components/mcompetencia/importar/importar.component';
 import { GenerarSeriesComponent } from './components/mcompetencia/generar-series/generar-series.component';
-import { CargarTiemposComponent } from './components/mcompetencia/cargar-tiempos/cargar-tiempos.component';
-import { DetalleComponent } from './components/mcompetencia/cargar-tiempos/detalle/detalle.component';
+import { CargarTiemposComponent } from './components/mcompetencia/series/cargar-tiempos/cargar-tiempos.component';
 import { InicializarCompetenciaComponent } from './components/mcompetencia/inicializar-competencia/inicializar-competencia.component';
 import { RedireccionarLoginComponent } from './components/mcompetencia/redireccionar-login/redireccionar-login.component';
 import { ArmarEquiposComponent } from './components/armar-equipos/armar-equipos.component';
 import { FArmarEquiposComponent } from './components/armar-equipos/f-armar-equipos/f-armar-equipos.component';
 import { FlatComponent } from './pruebas/ProgramacionFuncional/flat/flat.component';
 import { ConsultarInscripcionesComponent } from './components/inscripciones/consultar-inscripciones/consultar-inscripciones.component';
-import { ResultadosComponent } from './components/mcompetencia/resultados/resultados.component';
-import { ResultadosDetalleComponent } from './components/mcompetencia/resultados/resultados-detalle.component';
-import { AsignarNumeroComponent } from './components/mcompetencia/asignar-numero/asignar-numero.component';
-import { AsignarNumeroDetalleComponent } from './components/mcompetencia/asignar-numero/asignar-numero-detalle.component';
+import { ResultadosComponent } from './components/mcompetencia/series/resultados/resultados.component';
+import { SeriesComponent } from './components/mcompetencia/series/series.component';
+import { AsignarNumeroComponent } from './components/mcompetencia/series/asignar-numero/asignar-numero.component';
 
 const competenciasRutas = [
   { path: 'competencias/palistas', component: PalistasComponent, canActivate: [AuthGuard] },
@@ -49,12 +47,10 @@ const competenciasRutas = [
     { path: 'competencias/palistas/delete/:id', component: FPalistasComponent, canActivate: [AuthGuard] },
     { path: 'importar-inscripciones', component: ImportarComponent },
     { path: 'generar-carreras', component: GenerarSeriesComponent, canActivate: [AuthGuard] },
-    { path: 'cargar-tiempos', component: CargarTiemposComponent, canActivate: [AuthGuard]},
-      { path: 'cargar-tiempos/detalle/:id', component: DetalleComponent, canActivate: [AuthGuard]},
-    { path: 'resultados', component: ResultadosComponent, canActivate: [AuthGuard]},
-      { path: 'resultados/detalle/:id', component: ResultadosDetalleComponent, canActivate: [AuthGuard]},
-    { path: 'asignar-numero', component: AsignarNumeroComponent, canActivate: [AuthGuard]},
-      { path: 'asignar-numero/detalle/:id', component: AsignarNumeroDetalleComponent, canActivate: [AuthGuard]},
+    { path: 'series', component: SeriesComponent, canActivate: [AuthGuard]},
+      { path: 'series/asignar-numero/:id', component: AsignarNumeroComponent, canActivate: [AuthGuard]},
+      { path: 'series/cargar-tiempos/:id', component: CargarTiemposComponent, canActivate: [AuthGuard]},
+      { path: 'series/resultados/:id', component: ResultadosComponent, canActivate: [AuthGuard]},
 ];
 const routes: Routes = [
   // { path: 'prueba', component: MockGuardarComponent },
