@@ -5,6 +5,11 @@ export interface SerieI {
     embarcacion?: string;
     distancia?: string;
     cantidad?: string;
+    status?: {
+        asignarNumero: boolean;
+        cargarTiempos: boolean;
+        generarResultados: boolean;
+    }
 }
 export interface DetalleSerieI {
     id?: string;

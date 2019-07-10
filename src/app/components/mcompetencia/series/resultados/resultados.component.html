@@ -1,49 +1,48 @@
-<div class="card mt-3">
-  <div class="card-header">
-    <div class="row">
+<ng-container *ngIf="serie.status.cargarTiempos; else infoMessage">
+  <app-series-header
+    [titulo]="'Resultados'"
+    [serie]="serie"
+    (emitGuardar)="onSave()"
+    (emitCancelar)="goBack()"
+  > </app-series-header>
 
-      <div class="col-2">
-        <h5>Resultados</h5>
-      </div>
-      <div class="col-2">
-        <strong>Categoría: </strong> {{ tabla[0].categoria }}
-      </div>
-      <div class="col-2">
-        <strong>Genero: </strong> {{ tabla[0].genero }}
-      </div>
-      <div class="col-2">
-        <strong>Distancia: </strong> {{ tabla[0].distancia }}
-      </div>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th> Número </th>
+        <th> Carril </th>
+        <th> Palista </th>
+        <th> Club </th>
+        <th> Tiempo </th>
+      </tr>
+    </thead>
 
-      <div class="offset-2 col-2">
-        <button class="btn btn-block btn-secondary" (click)="goBack()">
-          <i class="fa fa-arrow-circle-left fa-2x"></i> Regresar
-        </button>
-      </div>
+    <tbody>
+      <tr *ngFor="let registro of tabla; let i=index">
+        <td width="15%"> {{ registro.numero }} </td>
+        <td width="15%"> {{ registro.carril }} </td>
+        <td> {{ registro.palista }} </td>
+        <td> {{ registro.club }} </td>
+        <td> {{ registro.tiempo}} </td>
+      </tr>
+    </tbody>
+
+  </table>
+</ng-container>
+
+<ng-template #infoMessage>
+  <div class="jumbotron">
+    <h1 class="display-4">Generar Resultados</h1>
+    <p class="lead">
+      No puede generar los resultados de la serie <strong>{{ serie.id }}</strong> porque aún no ha cargado el tiempo de los participantes
+    </p>
+    <hr class="my-4">
+
+    <div class="text-center">
+      <button class="btn btn-lg btn-primary" (click)="goBack()">
+        Regresar <i class="fa fa-arrow-circle-left fa-2x"></i>
+      </button>
     </div>
 
   </div>
-</div>
-
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th> Número </th>
-      <th> Carril </th>
-      <th> Palista </th>
-      <th> Club </th>
-      <th> Tiempo </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let registro of tabla; let i=index">
-      <td width="15%"> {{ registro.numero }} </td>
-      <td width="15%"> {{ registro.carril }} </td>
-      <td> {{ registro.palista }} </td>
-      <td> {{ registro.club }} </td>
-      <td> {{ registro.tiempo}} </td>
-    </tr>
-  </tbody>
-
-</table>
+</ng-template>

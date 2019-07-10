@@ -26,17 +26,17 @@
       <td> {{ registro.distancia }} </td>
       <td> {{ registro.cantidad }} </td>
       <td class="text-center" width="7%" >
-        <a routerLink="/series/asignar-numero/{{registro.id}}" class="text-success">
+        <a routerLink="/series/asignar-numero/{{registro.id}}" [ngClass]="asignarNumeroStatus(registro.status)">
           <i class="fa fa-list-ol fa-2x"></i>
         </a>
       </td>
       <td class="text-center" width="7%" >
-        <a routerLink="/series/cargar-tiempos/{{registro.id}}" class="text-success">
+        <a routerLink="/series/cargar-tiempos/{{registro.id}}" [ngClass]="cargarTiemposStatus(registro.status)">
           <i class="fa fa-clock-o fa-2x"></i>
         </a>
       </td>
       <td class="text-center" width="7%" >
-        <a routerLink="/series/resultados/{{registro.id}}" class="text-success">
+        <a routerLink="/series/resultados/{{registro.id}}" [ngClass]="generarResultadosStatus(registro.status)">
           <i class="fa fa-signal fa-2x"></i>
         </a>
       </td>

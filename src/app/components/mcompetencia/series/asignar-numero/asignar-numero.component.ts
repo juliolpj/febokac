@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DetalleSerieI } from 'src/app/models/serie';
+import { DetalleSerieI, SerieI } from 'src/app/models/serie';
 import { SeriesService } from 'src/app/services/series.service';
 import { MensajesService } from 'src/app/services/mensajes.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AsignarNumeroComponent implements OnInit {
   titulo = '';
   id = '';
+  serie: SerieI;
   tabla: DetalleSerieI[];
 
   constructor(
@@ -29,6 +30,7 @@ export class AsignarNumeroComponent implements OnInit {
     this.id = this.actRoute.snapshot.paramMap.get('id');
     this.msgService.clearMessages();
     this.getRecords();
+    this.getSerie();
   }
 
   getRecords() {
@@ -36,12 +38,24 @@ export class AsignarNumeroComponent implements OnInit {
       data => this.tabla = data);
   }
   
+  getSerie() {
+    this.dataService.getRecord$(this.id).subscribe(data => this.serie = data);
+  }
+
   retornar() {
     this.spinner.off();
-    this.router.navigate(['asignar-numero']);
+    this.router.navigate(['series']);
   }
 
   onSave() {
+    let todosTienenNumero = true;
+    this.tabla.forEach(elemento => {
+      todosTienenNumero = todosTienenNumero && !!elemento.numero && !!elemento.carril
+    });
+
+    this.serie.status = {asignarNumero: todosTienenNumero, cargarTiempos: false, generarResultados: false };
+    this.dataService.updateRecord$(this.id, this.serie);
+
     this.dataService.updateDetalleSeriesLS$(this.id, this.tabla).subscribe(
       data => this.msgService.sendMessage(' Tiempos guardados satisfactoriamente'),
       error => this.msgService.sendMessage('Error al guardar los datos: ' + error.statusText, 'alert-danger'),

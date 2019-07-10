@@ -89,7 +89,8 @@ export class GenerarSeriesComponent implements OnInit {
       categoria: data.categoria, 
       genero: data.genero, 
       distancia: data.distancia,
-      cantidad: 0
+      cantidad: 0,
+      status: { asignarNumero: false, cargarTiempos: false,  generarResultados: false }
     };
   }
 

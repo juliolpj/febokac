@@ -56,6 +56,7 @@ import { ResultadosComponent } from './components/mcompetencia/series/resultados
 import { SeriesComponent } from './components/mcompetencia/series/series.component';
 import { AsignarNumeroComponent } from './components/mcompetencia/series/asignar-numero/asignar-numero.component';
 import { TimeFormatDirective } from './directives/time-format.directive';
+import { SeriesHeaderComponent } from './components/mcompetencia/series/series-header/series-header.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { TimeFormatDirective } from './directives/time-format.directive';
     ResultadosComponent,
     SeriesComponent,
     AsignarNumeroComponent,
-    TimeFormatDirective
+    TimeFormatDirective,
+    SeriesHeaderComponent
   ],
   imports: [
     BrowserModule,

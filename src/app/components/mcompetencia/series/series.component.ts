@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SeriesService } from 'src/app/services/series.service';
 import { SerieI } from 'src/app/models/serie';
+import { registerContentQuery } from '@angular/core/src/render3';
 
 @Component({
   selector: 'series',
@@ -9,7 +10,6 @@ import { SerieI } from 'src/app/models/serie';
 })
 export class SeriesComponent implements OnInit {
   tabla: SerieI[];
-
   constructor(private dataService: SeriesService) {
 
   }
@@ -25,5 +25,29 @@ export class SeriesComponent implements OnInit {
       }
     );
   }
+  
+  asignarNumeroStatus(status) {
+    return {
+     "text-success": !status.asignarNumero,
+     "text-warning": status.asignarNumero,
+     "text-danger": status.cargarTiempos
+   }
+  }
 
+  cargarTiemposStatus(status) {
+    return {
+     "text-secondary": !status.asignarNumero,
+     "text-success": status.asignarNumero,
+     "text-warning": status.cargarTiempos,
+     "text-danger": status.generarResultados
+   }
+  }
+
+  generarResultadosStatus(status) {
+    return {
+     "text-secondary": !status.cargarTiempos,
+     "text-success": status.cargarTiempos,
+     "text-warning": status.generarResultados,
+   }
+  }
 }

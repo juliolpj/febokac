@@ -42,7 +42,8 @@ export class SeriesService {
   }
 
   getRecord$(id: string): Observable<SerieI> {
-    return this.afs.doc<SerieI>(`palistas/${id}`).valueChanges();
+    const tabla: SerieI[] = JSON.parse(localStorage.getItem('series'));
+    return of(tabla.find(elemento => elemento.id === id));
   }
 
   addRecord$(registro: SerieI){
