@@ -1,7 +1,27 @@
-<div class="container-fluid editar-series">
-  <div class="row">
-    <div class="col-5" *ngFor="let columna of columnas">
-      <app-col-serie [tabla]="columna.detalleSerie"></app-col-serie>
+<div class="board" cdkDropList [cdkDropListData]="series" 
+  (cdkDropListDropped)="onTrackDrop($event)" 
+  cdkDropListOrientation="horizontal">
+
+  <div class="card-list mat-elevation-z1" 
+    *ngFor="let serie of series">
+
+    <h2 cdkDragHandle class="mat-h2">{{serie.serie}}</h2>
+
+    <div class="card-list-content" 
+      cdkDropList [id]="serie.serie" 
+      [cdkDropListData]="serie.detalleSerie"
+      [cdkDropListConnectedTo]="SerieIds" 
+      (cdkDropListDropped)="onTalkDrop($event)">
+
+
+        <mat-card *ngFor="let palista of serie.detalleSerie" cdkDrag class="custom-card">
+          <!-- Use the mat-card-content to add the proper spacing. -->
+          <mat-card-content>
+              {{palista.palista}}
+              <div class="text-muted">{{palista.club}}</div>
+          </mat-card-content>
+        </mat-card>
+
     </div>
 
   </div>

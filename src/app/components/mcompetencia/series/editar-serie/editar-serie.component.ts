@@ -1,61 +1,102 @@
-import { Component, OnInit } from '@angular/core';
-import { DetalleSerieI, SerieI, SeriesI } from 'src/app/models/serie';
-import { SeriesService } from 'src/app/services/series.service';
-import { MensajesService } from 'src/app/services/mensajes.service';
-import { SpinnerService } from 'src/app/services/spinner.service';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem
+} from "@angular/cdk/drag-drop";
+import { SeriesService } from "src/app/services/series.service";
+import { SeriesI, SerieI, DetalleSerieI } from "src/app/models/serie";
+import { MensajesService } from "src/app/services/mensajes.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-editar',
-  templateUrl: './editar-serie.component.html',
-  styles: []
+  selector: "app-editar-serie",
+  templateUrl: "./editar-serie.component.html",
+  styleUrls: ["./editar-serie.component.scss"]
 })
 export class EditarSerieComponent implements OnInit {
-  titulo = '';
-  id = '';
-  series = ['0011', '0012', '0013'];
-  serie: SerieI;
-  columnas: SeriesI[] = [];
+  title = "angular-drag-drop";
+  series: SeriesI[] = [];
 
   constructor(
-    public dataService: SeriesService, 
-    private msgService: MensajesService,
-    private spinner: SpinnerService,
-    private location: Location, 
-    private actRoute: ActivatedRoute,
-    private router: Router) {
-  }
+    private dataService: SeriesService,
+    private mensajesService: MensajesService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.id = '0011'; //this.actRoute.snapshot.paramMap.get('id');
-    this.msgService.clearMessages();
-    this.getRecords();
-    this.getSerie();
-  }
+    this.getSeries();
+    this.mensajesService.sendMessage("true", "Activar botón guardar");
 
-  getRecords() {
-    console.log('series', this.series);
-    this.series.forEach( elemento => {
-      this.dataService.getDetalleSerieLS$(elemento).subscribe(
-        data => this.columnas.push({serie: elemento, detalleSerie:data}));
+    this.mensajesService.getMessage().subscribe(msg => {
+      if (msg.tipo === "Ejecutar botón guardar") {
+        this.guardarCambios();
+      }
     });
   }
 
-  getSerie() {
-    this.dataService.getRecord$(this.id).subscribe(data => this.serie = data);
+  ngOnDestroy() {
+    this.mensajesService.sendMessage("false", "Activar botón guardar");
   }
 
-  retornar() {
-    this.spinner.off();
-    this.router.navigate(['series']);
+  getSeries() {
+    const arrSeries: SerieI[] = this.dataService.getSeries();
+    arrSeries
+      .filter(elemento => ["0001","0002","0003","0011", "0012"].includes(elemento.id))
+      .forEach(elemento =>
+        this.series.push({
+          serie: elemento.id,
+          detalleSerie: this.dataService.getDetalleSerie(elemento.id)
+        })
+      );
   }
 
-  onSave() {
-
+  get SerieIds(): string[] {
+    return this.series.map(serie => serie.serie);
   }
 
-  goBack() {
-    this.location.back();
+  onTalkDrop(event: CdkDragDrop<DetalleSerieI[]>) {
+    // In case the destination container is different from the previous container, we
+    // need to transfer the given task to the target data array. This happens if
+    // a task has been dropped on a different track.
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+  }
+
+  onTrackDrop(event: CdkDragDrop<DetalleSerieI[]>) {
+    moveItemInArray(
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
+
+  guardarCambios() {
+    this.actualizarIdSerie();
+    this.series.forEach(serie =>
+      this.dataService.updateDetalleSeries(serie.serie, serie.detalleSerie)
+    );
+    this.router.navigate["/"];
+  }
+
+  actualizarIdSerie() {
+    this.series.forEach(serie =>
+      serie.detalleSerie.map(palista => {
+        palista.idSerie = serie.serie;
+        return palista;
+      })
+    );
   }
 }

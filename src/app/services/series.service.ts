@@ -23,6 +23,24 @@ export class SeriesService {
     this.usuario = this.authService.getUser();
   }
 
+  /* Métodos para Editar series con Drag and Drop */
+  getSeries(): SerieI[] {
+    return JSON.parse( localStorage.getItem('series') );
+  }
+
+  getDetalleSerie(id: string): DetalleSerieI[] {
+    const series: DetalleSerieI[] = JSON.parse(localStorage.getItem('detalleSeries'));
+    let serie = series.filter( elemento => elemento.idSerie === id)
+    return serie;
+  }
+  
+  updateDetalleSeries(id:string, tabla: DetalleSerieI[] ) {
+    const series: DetalleSerieI[] = JSON.parse(localStorage.getItem('detalleSeries')).
+      filter( elemento => elemento.idSerie !== id);
+    localStorage.setItem('detalleSeries', JSON.stringify(series.concat(tabla)) );
+  }
+  /* */
+
   getRecords$(): Observable<SerieI[]> {
     return this.usuario.rol === 'Competencias' ? this.getRecordsLS$() : this.getRecordsFB$();
   }
