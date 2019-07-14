@@ -39,6 +39,7 @@ import { ConsultarInscripcionesComponent } from './components/inscripciones/cons
 import { ResultadosComponent } from './components/mcompetencia/series/resultados/resultados.component';
 import { SeriesComponent } from './components/mcompetencia/series/series.component';
 import { AsignarNumeroComponent } from './components/mcompetencia/series/asignar-numero/asignar-numero.component';
+import { EditarSerieComponent } from './components/mcompetencia/series/editar-serie/editar-serie.component';
 
 const competenciasRutas = [
   { path: 'competencias/palistas', component: PalistasComponent, canActivate: [AuthGuard] },
@@ -47,6 +48,7 @@ const competenciasRutas = [
     { path: 'competencias/palistas/delete/:id', component: FPalistasComponent, canActivate: [AuthGuard] },
     { path: 'importar-inscripciones', component: ImportarComponent },
     { path: 'generar-carreras', component: GenerarSeriesComponent, canActivate: [AuthGuard] },
+    { path: 'editar-serie', component: EditarSerieComponent, canActivate: [AuthGuard] },
     { path: 'series', component: SeriesComponent, canActivate: [AuthGuard]},
       { path: 'series/asignar-numero/:id', component: AsignarNumeroComponent, canActivate: [AuthGuard]},
       { path: 'series/cargar-tiempos/:id', component: CargarTiemposComponent, canActivate: [AuthGuard]},

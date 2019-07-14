@@ -6,31 +6,31 @@
     (emitCancelar)="goBack()"
   > </app-series-header>
 
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th> Número </th>
-      <th> Carril </th>
-      <th> Palista </th>
-      <th> Club </th>
-    </tr>
-  </thead>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th> Número </th>
+        <th> Carril </th>
+        <th> Palista </th>
+        <th> Club </th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <tr *ngFor="let registro of tabla; let i=index">
-      <td width="15%"> 
-        <input type="tel" class="form-control" maxlength=2 [(ngModel)]="registro.numero"> 
-      </td>
-      <td width="15%"> 
-        <input type="tel" class="form-control" maxlength=1 [(ngModel)]="registro.carril">  
-      </td>
-      <td> {{ registro.palista }} </td>
-      <td> {{ registro.club }} </td>
-      
-    </tr>
-  </tbody>
+    <tbody>
+      <tr *ngFor="let registro of tabla; let i=index">
+        <td width="15%"> 
+          <input type="tel" class="form-control" maxlength=2 [(ngModel)]="registro.numero"> 
+        </td>
+        <td width="15%"> 
+          <input type="tel" class="form-control" maxlength=1 [(ngModel)]="registro.carril">  
+        </td>
+        <td> {{ registro.palista }} </td>
+        <td> {{ registro.club }} </td>
+        
+      </tr>
+    </tbody>
 
-</table>
+  </table>
 </ng-container>
 
 <ng-template #infoMessage>

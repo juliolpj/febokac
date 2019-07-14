@@ -1,3 +1,7 @@
+export interface SeriesI {
+    serie?: string;
+    detalleSerie?: DetalleSerieI[];
+}
 export interface SerieI {
     id?: string;
     genero?: string;
