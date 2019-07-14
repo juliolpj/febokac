@@ -9,6 +9,10 @@ import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/fi
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorage } from '@angular/fire/storage';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
@@ -57,6 +61,8 @@ import { SeriesComponent } from './components/mcompetencia/series/series.compone
 import { AsignarNumeroComponent } from './components/mcompetencia/series/asignar-numero/asignar-numero.component';
 import { TimeFormatDirective } from './directives/time-format.directive';
 import { SeriesHeaderComponent } from './components/mcompetencia/series/series-header/series-header.component';
+import { EditarSerieComponent } from './components/mcompetencia/series/editar-serie/editar-serie.component';
+import { ColSerieComponent } from './components/mcompetencia/series/editar-serie/col-serie.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +111,9 @@ import { SeriesHeaderComponent } from './components/mcompetencia/series/series-h
     SeriesComponent,
     AsignarNumeroComponent,
     TimeFormatDirective,
-    SeriesHeaderComponent
+    SeriesHeaderComponent,
+    EditarSerieComponent,
+    ColSerieComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +122,10 @@ import { SeriesHeaderComponent } from './components/mcompetencia/series/series-h
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    DragDropModule
   ],
   providers: [
     { provide: FirestoreSettingsToken, useValue: {} },

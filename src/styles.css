@@ -16,3 +16,16 @@
  top: 5%;
  right: 5%;
 }
+
+/* Editar series */
+.editar-series > .row {
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+.editar-series > .row > .col-5 {
+  display: inline-block;
+  float: none;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
