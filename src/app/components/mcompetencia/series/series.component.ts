@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SeriesService } from 'src/app/services/series.service';
 import { SerieI } from 'src/app/models/serie';
-import { registerContentQuery } from '@angular/core/src/render3';
 
 @Component({
   selector: 'series',

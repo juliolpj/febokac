@@ -62,6 +62,7 @@ import { AsignarNumeroComponent } from './components/mcompetencia/series/asignar
 import { TimeFormatDirective } from './directives/time-format.directive';
 import { SeriesHeaderComponent } from './components/mcompetencia/series/series-header/series-header.component';
 import { EditarSerieComponent } from './components/mcompetencia/series/editar-serie/editar-serie.component';
+import { FiltroSerieComponent } from './components/mcompetencia/series/editar-serie/filtro-serie.component';
 import { ColSerieComponent } from './components/mcompetencia/series/editar-serie/col-serie.component';
 
 @NgModule({
@@ -113,6 +114,7 @@ import { ColSerieComponent } from './components/mcompetencia/series/editar-serie
     TimeFormatDirective,
     SeriesHeaderComponent,
     EditarSerieComponent,
+    FiltroSerieComponent,
     ColSerieComponent
   ],
   imports: [

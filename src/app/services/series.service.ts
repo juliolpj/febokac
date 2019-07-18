@@ -24,6 +24,18 @@ export class SeriesService {
   }
 
   /* Métodos para Editar series con Drag and Drop */
+  getSerie(id: string): SerieI {
+    const tabla: SerieI[] = JSON.parse(localStorage.getItem('series'));
+    return tabla.find(elemento => elemento.id === id);
+  }
+
+  updateSerie(id: string, registro: SerieI) {
+    registro.id = id;
+    const tabla = JSON.parse(localStorage.getItem('series'));
+    tabla.splice( tabla.findIndex(element => element.id === id), 1, registro );
+    localStorage.setItem('series', JSON.stringify(tabla));
+  }
+
   getSeries(): SerieI[] {
     return JSON.parse( localStorage.getItem('series') );
   }
@@ -39,7 +51,16 @@ export class SeriesService {
       filter( elemento => elemento.idSerie !== id);
     localStorage.setItem('detalleSeries', JSON.stringify(series.concat(tabla)) );
   }
-  /* */
+
+  addAllSemifinales(tabla) {
+    localStorage.setItem('semis', JSON.stringify(tabla));
+  }
+
+  addAllFinales(tabla) {
+    localStorage.setItem('finales', JSON.stringify(tabla));
+  }
+
+/* */
 
   getRecords$(): Observable<SerieI[]> {
     return this.usuario.rol === 'Competencias' ? this.getRecordsLS$() : this.getRecordsFB$();

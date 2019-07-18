@@ -1,4 +1,4 @@
-import { DetalleSerieI, SerieI } from 'src/app/models/serie';
+import { DetalleSerieI, SerieI, resultadoSerieI } from 'src/app/models/serie';
 import { Component, OnInit } from '@angular/core';
 import { SeriesService } from 'src/app/services/series.service';
 import { MensajesService } from 'src/app/services/mensajes.service';
@@ -11,11 +11,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './resultados.component.html',
   styles: []
 })
+
 export class ResultadosComponent implements OnInit {
   titulo = '';
   id = '';
   serie: SerieI;
-  tabla: DetalleSerieI[];
+  tabla: resultadoSerieI[] = [];
+  condiciones = {
+    pasanDirectoAfinal: [1,2,3],
+    pasanAsemiFinal: [4,5,6,7],
+    adicional: { posicion:[8], cantidad:[1]}
+  }
 
   constructor(
     public dataService: SeriesService, 
@@ -36,12 +42,37 @@ export class ResultadosComponent implements OnInit {
   getRecords() {
     this.dataService.getDetalleSerieLS$(this.id).subscribe(
       data => {
-        this.tabla = data;
-        console.log(this.tabla);
-        this.tabla.sort( (a,b) => a.tiempo > b.tiempo ? 1 : (a.tiempo < b.tiempo ? - 1 : 0));
+        data.sort( (a,b) => a.tiempo > b.tiempo ? 1 : (a.tiempo < b.tiempo ? - 1 : 0));
+        data.forEach( (elemento, i)=> {
+          let nuevoElemnto = { ...elemento, posicion: i+1, resultado: this.resultado(i+1) };
+          
+          console.log("TCL: ResultadosComponent -> getRecords -> nuevoElemnto", nuevoElemnto)
+          this.tabla.push(nuevoElemnto);
+        });
         console.log(this.tabla);
       }
     );
+  }
+
+  resultado(posicion: number) {
+    if ( this.condiciones.pasanDirectoAfinal.includes(posicion) ) {
+      return 'Pasa directo a la final';
+    } else if (this.condiciones.pasanAsemiFinal.includes(posicion)) {
+      return 'Pasa a semifinal';
+    } else if (this.condiciones.adicional.posicion.includes(posicion)) {
+      return 'Revisión';
+    } else {
+      return 'Eliminado';
+    }
+  }
+
+  resultadoClass(resultado) {
+    return {
+     "text-primary": resultado === 'Pasa directo a la final',
+     "text-success": resultado === 'Pasa a semifinal',
+     "text-warning": resultado === 'Revisión',
+     "text-danger": resultado === 'Eliminado'
+   }
   }
 
   getSerie() {

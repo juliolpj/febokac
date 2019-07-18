@@ -34,3 +34,8 @@ export interface DetalleSerieI {
     tiempo?: string;
     nTiempo?: number;
 }
+
+export interface resultadoSerieI extends DetalleSerieI {
+    posicion?: number;
+    resultado?: string;
+}

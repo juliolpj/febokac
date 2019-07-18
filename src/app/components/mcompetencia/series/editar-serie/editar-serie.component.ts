@@ -1,13 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from "@angular/cdk/drag-drop";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 import { SeriesService } from "src/app/services/series.service";
 import { SeriesI, SerieI, DetalleSerieI } from "src/app/models/serie";
-import { MensajesService } from "src/app/services/mensajes.service";
 import { Router } from "@angular/router";
+import { MsgService } from 'src/app/services/msg.service';
 
 @Component({
   selector: "app-editar-serie",
@@ -15,40 +11,43 @@ import { Router } from "@angular/router";
   styleUrls: ["./editar-serie.component.scss"]
 })
 export class EditarSerieComponent implements OnInit {
+  mostrarSeries = false;
   title = "angular-drag-drop";
   series: SeriesI[] = [];
 
   constructor(
     private dataService: SeriesService,
-    private mensajesService: MensajesService,
-    private router: Router
+    private router: Router,
+    private cdRef: ChangeDetectorRef,
+    private msg: MsgService
   ) {}
 
   ngOnInit() {
-    this.getSeries();
-    this.mensajesService.sendMessage("true", "Activar botón guardar");
-
-    this.mensajesService.getMessage().subscribe(msg => {
-      if (msg.tipo === "Ejecutar botón guardar") {
-        this.guardarCambios();
-      }
-    });
   }
 
   ngOnDestroy() {
-    this.mensajesService.sendMessage("false", "Activar botón guardar");
   }
 
-  getSeries() {
-    const arrSeries: SerieI[] = this.dataService.getSeries();
-    arrSeries
-      .filter(elemento => ["0001","0002","0003","0011", "0012"].includes(elemento.id))
-      .forEach(elemento =>
+  filtrarSeries(objFiltro) {
+    this.series = [];
+    const arrSeries: string[] = this.dataService.getSeries()
+      .filter( elemento => elemento.genero === objFiltro.genero && elemento.categoria === objFiltro.categoria && elemento.distancia === objFiltro.distancia)
+      .map(elemento => elemento.id);
+    this.getSeries(arrSeries);
+    this.mostrarSeries = true;
+  }
+
+  getSeries(arrFiltro: string[]) {
+    if (arrFiltro) {
+      arrFiltro.forEach(elemento =>
         this.series.push({
-          serie: elemento.id,
-          detalleSerie: this.dataService.getDetalleSerie(elemento.id)
+          serie: elemento,
+          detalleSerie: this.dataService.getDetalleSerie(elemento)
         })
-      );
+      ); 
+    } else {
+      this.series = null;
+    }
   }
 
   get SerieIds(): string[] {
@@ -83,12 +82,22 @@ export class EditarSerieComponent implements OnInit {
     );
   }
 
+  limpiarFiltro() {
+    this.getSeries(null);
+    this.cdRef.detectChanges();
+    this.mostrarSeries = false;
+  }
+
   guardarCambios() {
     this.actualizarIdSerie();
-    this.series.forEach(serie =>
-      this.dataService.updateDetalleSeries(serie.serie, serie.detalleSerie)
-    );
-    this.router.navigate["/"];
+    this.series.forEach(serie => {
+      this.dataService.updateDetalleSeries(serie.serie, serie.detalleSerie);
+      let nuevaSerie = this.dataService.getSerie(serie.serie);
+      nuevaSerie.cantidad = serie.detalleSerie.length.toString();
+      this.dataService.updateSerie(serie.serie, nuevaSerie);
+    });
+    this.msg.ok('Proceso realizado satisfactoriamente');
+    this.limpiarFiltro();
   }
 
   actualizarIdSerie() {
@@ -98,5 +107,9 @@ export class EditarSerieComponent implements OnInit {
         return palista;
       })
     );
+  }
+
+  salir() {
+    this.router.navigate(["/"]);
   }
 }

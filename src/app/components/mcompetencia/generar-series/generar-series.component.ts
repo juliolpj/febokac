@@ -13,9 +13,13 @@ import { SeriesService } from 'src/app/services/series.service';
 })
 export class GenerarSeriesComponent implements OnInit {
   inscripciones = [];
+  grupoSeries = [];
   series = [];
   detalleSeries = [];
   clubes = [];
+  semis = [];
+  finales = [];
+
   constructor(private router: Router, 
     private location: Location,
     private msgService: MensajesService,
@@ -43,7 +47,8 @@ export class GenerarSeriesComponent implements OnInit {
         );
         this.generarClubes();
         this.generarSeries();
-
+        this.generarFinalesYsemis();
+        console.log(this.grupoSeries);
         //this.generarDetalleSeries();
       }
     )
@@ -58,9 +63,7 @@ export class GenerarSeriesComponent implements OnInit {
   }
 
   generarSeries() {
-    let condicionPrueba = (inscripcion ) => inscripcion.categoria === 'Infantiles' && inscripcion.genero === 'Masculino' && inscripcion.distancia === 'K1 200 m';
     let numCarrera = 0;
-
     let i = 0;
     while (i < this.inscripciones.length) {
       let elemento = this.inscripciones[i];
@@ -68,14 +71,17 @@ export class GenerarSeriesComponent implements OnInit {
       numCarrera++;
       let registro = this.generarObjetoSerie(elemento, numCarrera);
       this.series.push(registro);
+      this.agregraGrupoSeries(registro);
 
       while ( i < this.inscripciones.length && 
               elemento.categoria + elemento.genero + elemento.distancia === 
               registro.categoria + registro.genero + registro. distancia &&
               this.series[numCarrera - 1].cantidad < 9 ) {
 
+        this.contarGrupoSeries(registro);
         this.series[numCarrera - 1].cantidad++;
         this.detalleSeries.push( {...elemento, idSerie: registro.id, tiempo: '', nTiempo: 0 } );
+
         i++;
         elemento = this.inscripciones[i];
       }
@@ -94,48 +100,98 @@ export class GenerarSeriesComponent implements OnInit {
     };
   }
 
-  
-  /*
-  Recorre la tabla de inscripciones para incluir a cada participante en su respectiva serie.
-  */
-  generarDetalleSeries() {
-    let i = 0;
-    while ( i < this.series.length) {
-      let serie = this.series[i];
-      let inscripcionesDeLaSerie = this.inscripciones.filter( elemento =>
-        elemento.categoria === serie.categoria &&
-        elemento.genero === serie.genero &&
-        elemento.distancia === serie.distancia);
-      
-      
+  agregraGrupoSeries(registro) {
+    const encontro = this.grupoSeries.find( elemento => 
+                    elemento.categoria + elemento.genero + elemento.distancia === registro.categoria + registro.genero + registro. distancia);
+    if (!encontro) {
+      this.grupoSeries.push({ 
+        categoria: registro.categoria, genero: registro.genero, distancia: registro.distancia, total: 0
+      });
     }
   }
 
-  generarDetalleSeries2() {
-    this.inscripciones.forEach( inscripcion => {
-      let serie = this.series.find( 
-                      serie => serie.categoria === inscripcion.categoria && 
-                      serie.genero === inscripcion.genero &&
-                      serie.distancia === inscripcion.distancia
-      );
-      if (! !!serie) {
-        console.error('No se genero una serie para esta inscripción');
-      }
-      this.detalleSeries.push({
-        ...inscripcion, 
-        idSerie: serie.id,
-        tiempo: '',
-        nTiempo: 0,
-      });
-    });
+  contarGrupoSeries(reg) {
+    let indice = this.grupoSeries.findIndex( el => 
+      el.categoria + el.genero + el.distancia === reg.categoria + reg.genero + reg.distancia);
 
+    this.grupoSeries[indice].total++;
   }
+
+  generarFinalesYsemis() {
+    let condiciones = [
+      { minimo: 10, maximo: 18, 
+        carreras: { series: 2, semis: 1, final: 1 },
+      },
+      { minimo: 19, maximo: 27, 
+        carreras: { series: 3, semis: 2, final: 1 },
+      },
+      { minimo: 28, maximo: 36, 
+        carreras: { series: 4, semis: 3, final: 1 },
+      },
+      { minimo: 37, maximo: 45, 
+        carreras: { series: 5, semis: 3, final: 1 },
+      },
+      { minimo: 46, maximo: 54, 
+        carreras: { series: 6, semis: 3, final: 1 },
+      },
+      { minimo: 55, maximo: 63, 
+        carreras: { series: 7, semis: 4, final: 1 },
+      },
+      { minimo: 64, maximo: 72, 
+        carreras: { series: 8, semis: 4, final: 1 },
+      }
+    ];
+
+    for (let i = 0; i < this.grupoSeries.length; i++) {
+      let el = this.grupoSeries[i];
+      for (let j = 0; j < condiciones.length; j++) {
+        let condicion = condiciones[j] ;
+        if (el.total >= condicion.minimo && el.total <= condicion.maximo) {
+          this.grupoSeries[i] = {...el, carreras: condicion.carreras };
+        }
+      }
+    }
+    
+    let contadorSemis = 0;
+    let contadorFinales = 0;
+    this.grupoSeries.forEach( el => {
+      if (!!el.carreras) {
+        for ( let i = 0; i < el.carreras.semis; i++) {
+          console.log('Pasó por aqui');
+          contadorSemis++;
+          this.semis.push({ 
+            id: 'S' +contadorSemis.toString().padStart(3, '0'),
+            categoria: el.categoria, 
+            genero: el.genero,
+            distancia: el.distancia, 
+            cantidad: '0',
+            status: { asignarNumero: false, cargarTiempos: false,  generarResultados: false }
+          });
+        }
+
+        
+        contadorFinales++;
+        this.finales.push({ 
+          id: 'S' + contadorFinales.toString().padStart(3, '0'),
+          categoria: el.categoria, 
+          genero: el.genero,
+          distancia: el.distancia, 
+          cantidad: '0',
+          status: { asignarNumero: false, cargarTiempos: false,  generarResultados: false }
+        });
+
+      }
+    });
+  }
+  
 
   onGenerar() {
     /* TODO: Verificar que no existan series, 
         si hay series mostrar warning, 
         si las series tienen tiempos cargados impedir generar series.
     */
+    this.dataService.addAllSemifinales(this.semis);
+    this.dataService.addAllFinales(this.finales);
     this.dataService.addSeriesLS$(this.series).subscribe(
       () => 
         this.dataService.addDetalleSeriesLS$(this.detalleSeries).subscribe(
