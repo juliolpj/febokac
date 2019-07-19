@@ -54,6 +54,10 @@ export class SeriesService {
     let filtro = series.filter( elemento => elemento.idSerie !== id);
     localStorage.setItem('detalleSeries', JSON.stringify(tabla.concat(filtro)) );
   }
+/* Semifinales y finales */
+  getCarreras(tipo: string): SerieI[] {
+    return JSON.parse(localStorage.getItem(tipo) );
+  }
 
   getSemis(): SerieI[] {
     return JSON.parse( localStorage.getItem('semis') );

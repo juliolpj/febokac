@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SeriesService } from 'src/app/services/series.service';
 import { SerieI } from 'src/app/models/serie';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'series',
@@ -8,21 +9,34 @@ import { SerieI } from 'src/app/models/serie';
   styles: []
 })
 export class SeriesComponent implements OnInit {
+  tipoCarrera = '';
+  titulo = '';
   tabla: SerieI[];
-  constructor(private dataService: SeriesService) {
+  constructor(
+    private dataService: SeriesService,
+    private actRoute: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    this.getRecords();
+    this.actRoute.paramMap.subscribe(
+      params => {
+        this.tipoCarrera = params.get('tipoCarrera');
+        this.titulo = this.tipoCarrera === 'series' ? 'Series' : 
+                      this.tipoCarrera === 'semis' ? 'Semifinales' : 'Finales';
+        this.getRecords();
+      }
+    )
+    
   }
 
   getRecords() {
-    this.dataService.getRecords$().subscribe(
-      (data: SerieI[]) => {
-        this.tabla = data;
-      }
-    );
+    console.log(this.tipoCarrera);
+    /* if (this.tipoCarrera === 'series') {
+      this.dataService.getRecords$().subscribe(data => this.tabla = data);
+    } else { */
+      this.tabla = this.dataService.getCarreras(this.tipoCarrera);
+    //} 
   }
   
   asignarNumeroStatus(status) {

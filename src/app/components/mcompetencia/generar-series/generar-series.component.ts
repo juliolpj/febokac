@@ -172,7 +172,7 @@ export class GenerarSeriesComponent implements OnInit {
         
         contadorFinales++;
         this.finales.push({ 
-          id: 'S' + contadorFinales.toString().padStart(3, '0'),
+          id: 'F' + contadorFinales.toString().padStart(3, '0'),
           categoria: el.categoria, 
           genero: el.genero,
           distancia: el.distancia, 
