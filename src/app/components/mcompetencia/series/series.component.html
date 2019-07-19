@@ -26,7 +26,7 @@
       <td> {{ registro.distancia }} </td>
       <td> {{ registro.cantidad }} </td>
       <td class="text-center" width="7%" >
-        <a routerLink="/series/asignar-numero/{{registro.id}}" [ngClass]="asignarNumeroStatus(registro.status)">
+        <a routerLink="/series/asignar-numero/{{tipoCarrera}}/{{registro.id}}" [ngClass]="asignarNumeroStatus(registro.status)">
           <i class="fa fa-list-ol fa-2x"></i>
         </a>
       </td>

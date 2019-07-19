@@ -7,7 +7,6 @@ import { AuthService } from './auth.service';
 import { UserI } from '../models/user';
 import { UtilService } from './util.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +20,11 @@ export class SeriesService {
               private authService: AuthService,
               public util: UtilService) {
     this.usuario = this.authService.getUser();
+  }
+
+  private nombreDetalle(tipoCarrera: string) {
+    return tipoCarrera === 'series' ? 'detalleSeries' : 
+                    tipoCarrera === 'semis' ? 'detalleSemis' : 'detalleFinales';
   }
 
   /* Métodos para Editar series con Drag and Drop */
@@ -55,9 +59,36 @@ export class SeriesService {
     localStorage.setItem('detalleSeries', JSON.stringify(tabla.concat(filtro)) );
   }
 /* Semifinales y finales */
+
+  getCarrera(tipoCarrera: string, id: string): SerieI {
+    const tabla: SerieI[] = JSON.parse(localStorage.getItem(tipoCarrera));
+    return tabla.find(elemento => elemento.id === id);
+  }
+
   getCarreras(tipo: string): SerieI[] {
     return JSON.parse(localStorage.getItem(tipo) );
   }
+
+  getDetalleCarrera(tipoCarrera:string, id: string): DetalleSerieI[] {
+    const series: DetalleSerieI[] = JSON.parse(
+      localStorage.getItem(this.nombreDetalle(tipoCarrera)) );
+    return series.filter( elemento => elemento.idSerie === id);
+  }
+
+  updateCarrera(tipoCarrera:string, id: string, registro: SerieI) {
+    //registro.id = id;
+    const tabla = JSON.parse(localStorage.getItem(tipoCarrera));
+    tabla.splice( tabla.findIndex(element => element.id === id), 1, registro );
+    localStorage.setItem(tipoCarrera, JSON.stringify(tabla));
+  }
+
+  updateDetalleCarrera(tipoCarrera: string, id:string, tabla: DetalleSerieI[]  ) {
+    const detalle = this.nombreDetalle(tipoCarrera);
+    const series: DetalleSerieI[] = JSON.parse(localStorage.getItem(detalle)).
+      filter( elemento => elemento.idSerie !== id);
+    localStorage.setItem(detalle, JSON.stringify(series.concat(tabla)) );
+  }
+  /* **********   */
 
   getSemis(): SerieI[] {
     return JSON.parse( localStorage.getItem('semis') );

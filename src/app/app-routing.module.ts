@@ -52,7 +52,7 @@ const competenciasRutas = [
     { path: 'editar-serie', component: EditarSerieComponent, canActivate: [AuthGuard] },
     { path: 'semi-finales', component: GenerarSemisComponent, canActivate: [AuthGuard]},
     { path: 'carreras/:tipoCarrera', component: SeriesComponent, canActivate: [AuthGuard]},
-      { path: 'series/asignar-numero/:id', component: AsignarNumeroComponent, canActivate: [AuthGuard]},
+      { path: 'series/asignar-numero/:tipoCarrera/:id', component: AsignarNumeroComponent, canActivate: [AuthGuard]},
       { path: 'series/cargar-tiempos/:id', component: CargarTiemposComponent, canActivate: [AuthGuard]},
       { path: 'series/resultados/:id', component: ResultadosComponent, canActivate: [AuthGuard]},
 ];
