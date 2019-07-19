@@ -64,6 +64,8 @@ import { SeriesHeaderComponent } from './components/mcompetencia/series/series-h
 import { EditarSerieComponent } from './components/mcompetencia/series/editar-serie/editar-serie.component';
 import { FiltroSerieComponent } from './components/mcompetencia/series/editar-serie/filtro-serie.component';
 import { ColSerieComponent } from './components/mcompetencia/series/editar-serie/col-serie.component';
+import { GenerarSemisComponent } from './components/mcompetencia/semis/generar-semis/generar-semis.component';
+import { FiltroSemisComponent } from './components/mcompetencia/semis/generar-semis/filtro-semis.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +117,9 @@ import { ColSerieComponent } from './components/mcompetencia/series/editar-serie
     SeriesHeaderComponent,
     EditarSerieComponent,
     FiltroSerieComponent,
-    ColSerieComponent
+    ColSerieComponent,
+    GenerarSemisComponent,
+    FiltroSemisComponent
   ],
   imports: [
     BrowserModule,

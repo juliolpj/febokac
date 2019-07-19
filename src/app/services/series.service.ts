@@ -52,8 +52,17 @@ export class SeriesService {
     localStorage.setItem('detalleSeries', JSON.stringify(series.concat(tabla)) );
   }
 
+  getSemis(): SerieI[] {
+    return JSON.parse( localStorage.getItem('semis') );
+  }
+
   addAllSemifinales(tabla) {
     localStorage.setItem('semis', JSON.stringify(tabla));
+  }
+
+
+  getFinales(): SerieI[] {
+    return JSON.parse( localStorage.getItem('finales') );
   }
 
   addAllFinales(tabla) {

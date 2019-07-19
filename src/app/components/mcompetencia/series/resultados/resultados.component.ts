@@ -45,8 +45,6 @@ export class ResultadosComponent implements OnInit {
         data.sort( (a,b) => a.tiempo > b.tiempo ? 1 : (a.tiempo < b.tiempo ? - 1 : 0));
         data.forEach( (elemento, i)=> {
           let nuevoElemnto = { ...elemento, posicion: i+1, resultado: this.resultado(i+1) };
-          
-          console.log("TCL: ResultadosComponent -> getRecords -> nuevoElemnto", nuevoElemnto)
           this.tabla.push(nuevoElemnto);
         });
         console.log(this.tabla);
@@ -87,6 +85,7 @@ export class ResultadosComponent implements OnInit {
   onSave() {
     this.serie.status = {asignarNumero: true, cargarTiempos: true, generarResultados: true };
     this.dataService.updateRecord$(this.id, this.serie);
+    this.dataService.updateDetalleSeries(this.id, this.tabla);
     this.retornar();
 
     /* this.dataService.updateDetalleSeriesLS$(this.id, this.tabla).subscribe(
