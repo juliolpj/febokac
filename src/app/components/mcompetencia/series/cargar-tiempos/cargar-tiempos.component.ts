@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CargarTiemposComponent implements OnInit {
   titulo = '';
   id = '';
+  tipoCarrera = '';
   serie: SerieI;
   tabla: DetalleSerieI[];
 
@@ -28,42 +29,36 @@ export class CargarTiemposComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.actRoute.snapshot.paramMap.get('id');
+    this.tipoCarrera = this.actRoute.snapshot.paramMap.get('tipoCarrera');
+
     this.msgService.clearMessages();
     this.getRecords();
     this.getSerie();
   }
 
   getRecords() {
-    this.dataService.getDetalleSerieLS$(this.id).subscribe(
-      data => {
-        this.tabla = data;
-        console.log(this.tabla);
-      }
-    );
+    this.tabla = this.dataService.getDetalleCarrera(this.tipoCarrera, this.id);
+    
   }
-
+  
   getSerie() {
-    this.dataService.getRecord$(this.id).subscribe(data => this.serie = data);
+    this.serie = this.dataService.getCarrera(this.tipoCarrera, this.id);
   }
   
   retornar() {
     this.spinner.off();
-    this.router.navigate(['series']);
+    this.router.navigate(['carreras/' + this.tipoCarrera]);
   }
 
   onSave() {
     let todosTienenTiempo = true;
-    this.tabla.forEach(elemento => {
-      todosTienenTiempo = todosTienenTiempo && !!elemento.tiempo
-    });
+    this.tabla.forEach(elemento => todosTienenTiempo = todosTienenTiempo && !!elemento.tiempo );
     this.serie.status = { asignarNumero: true, cargarTiempos: todosTienenTiempo, generarResultados: false };
-    this.dataService.updateRecord$(this.id, this.serie);
+    this.dataService.updateCarrera(this.tipoCarrera, this.id, this.serie);
 
-    this.dataService.updateDetalleSeriesLS$(this.id, this.tabla).subscribe(
-      data => this.msgService.sendMessage(' Tiempos guardados satisfactoriamente'),
-      error => this.msgService.sendMessage('Error al guardar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.retornar()
-    );
+    this.dataService.updateDetalleCarrera(this.tipoCarrera, this.id, this.tabla) ;
+    this.msgService.sendMessage('Tiempos guardados satisfactoriamente');
+    this.retornar();
   }
 
   goBack() {

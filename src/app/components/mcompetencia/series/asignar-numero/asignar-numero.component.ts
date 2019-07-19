@@ -31,7 +31,6 @@ export class AsignarNumeroComponent implements OnInit {
     this.id = this.actRoute.snapshot.paramMap.get('id');
     this.tipoCarrera = this.actRoute.snapshot.paramMap.get('tipoCarrera');
 
-    console.log(this.id, this.tipoCarrera);
     this.msgService.clearMessages();
     this.getRecords();
     this.getSerie();
@@ -53,15 +52,13 @@ export class AsignarNumeroComponent implements OnInit {
 
   onSave() {
     let todosTienenNumero = true;
-    this.tabla.forEach(elemento => {
-      todosTienenNumero = todosTienenNumero && !!elemento.numero && !!elemento.carril
-    });
+    this.tabla.forEach(elemento => todosTienenNumero = todosTienenNumero && !!elemento.numero && !!elemento.carril);
 
     this.serie.status = {asignarNumero: todosTienenNumero, cargarTiempos: false, generarResultados: false };
     this.dataService.updateCarrera(this.tipoCarrera, this.id, this.serie);
 
     this.dataService.updateDetalleCarrera(this.tipoCarrera, this.id, this.tabla) ;
-    this.msgService.sendMessage(' Tiempos guardados satisfactoriamente');
+    this.msgService.sendMessage('Proceso realizado satisfactoriamente');
     this.retornar();
   }
 

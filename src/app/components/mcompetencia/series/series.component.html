@@ -31,12 +31,12 @@
         </a>
       </td>
       <td class="text-center" width="7%" >
-        <a routerLink="/series/cargar-tiempos/{{registro.id}}" [ngClass]="cargarTiemposStatus(registro.status)">
+        <a routerLink="/series/cargar-tiempos/{{tipoCarrera}}/{{registro.id}}" [ngClass]="cargarTiemposStatus(registro.status)">
           <i class="fa fa-clock-o fa-2x"></i>
         </a>
       </td>
       <td class="text-center" width="7%" >
-        <a routerLink="/series/resultados/{{registro.id}}" [ngClass]="generarResultadosStatus(registro.status)">
+        <a routerLink="/series/resultados/{{tipoCarrera}}/{{registro.id}}" [ngClass]="generarResultadosStatus(registro.status)">
           <i class="fa fa-signal fa-2x"></i>
         </a>
       </td>

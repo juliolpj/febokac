@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ResultadosComponent implements OnInit {
   titulo = '';
   id = '';
+  tipoCarrera = '';
   serie: SerieI;
   tabla: resultadoSerieI[] = [];
   condiciones = {
@@ -34,22 +35,17 @@ export class ResultadosComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.actRoute.snapshot.paramMap.get('id');
+    this.tipoCarrera = this.actRoute.snapshot.paramMap.get('tipoCarrera');
+    
     this.msgService.clearMessages();
     this.getRecords();
     this.getSerie();
   }
 
   getRecords() {
-    this.dataService.getDetalleSerieLS$(this.id).subscribe(
-      data => {
-        data.sort( (a,b) => a.tiempo > b.tiempo ? 1 : (a.tiempo < b.tiempo ? - 1 : 0));
-        data.forEach( (elemento, i)=> {
-          let nuevoElemnto = { ...elemento, posicion: i+1, resultado: this.resultado(i+1) };
-          this.tabla.push(nuevoElemnto);
-        });
-        console.log(this.tabla);
-      }
-    );
+    const data = this.dataService.getDetalleCarrera(this.tipoCarrera, this.id);
+    data.sort( (a,b) => a.tiempo > b.tiempo ? 1 : (a.tiempo < b.tiempo ? - 1 : 0));
+    data.forEach( (el, i)=> this.tabla.push({ ...el, posicion: i+1, resultado: this.resultado(i+1) }) );
   }
 
   resultado(posicion: number) {
@@ -74,12 +70,12 @@ export class ResultadosComponent implements OnInit {
   }
 
   getSerie() {
-    this.dataService.getRecord$(this.id).subscribe(data => this.serie = data);
+    this.serie = this.dataService.getCarrera(this.tipoCarrera, this.id);
   }
-  
+
   retornar() {
     this.spinner.off();
-    this.router.navigate(['series']);
+    this.router.navigate(['carreras/' + this.tipoCarrera]);
   }
 
   onSave() {

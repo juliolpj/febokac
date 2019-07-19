@@ -53,8 +53,8 @@ const competenciasRutas = [
     { path: 'semi-finales', component: GenerarSemisComponent, canActivate: [AuthGuard]},
     { path: 'carreras/:tipoCarrera', component: SeriesComponent, canActivate: [AuthGuard]},
       { path: 'series/asignar-numero/:tipoCarrera/:id', component: AsignarNumeroComponent, canActivate: [AuthGuard]},
-      { path: 'series/cargar-tiempos/:id', component: CargarTiemposComponent, canActivate: [AuthGuard]},
-      { path: 'series/resultados/:id', component: ResultadosComponent, canActivate: [AuthGuard]},
+      { path: 'series/cargar-tiempos/:tipoCarrera/:id', component: CargarTiemposComponent, canActivate: [AuthGuard]},
+      { path: 'series/resultados/:tipoCarrera/:id', component: ResultadosComponent, canActivate: [AuthGuard]},
 ];
 const routes: Routes = [
   // { path: 'prueba', component: MockGuardarComponent },
