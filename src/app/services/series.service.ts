@@ -47,9 +47,12 @@ export class SeriesService {
   }
   
   updateDetalleSeries(id:string, tabla: DetalleSerieI[] ) {
-    const series: DetalleSerieI[] = JSON.parse(localStorage.getItem('detalleSeries')).
-      filter( elemento => elemento.idSerie !== id);
-    localStorage.setItem('detalleSeries', JSON.stringify(series.concat(tabla)) );
+    let series: DetalleSerieI[] = JSON.parse(localStorage.getItem('detalleSeries'));
+    if (!series) {
+      series = [];
+    }
+    let filtro = series.filter( elemento => elemento.idSerie !== id);
+    localStorage.setItem('detalleSeries', JSON.stringify(tabla.concat(filtro)) );
   }
 
   getSemis(): SerieI[] {
@@ -58,6 +61,15 @@ export class SeriesService {
 
   addAllSemifinales(tabla) {
     localStorage.setItem('semis', JSON.stringify(tabla));
+  }
+
+  updateDetalleSemis(id:string, tabla: DetalleSerieI[] ) {
+    let series: DetalleSerieI[] = JSON.parse(localStorage.getItem('detalleSemis'));
+    if (!series) {
+      series = [];
+    }
+    let filtro = series.filter( elemento => elemento.idSerie !== id);
+    localStorage.setItem('detalleSemis', JSON.stringify(tabla.concat(filtro)) );
   }
 
 
@@ -69,6 +81,14 @@ export class SeriesService {
     localStorage.setItem('finales', JSON.stringify(tabla));
   }
 
+  updateDetalleFinales(id:string, tabla: DetalleSerieI[] ) {
+    let series: DetalleSerieI[] = JSON.parse(localStorage.getItem('detalleFinales'));
+    if (!series) {
+      series = [];
+    }
+    let filtro = series.filter( elemento => elemento.idSerie !== id);
+    localStorage.setItem('detalleFinales', JSON.stringify(tabla.concat(filtro)) );
+  }
 /* */
 
   getRecords$(): Observable<SerieI[]> {

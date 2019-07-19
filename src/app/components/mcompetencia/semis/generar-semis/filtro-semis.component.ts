@@ -55,7 +55,13 @@ export class FiltroSemisComponent implements OnInit {
   }
 
   guardar() {
-    this.emitGuardar.emit();
+    this.emitGuardar.emit(
+      {
+        genero: this.genero.value,
+        categoria: this.categoria.value,
+        distancia: this.distancia.value
+      }
+    );
     //this.emitFiltrar.emit(this.miForm.value);
   }
 

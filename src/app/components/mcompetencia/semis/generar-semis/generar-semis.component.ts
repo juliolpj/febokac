@@ -122,16 +122,35 @@ export class GenerarSemisComponent implements OnInit {
 
   guardarCambios(obj) {
     const finales = this.dataService.getFinales();
-    const finalDetalle = [];
-    const semis = this.dataService.getSemis();
     const idFinal = finales.find( el =>  el.genero === obj.genero && el.categoria === obj.categoria && el.distancia === obj.distancia).id;
-    
+    const finalDetalle = [];
+
+    const semis = this.dataService.getSemis();
+    const idSemis = finales.find( el =>  el.genero === obj.genero && el.categoria === obj.categoria && el.distancia === obj.distancia).id;
+    const semisDetalle = [];
+
     for (let i = 0; i < this.series.length; i++) {
       for (let j = 0; j < this.series[i].detalleSerie.length; j++) {
         let palista = this.series[i].detalleSerie[j];
         switch (palista.resultado) {
           case 'Pasa directo a la final':
-            
+            let registro = { ...palista};
+            registro.idSerie = idFinal;
+            registro.tiempo = '';
+            registro.numero = '';
+            registro.posicion = 0;
+            registro.resultado = '';
+            finalDetalle.push(registro);
+            break;
+
+          case 'Pasa a semifinal':
+            registro = { ...palista};
+            registro.idSerie = idSemis;
+            registro.tiempo = '';
+            registro.numero = '';
+            registro.posicion = 0;
+            registro.resultado = '';
+            semisDetalle.push(registro);
             break;
         
           default:
@@ -141,9 +160,15 @@ export class GenerarSemisComponent implements OnInit {
       
     }
 
+    this.dataService.updateDetalleFinales(idFinal, finalDetalle);
+    this.dataService.updateDetalleSemis(idFinal, semisDetalle);
     this.msg.ok('Proceso realizado satisfactoriamente');
     this.limpiarFiltro();
+
+    // TODO 
+    // Detalle de semifinales no funciona si hay que generar más de una semifinal.
   }
+
 
   salir() {
     this.router.navigate(["/"]);
