@@ -126,7 +126,7 @@ export class GenerarSemisComponent implements OnInit {
     const finalDetalle = [];
 
     const semis = this.dataService.getSemis();
-    const idSemis = finales.find( el =>  el.genero === obj.genero && el.categoria === obj.categoria && el.distancia === obj.distancia).id;
+    const idSemis = semis.find( el =>  el.genero === obj.genero && el.categoria === obj.categoria && el.distancia === obj.distancia).id;
     const semisDetalle = [];
 
     for (let i = 0; i < this.series.length; i++) {

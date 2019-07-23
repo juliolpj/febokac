@@ -29,8 +29,13 @@ export class GenerarSeriesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.limpiarCarreras();
     this.cargarInscripciones();
 
+  }
+
+  limpiarCarreras() {
+    this.dataService.limpiarCarreras();
   }
 
   cargarInscripciones() {
@@ -72,15 +77,16 @@ export class GenerarSeriesComponent implements OnInit {
       let registro = this.generarObjetoSerie(elemento, numCarrera);
       this.series.push(registro);
       this.agregraGrupoSeries(registro);
-
+      let numero = 0;
       while ( i < this.inscripciones.length && 
               elemento.categoria + elemento.genero + elemento.distancia === 
               registro.categoria + registro.genero + registro. distancia &&
               this.series[numCarrera - 1].cantidad < 9 ) {
-
+        
+        numero++;
         this.contarGrupoSeries(registro);
         this.series[numCarrera - 1].cantidad++;
-        this.detalleSeries.push( {...elemento, idSerie: registro.id, tiempo: '', nTiempo: 0 } );
+        this.detalleSeries.push( {...elemento, numero: numero.toString(), idSerie: registro.id, tiempo: ''} );
 
         i++;
         elemento = this.inscripciones[i];

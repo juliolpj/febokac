@@ -10,7 +10,6 @@
     <thead>
       <tr>
         <th> Número </th>
-        <th> Carril </th>
         <th> Palista </th>
         <th> Club </th>
       </tr>
@@ -20,9 +19,6 @@
       <tr *ngFor="let registro of tabla; let i=index">
         <td width="15%"> 
           <input type="tel" class="form-control" maxlength=2 [(ngModel)]="registro.numero"> 
-        </td>
-        <td width="15%"> 
-          <input type="tel" class="form-control" maxlength=1 [(ngModel)]="registro.carril">  
         </td>
         <td> {{ registro.palista }} </td>
         <td> {{ registro.club }} </td>
@@ -35,9 +31,9 @@
 
 <ng-template #infoMessage>
     <div class="jumbotron">
-      <h1 class="display-4">Asignar números y carriles</h1>
+      <h1 class="display-4">Asignar números</h1>
       <p class="lead">
-        No puede reasignar los número o carriles a los participantes de la serie <strong>{{ serie.id }}</strong> porque ya cargó los tiempos a los participantes
+        No puede reasignar los números  a los participantes de la serie <strong>{{ serie.id }}</strong> porque ya cargó los tiempos a los participantes
       </p>
       <hr class="my-4">
   

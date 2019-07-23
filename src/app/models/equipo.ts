@@ -13,20 +13,3 @@ export interface EquipoI {
     club3?: string;
     club4?: string;
 }
-/* export interface DetalleEquipoI {
-    id?: string;
-    idCarrera?: string;
-    dni?: string;
-    palista?: string;
-    apellido?: string;
-    nombre?: string;
-    fnacimiento?: string;
-    genero?: string;
-    categoria?: string;
-    seguro?: string;
-    club?: string;
-    embarcacion?: string;
-    distancia?: string;
-    tiempo?: string;
-    nTiempo?: number;
-} */

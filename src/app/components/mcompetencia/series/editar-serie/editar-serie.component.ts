@@ -91,6 +91,11 @@ export class EditarSerieComponent implements OnInit {
   guardarCambios() {
     this.actualizarIdSerie();
     this.series.forEach(serie => {
+      serie.detalleSerie.map( (el, index) => { 
+        el.numero = (index+1).toString();
+        return el;
+      });
+      console.log(serie.serie, serie.detalleSerie);
       this.dataService.updateDetalleSeries(serie.serie, serie.detalleSerie);
       let nuevaSerie = this.dataService.getSerie(serie.serie);
       nuevaSerie.cantidad = serie.detalleSerie.length.toString();

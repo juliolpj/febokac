@@ -19,7 +19,6 @@ export interface DetalleSerieI {
     id?: string;
     idSerie?: string;
     numero?: string;
-    carril?: string;
     dni?: string;
     palista?: string;
     apellido?: string;
@@ -32,7 +31,6 @@ export interface DetalleSerieI {
     embarcacion?: string;
     distancia?: string;
     tiempo?: string;
-    nTiempo?: number;
     posicion?: number;
     resultado?: string;
 }

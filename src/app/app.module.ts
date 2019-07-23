@@ -63,7 +63,6 @@ import { TimeFormatDirective } from './directives/time-format.directive';
 import { SeriesHeaderComponent } from './components/mcompetencia/series/series-header/series-header.component';
 import { EditarSerieComponent } from './components/mcompetencia/series/editar-serie/editar-serie.component';
 import { FiltroSerieComponent } from './components/mcompetencia/series/editar-serie/filtro-serie.component';
-import { ColSerieComponent } from './components/mcompetencia/series/editar-serie/col-serie.component';
 import { GenerarSemisComponent } from './components/mcompetencia/semis/generar-semis/generar-semis.component';
 import { FiltroSemisComponent } from './components/mcompetencia/semis/generar-semis/filtro-semis.component';
 
@@ -117,7 +116,6 @@ import { FiltroSemisComponent } from './components/mcompetencia/semis/generar-se
     SeriesHeaderComponent,
     EditarSerieComponent,
     FiltroSerieComponent,
-    ColSerieComponent,
     GenerarSemisComponent,
     FiltroSemisComponent
   ],

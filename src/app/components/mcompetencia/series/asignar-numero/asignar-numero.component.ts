@@ -38,7 +38,8 @@ export class AsignarNumeroComponent implements OnInit {
 
   getRecords() {
     this.tabla = this.dataService.getDetalleCarrera(this.tipoCarrera, this.id);
-    
+    console.log("TCL: AsignarNumeroComponent -> getRecords -> this.tabla", this.tabla)
+        
   }
   
   getSerie() {
@@ -52,7 +53,7 @@ export class AsignarNumeroComponent implements OnInit {
 
   onSave() {
     let todosTienenNumero = true;
-    this.tabla.forEach(elemento => todosTienenNumero = todosTienenNumero && !!elemento.numero && !!elemento.carril);
+    this.tabla.forEach(elemento => todosTienenNumero = todosTienenNumero && !!elemento.numero);
 
     this.serie.status = {asignarNumero: todosTienenNumero, cargarTiempos: false, generarResultados: false };
     this.dataService.updateCarrera(this.tipoCarrera, this.id, this.serie);

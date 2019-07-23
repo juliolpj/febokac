@@ -27,6 +27,15 @@ export class SeriesService {
                     tipoCarrera === 'semis' ? 'detalleSemis' : 'detalleFinales';
   }
 
+  limpiarCarreras() {
+    localStorage.setItem('series', JSON.stringify([]));
+    localStorage.setItem('detalleSeries', JSON.stringify([]));
+    localStorage.setItem('semis', JSON.stringify([]));
+    localStorage.setItem('detalleSemis', JSON.stringify([]));
+    localStorage.setItem('finales', JSON.stringify([]));
+    localStorage.setItem('detalleFinales', JSON.stringify([]));
+  }
+
   /* Métodos para Editar series con Drag and Drop */
   getSerie(id: string): SerieI {
     const tabla: SerieI[] = JSON.parse(localStorage.getItem('series'));
@@ -70,9 +79,13 @@ export class SeriesService {
   }
 
   getDetalleCarrera(tipoCarrera:string, id: string): DetalleSerieI[] {
-    const series: DetalleSerieI[] = JSON.parse(
+  console.log("SeriesService -> getDetalleCarrera");
+  console.log({tipoCarrera, id});
+    
+    const palistas: DetalleSerieI[] = JSON.parse(
       localStorage.getItem(this.nombreDetalle(tipoCarrera)) );
-    return series.filter( elemento => elemento.idSerie === id);
+      console.log('detalle', palistas);
+    return palistas.filter( elemento => elemento.idSerie === id);
   }
 
   updateCarrera(tipoCarrera:string, id: string, registro: SerieI) {
@@ -211,7 +224,7 @@ export class SeriesService {
     const series: DetalleSerieI[] = JSON.parse(localStorage.getItem('detalleSeries'));
     let serie = series.filter( elemento => elemento.idSerie === id)
     console.log("TCL: SeriesService -> serie", serie)
-    serie = serie.sort((a, b) => parseInt(a.carril) - parseInt(b.carril) < 0 ? -1 : 0);
+    serie = serie.sort((a, b) => parseInt(a.numero) - parseInt(b.numero) < 0 ? -1 : 0);
     console.log("TCL: SeriesService -> serie", serie)
     return of( serie );
   }
