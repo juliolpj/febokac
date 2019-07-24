@@ -4,5 +4,12 @@ export interface CompetenciaI {
     desde?: string;
     hasta?: string;
     club?: string;
-    status?: string
+    status?: string;
+    distancia?: [
+        {
+            categoria: string;
+            embarcacion: string;
+            distancia: string;
+        }
+    ]
 }

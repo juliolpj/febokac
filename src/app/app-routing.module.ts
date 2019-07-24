@@ -75,9 +75,10 @@ const routes: Routes = [
     { path: 'usuarios/add', component: FUsuariosComponent, canActivate: [AuthGuard] },
     { path: 'usuarios/edit/:id', component: FUsuariosComponent, canActivate: [AuthGuard] },
     { path: 'usuarios/delete/:id', component: FUsuariosComponent, canActivate: [AuthGuard] },
+  { path: 'distancias/:competencia', component: DistanciasComponent, canActivate: [AuthGuard] },
   { path: 'distancias', component: DistanciasComponent, canActivate: [AuthGuard] },
-    { path: 'distancias/add', component: FDistanciasComponent, canActivate: [AuthGuard] },
-    { path: 'distancias/edit/:id', component: FDistanciasComponent, canActivate: [AuthGuard] },
+    { path: 'distancias/:competencia/:accion', component: FDistanciasComponent, canActivate: [AuthGuard] },
+    { path: 'distancias/:competencia/:accion/:id', component: FDistanciasComponent, canActivate: [AuthGuard] },
     { path: 'distancias/delete/:id', component: FDistanciasComponent, canActivate: [AuthGuard] },
   { path: 'competencias', component: CompetenciasComponent, canActivate: [AuthGuard] },
     { path: 'competencias/add', component: FCompetenciasComponent, canActivate: [AuthGuard] },
@@ -112,6 +113,7 @@ const routes: Routes = [
 
 @NgModule({
   exports: [ RouterModule ],
-  imports: [ RouterModule.forRoot(routes) ]
+  imports: [ RouterModule.forRoot(routes,
+    { enableTracing: true }) ]
 })
 export class AppRoutingModule { }
