@@ -65,6 +65,8 @@ import { EditarSerieComponent } from './components/mcompetencia/series/editar-se
 import { FiltroSerieComponent } from './components/mcompetencia/series/editar-serie/filtro-serie.component';
 import { GenerarSemisComponent } from './components/mcompetencia/semis/generar-semis/generar-semis.component';
 import { FiltroSemisComponent } from './components/mcompetencia/semis/generar-semis/filtro-semis.component';
+import { GenerarFinalesComponent } from './components/mcompetencia/generar-finales/generar-finales.component';
+import { FiltroFinalesComponent } from './components/mcompetencia/generar-finales/filtro-finales.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +119,9 @@ import { FiltroSemisComponent } from './components/mcompetencia/semis/generar-se
     EditarSerieComponent,
     FiltroSerieComponent,
     GenerarSemisComponent,
-    FiltroSemisComponent
+    FiltroSemisComponent,
+    GenerarFinalesComponent,
+    FiltroFinalesComponent
   ],
   imports: [
     BrowserModule,

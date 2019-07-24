@@ -19,9 +19,14 @@ export class ResultadosComponent implements OnInit {
   serie: SerieI;
   tabla: resultadoSerieI[] = [];
   condiciones = {
-    pasanDirectoAfinal: [1,2,3],
-    pasanAsemiFinal: [4,5,6,7],
-    adicional: { posicion:[8], cantidad:[1]}
+    serie: {
+      pasanDirectoAfinal: [1,2,3],
+      pasanAsemiFinal: [4,5,6,7],
+      adicional: { posicion:[8], cantidad:[1]}
+    },
+    semis: {
+      pasanAfinal: [1,2,3]
+    }
   }
 
   constructor(
@@ -49,24 +54,47 @@ export class ResultadosComponent implements OnInit {
   }
 
   resultado(posicion: number) {
-    if ( this.condiciones.pasanDirectoAfinal.includes(posicion) ) {
+    if (this.tipoCarrera === 'series')
+      return this.resultadoSerie(posicion);
+    else if (this.tipoCarrera === 'semis') {
+      return this.resultadoSemi(posicion);
+    }
+  }
+
+  resultadoSerie(posicion: number) {
+    if ( this.condiciones.serie.pasanDirectoAfinal.includes(posicion) ) {
       return 'Pasa directo a la final';
-    } else if (this.condiciones.pasanAsemiFinal.includes(posicion)) {
+    } else if (this.condiciones.serie.pasanAsemiFinal.includes(posicion)) {
       return 'Pasa a semifinal';
-    } else if (this.condiciones.adicional.posicion.includes(posicion)) {
+    } else if (this.condiciones.serie.adicional.posicion.includes(posicion)) {
       return 'Revisión';
     } else {
       return 'Eliminado';
     }
   }
 
+  resultadoSemi(posicion: number) {
+    if ( this.condiciones.semis.pasanAfinal.includes(posicion) ) {
+      return 'Pasa a la final';
+    } else {
+      return 'Eliminado';
+    }
+  }
+
   resultadoClass(resultado) {
-    return {
-     "text-primary": resultado === 'Pasa directo a la final',
-     "text-success": resultado === 'Pasa a semifinal',
-     "text-warning": resultado === 'Revisión',
-     "text-danger": resultado === 'Eliminado'
-   }
+    if (this.tipoCarrera === 'series') {
+      return {
+       "text-primary": resultado === 'Pasa directo a la final',
+       "text-success": resultado === 'Pasa a semifinal',
+       "text-warning": resultado === 'Revisión',
+       "text-danger": resultado === 'Eliminado'
+     }
+    } else if (this.tipoCarrera === 'semis') {
+      return {
+        "text-success": resultado === 'Pasa a la final',
+        "text-danger": resultado === 'Eliminado'
+      }
+    }
   }
 
   getSerie() {
@@ -80,15 +108,11 @@ export class ResultadosComponent implements OnInit {
 
   onSave() {
     this.serie.status = {asignarNumero: true, cargarTiempos: true, generarResultados: true };
-    this.dataService.updateRecord$(this.id, this.serie);
-    this.dataService.updateDetalleSeries(this.id, this.tabla);
+    this.dataService.updateCarrera(this.tipoCarrera, this.id, this.serie);
+    this.dataService.updateDetalleCarrera(this.tipoCarrera, this.id, this.tabla);
+
     this.retornar();
 
-    /* this.dataService.updateDetalleSeriesLS$(this.id, this.tabla).subscribe(
-      data => this.msgService.sendMessage(' Tiempos guardados satisfactoriamente'),
-      error => this.msgService.sendMessage('Error al guardar los datos: ' + error.statusText, 'alert-danger'),
-      () => this.retornar()
-    ); */
   }
 
   goBack() {

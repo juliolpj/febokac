@@ -79,17 +79,12 @@ export class SeriesService {
   }
 
   getDetalleCarrera(tipoCarrera:string, id: string): DetalleSerieI[] {
-  console.log("SeriesService -> getDetalleCarrera");
-  console.log({tipoCarrera, id});
-    
     const palistas: DetalleSerieI[] = JSON.parse(
       localStorage.getItem(this.nombreDetalle(tipoCarrera)) );
-      console.log('detalle', palistas);
     return palistas.filter( elemento => elemento.idSerie === id);
   }
 
   updateCarrera(tipoCarrera:string, id: string, registro: SerieI) {
-    //registro.id = id;
     const tabla = JSON.parse(localStorage.getItem(tipoCarrera));
     tabla.splice( tabla.findIndex(element => element.id === id), 1, registro );
     localStorage.setItem(tipoCarrera, JSON.stringify(tabla));
