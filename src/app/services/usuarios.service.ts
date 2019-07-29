@@ -12,7 +12,8 @@ export class UsuariosService {
   private collection: AngularFirestoreCollection<UserI>;
 
   constructor(private afs: AngularFirestore, public afAuth: AngularFireAuth) {
-    this.collection = this.afs.collection<UserI>("users");
+    this.collection = this.afs.collection<UserI>("users", ref => ref.orderBy('name'));
+
   }
 
   getRecords$(): Observable<UserI[]> {
@@ -32,7 +33,6 @@ export class UsuariosService {
   }
 
   getUsuarioByEmail$(email: string) {
-    console.log('getUsuarioByEmail');
     return this.afs.collection<UserI>("users", ref => ref.where('email', '==', email)).valueChanges()
       .pipe( flatMap( data => data) );
   }

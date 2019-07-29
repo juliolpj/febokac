@@ -54,7 +54,6 @@ export class GenerarSeriesComponent implements OnInit {
         this.generarSeries();
         this.generarFinalesYsemis();
         console.log(this.grupoSeries);
-        //this.generarDetalleSeries();
       }
     )
   }
@@ -166,7 +165,7 @@ export class GenerarSeriesComponent implements OnInit {
           console.log('Pasó por aqui');
           contadorSemis++;
           this.semis.push({ 
-            id: 'S' +contadorSemis.toString().padStart(3, '0'),
+            id: 'S' + contadorSemis.toString().padStart(3, '0'),
             categoria: el.categoria, 
             genero: el.genero,
             distancia: el.distancia, 
