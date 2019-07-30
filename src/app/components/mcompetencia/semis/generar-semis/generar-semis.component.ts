@@ -4,6 +4,7 @@ import { SeriesService } from "src/app/services/series.service";
 import { SeriesI, SerieI, DetalleSerieI } from "src/app/models/serie";
 import { Router } from "@angular/router";
 import { MsgService } from 'src/app/services/msg.service';
+import { CondicionesCarrerasService } from 'src/app/services/condiciones-carreras.service';
 
 @Component({
   selector: 'app-generar-semis',
@@ -14,14 +15,11 @@ export class GenerarSemisComponent implements OnInit {
   mostrarSeries = false;
   title = "angular-drag-drop";
   series: SeriesI[] = [];
-  condiciones = {
-    pasanDirectoAfinal: [1,2,3],
-    pasanAsemiFinal: [4,5,6,7],
-    adicional: { posicion:[8], cantidad:1}
-  }
+  condiciones: any;
 
   constructor(
     private dataService: SeriesService,
+    private condicionesService: CondicionesCarrerasService,
     private router: Router,
     private cdRef: ChangeDetectorRef,
     private msg: MsgService
@@ -34,6 +32,8 @@ export class GenerarSemisComponent implements OnInit {
   }
 
   filtrarSeries(objFiltro) {
+    this.condiciones = this.condicionesService.getCondiciones(objFiltro.categoria, objFiltro.genero, objFiltro.distancia);
+
     this.series = [];
     const arrSeries: string[] = this.dataService.getSeries()
       .filter( elemento => elemento.genero === objFiltro.genero && elemento.categoria === objFiltro.categoria && elemento.distancia === objFiltro.distancia)
@@ -53,7 +53,7 @@ export class GenerarSemisComponent implements OnInit {
       const indexSerie = this.series.findIndex( serie => serie.serie === el.serie);
       const indexPalista = this.series[indexSerie].detalleSerie.findIndex(palista => palista.id === el.id);
 
-      if (index + 1 <= this.condiciones.adicional.cantidad) {
+      if (index + 1 <= this.condiciones.serie.adicional.cantidad) {
         this.series[indexSerie].detalleSerie[indexPalista].resultado = 'Pasa a semifinal';
       } else {
         this.series[indexSerie].detalleSerie[indexPalista].resultado = 'Eliminado';
@@ -126,9 +126,12 @@ export class GenerarSemisComponent implements OnInit {
     const finalDetalle = [];
 
     const semis = this.dataService.getSemis();
-    const idSemis = semis.find( el =>  el.genero === obj.genero && el.categoria === obj.categoria && el.distancia === obj.distancia).id;
+    const arrIdSemis = semis.filter( el =>  el.genero === obj.genero && el.categoria === obj.categoria && el.distancia === obj.distancia)
+                            .map(elemento => elemento.id);
     const semisDetalle = [];
 
+    let contadorPalistasPorSemis = 0;
+    let semiFinalActual = 0;
     for (let i = 0; i < this.series.length; i++) {
       for (let j = 0; j < this.series[i].detalleSerie.length; j++) {
         let palista = this.series[i].detalleSerie[j];
@@ -145,12 +148,18 @@ export class GenerarSemisComponent implements OnInit {
 
           case 'Pasa a semifinal':
             registro = { ...palista};
-            registro.idSerie = idSemis;
+            registro.idSerie = arrIdSemis[semiFinalActual];
             registro.tiempo = '';
             registro.numero = '';
             registro.posicion = 0;
             registro.resultado = '';
             semisDetalle.push(registro);
+
+            contadorPalistasPorSemis++;
+            if (contadorPalistasPorSemis > 8) {
+              contadorPalistasPorSemis = 0;
+              semiFinalActual++;
+            }
             break;
         
           default:
@@ -160,8 +169,16 @@ export class GenerarSemisComponent implements OnInit {
       
     }
 
+    console.log('arrIdSemis', arrIdSemis);
+    console.log('semisDetalle', semisDetalle);
+
     this.dataService.updateDetalleFinales(idFinal, finalDetalle);
-    this.dataService.updateDetalleSemis(idFinal, semisDetalle);
+    arrIdSemis.forEach( id => {
+      const semiFinal = semisDetalle.filter( elemento => elemento.idSerie === id);
+      console.log('id',id, 'semiFinal', semiFinal)
+      this.dataService.updateDetalleSemis(id, semiFinal);
+    });
+    
     this.msg.ok('Proceso realizado satisfactoriamente');
     this.limpiarFiltro();
 

@@ -5,6 +5,8 @@ import { MensajesService } from 'src/app/services/mensajes.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CondicionesCarrerasService } from 'src/app/services/condiciones-carreras.service';
+import { PuntuacionService } from './../../../../services/puntuacion.service';
 
 @Component({
   selector: 'app-resultados',
@@ -18,19 +20,12 @@ export class ResultadosComponent implements OnInit {
   tipoCarrera = '';
   serie: SerieI;
   tabla: resultadoSerieI[] = [];
-  condiciones = {
-    serie: {
-      pasanDirectoAfinal: [1,2,3],
-      pasanAsemiFinal: [4,5,6,7],
-      adicional: { posicion:[8], cantidad:[1]}
-    },
-    semis: {
-      pasanAfinal: [1,2,3]
-    }
-  }
+  condiciones: any;
 
   constructor(
-    public dataService: SeriesService, 
+    private dataService: SeriesService, 
+    private condicionesService: CondicionesCarrerasService,
+    private puntuacionService: PuntuacionService,
     private msgService: MensajesService,
     private spinner: SpinnerService,
     private location: Location, 
@@ -49,15 +44,22 @@ export class ResultadosComponent implements OnInit {
 
   getRecords() {
     const data = this.dataService.getDetalleCarrera(this.tipoCarrera, this.id);
+    this.condiciones = this.condicionesService.getCondiciones(data[0].categoria, data[0].genero, data[0].distancia);
     data.sort( (a,b) => a.tiempo > b.tiempo ? 1 : (a.tiempo < b.tiempo ? - 1 : 0));
-    data.forEach( (el, i)=> this.tabla.push({ ...el, posicion: i+1, resultado: this.resultado(i+1) }) );
+    data.forEach( (el, i)=> this.tabla.push({ ...el, posicion: i+1, resultado: this.resultado(el.categoria, i+1) }) );
   }
 
-  resultado(posicion: number) {
+  getSerie() {
+    this.serie = this.dataService.getCarrera(this.tipoCarrera, this.id);
+  }
+
+  resultado(categoria, posicion: number) {
     if (this.tipoCarrera === 'series')
       return this.resultadoSerie(posicion);
     else if (this.tipoCarrera === 'semis') {
       return this.resultadoSemi(posicion);
+    } else {
+      return this.resultadoFinal(categoria, posicion);
     }
   }
 
@@ -81,6 +83,15 @@ export class ResultadosComponent implements OnInit {
     }
   }
 
+  resultadoFinal(categoria: string, posicion: number) {
+    let prefijo = 'Puntos: ';
+    if (posicion < 4) {
+      prefijo = 'Medalla de ';
+      prefijo += (posicion === 1 ? 'Oro' : posicion === 2 ? 'Plata' : 'Bronce') + '  -  Puntos: ';
+    }
+    return prefijo + this.puntuacionService.getPuntuacion(categoria, posicion);
+  }
+
   resultadoClass(resultado) {
     if (this.tipoCarrera === 'series') {
       return {
@@ -94,11 +105,13 @@ export class ResultadosComponent implements OnInit {
         "text-success": resultado === 'Pasa a la final',
         "text-danger": resultado === 'Eliminado'
       }
+    } else {
+      return {
+        "text-primary": resultado.includes('Medalla de Oro'),
+        "text-info": resultado.includes('Medalla de Plata'),
+        "text-warning": resultado.includes('Medalla de Bronce')
+      }
     }
-  }
-
-  getSerie() {
-    this.serie = this.dataService.getCarrera(this.tipoCarrera, this.id);
   }
 
   retornar() {
