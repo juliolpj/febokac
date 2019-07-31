@@ -29,7 +29,31 @@ export class CondicionesCarrerasService {
       semis: {
         pasanAfinal: [1, 2, 3]
       }
-    }
+    },
+    {
+      minimo: 19,
+      maximo: 27,
+      serie: {
+        pasanDirectoAfinal: [1],
+        pasanAsemiFinal: [2, 3, 4, 5, 6, 7],
+        adicional: { posicion: [10], cantidad: [0] }
+      },
+      semis: {
+        pasanAfinal: [1, 2, 3]
+      }
+    },
+    {
+      minimo: 28,
+      maximo: 36,
+      serie: {
+        pasanDirectoAfinal: [0],
+        pasanAsemiFinal: [1,2, 3, 4, 5, 6],
+        adicional: { posicion: [7], cantidad: [3] }
+      },
+      semis: {
+        pasanAfinal: [1, 2, 3]
+      }
+    } 
   ];
 
   constructor(private seriesService: SeriesService) {}

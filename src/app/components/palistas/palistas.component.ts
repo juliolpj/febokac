@@ -22,8 +22,6 @@ export class PalistasComponent implements OnInit {
 
   ngOnInit() {
     this.usuario = this.authService.getUser();
-    console.warn(this.usuario);
-    
     this.getRecords();
   }
 
