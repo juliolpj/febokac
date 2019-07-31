@@ -169,23 +169,25 @@ export class GenerarSemisComponent implements OnInit {
       
     }
 
-    console.log('arrIdSemis', arrIdSemis);
-    console.log('semisDetalle', semisDetalle);
-
+    this.updateNumPalistasEnCarrera('finales', idFinal, finalDetalle.length);
     this.dataService.updateDetalleFinales(idFinal, finalDetalle);
+
     arrIdSemis.forEach( id => {
       const semiFinal = semisDetalle.filter( elemento => elemento.idSerie === id);
-      console.log('id',id, 'semiFinal', semiFinal)
+      this.updateNumPalistasEnCarrera('semis', id, semiFinal.length);
       this.dataService.updateDetalleSemis(id, semiFinal);
     });
     
     this.msg.ok('Proceso realizado satisfactoriamente');
     this.limpiarFiltro();
 
-    // TODO 
-    // Detalle de semifinales no funciona si hay que generar más de una semifinal.
   }
 
+  updateNumPalistasEnCarrera(tipoCarrera:string, id: string, numPalistas: number) {
+    const registro = this.dataService.getCarrera(tipoCarrera, id);
+    registro.cantidad = numPalistas.toString();
+    this.dataService.updateCarrera(tipoCarrera, id, registro);
+  }
 
   salir() {
     this.router.navigate(["/"]);
