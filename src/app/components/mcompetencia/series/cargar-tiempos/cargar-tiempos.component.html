@@ -19,11 +19,11 @@
 
     <tbody>
       <tr *ngFor="let registro of tabla">
-        <td width="15%"> {{ registro.numero }} </td>
-        <td> {{ registro.palista }} </td>
-        <td> {{ registro.club }} </td>
-        <td width="15%">
-          <input type="tel" class="form-control" [(ngModel)]="registro.tiempo" [(appTimeFormat)]="registro.tiempo"
+        <td class="pt-2 pb-2" width="15%"> {{ registro.numero }} </td>
+        <td class="pt-2 pb-2"> {{ registro.palista }} </td>
+        <td class="pt-2 pb-2"> {{ registro.club }} </td>
+        <td class="pt-2 pb-2" width="15%">
+          <input type="tel" class="mi-form-control mi-font-min" [(ngModel)]="registro.tiempo" [(appTimeFormat)]="registro.tiempo"
             placeholder="hh:mm:ss.00">
         </td>
       </tr>

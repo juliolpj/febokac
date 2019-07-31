@@ -39,14 +39,14 @@ export class AuthService {
   login$(email: string, password:string) {
     const fsSignIn$ = from(this.afAuth.auth.signInWithEmailAndPassword(email, password))
       .pipe(
-        tap( data => console.log("TCL: AuthService -> data", data.user)),
         map( data => data.user.email) );
     
     const usuario$ = this.usuariosService.getUsuarioByEmail$(email);
     
     const combinado$ = combineLatest(fsSignIn$, usuario$)
-      .pipe( map( data => data[1]), 
-             tap( user => this.setAndSendUsuario(user))
+      .pipe( 
+        map( data => data[1]), 
+        tap( user => this.setAndSendUsuario(user))
            );
     return combinado$;
   

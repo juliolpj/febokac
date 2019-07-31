@@ -42,8 +42,9 @@ export class ConsultarInscripcionesComponent implements OnInit {
     this.dataService.getRecords$().subscribe(
       (data: InscripcionI[]) => {
         this.tabla = data;
+        this.tabla.sort( (a,b) => a.club > b.club ? 1 : a.club < b.club ? -1 : 0);
         console.log("TCL: ConsultarInscripcionesComponent -> getRecords -> this.tabla", this.tabla)
-        this.todasLasInscripciones = data;
+        this.todasLasInscripciones = this.tabla;
       }
     );
   }

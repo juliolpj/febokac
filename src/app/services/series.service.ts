@@ -132,6 +132,18 @@ export class SeriesService {
     let filtro = series.filter( elemento => elemento.idSerie !== id);
     localStorage.setItem('detalleFinales', JSON.stringify(tabla.concat(filtro)) );
   }
+
+  addAllGrupoSeries(tabla) {
+    localStorage.setItem('grupoSeries', JSON.stringify(tabla));
+  }
+
+  getGrupoSerie(categoria: string, genero: string, distancia: string) {
+    const grupoSeries = JSON.parse( localStorage.getItem('grupoSeries') );
+    return grupoSeries.find(
+      el => el.categoria === categoria && el.genero === genero && el.distancia === distancia);
+
+  }
+
 /* */
 
   getRecords$(): Observable<SerieI[]> {

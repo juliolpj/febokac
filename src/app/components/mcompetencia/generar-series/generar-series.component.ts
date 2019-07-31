@@ -54,7 +54,6 @@ export class GenerarSeriesComponent implements OnInit {
         this.generarSeries();
         this.generarFinalesYsemis();
         console.log(this.grupoSeries);
-        //this.generarDetalleSeries();
       }
     )
   }
@@ -148,6 +147,7 @@ export class GenerarSeriesComponent implements OnInit {
       }
     ];
 
+    console.log("TCL: GenerarSeriesComponent -> generarFinalesYsemis -> grupoSeries", this.grupoSeries)
     for (let i = 0; i < this.grupoSeries.length; i++) {
       let el = this.grupoSeries[i];
       for (let j = 0; j < condiciones.length; j++) {
@@ -166,7 +166,7 @@ export class GenerarSeriesComponent implements OnInit {
           console.log('Pasó por aqui');
           contadorSemis++;
           this.semis.push({ 
-            id: 'S' +contadorSemis.toString().padStart(3, '0'),
+            id: 'S' + contadorSemis.toString().padStart(3, '0'),
             categoria: el.categoria, 
             genero: el.genero,
             distancia: el.distancia, 
@@ -196,6 +196,7 @@ export class GenerarSeriesComponent implements OnInit {
         si hay series mostrar warning, 
         si las series tienen tiempos cargados impedir generar series.
     */
+    this.dataService.addAllGrupoSeries(this.grupoSeries);
     this.dataService.addAllSemifinales(this.semis);
     this.dataService.addAllFinales(this.finales);
     this.dataService.addSeriesLS$(this.series).subscribe(

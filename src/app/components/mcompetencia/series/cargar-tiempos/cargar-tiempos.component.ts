@@ -38,7 +38,7 @@ export class CargarTiemposComponent implements OnInit {
 
   getRecords() {
     this.tabla = this.dataService.getDetalleCarrera(this.tipoCarrera, this.id);
-    
+    this.tabla.sort( (a, b) => a.numero > b.numero ? 1 : a.numero < b.numero ? -1 : 0);
   }
   
   getSerie() {

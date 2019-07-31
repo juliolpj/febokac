@@ -38,7 +38,7 @@ export class AsignarNumeroComponent implements OnInit {
 
   getRecords() {
     this.tabla = this.dataService.getDetalleCarrera(this.tipoCarrera, this.id);
-    console.log("TCL: AsignarNumeroComponent -> getRecords -> this.tabla", this.tabla)
+    this.tabla.sort( (a, b) => a.numero > b.numero ? 1 : a.numero < b.numero ? -1 : 0);
         
   }
   

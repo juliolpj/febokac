@@ -6,8 +6,11 @@ import { Location } from '@angular/common';
 
 import { DistanciasService } from 'src/app/services/distancias.service';
 import { DistanciaI } from 'src/app/models/distancia';
-import { map } from 'rxjs/operators';
+import { map, single } from 'rxjs/operators';
 import { MsgService } from 'src/app/services/msg.service';
+import { CategoriasService } from 'src/app/services/categorias.service';
+import { CompetenciaI } from 'src/app/models/competencia';
+import { CompetenciasService } from 'src/app/services/competencias.service';
 
 @Component({
   selector: 'app-f-distancias',
@@ -17,12 +20,16 @@ import { MsgService } from 'src/app/services/msg.service';
 export class FDistanciasComponent implements OnInit {
   titulo = '';
   cardHeaderStyle = '';
-  id = '';
   miForm: FormGroup;
-
+  categorias: string[] = [];
+  competencia: CompetenciaI;
+  parCompetencia = '';
+  parAccion = '';
+  parId = '';
 
   constructor(
-    public dataService: DistanciasService, 
+    public dataService: CompetenciasService, 
+    public categoriasService: CategoriasService,
     public fb: FormBuilder,
     private msg: MsgService,      
     private location: Location, 
@@ -31,42 +38,52 @@ export class FDistanciasComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('FDistancias component');
+    this.setTblCategoria();
     this.buildForm();
     this.setState();
+
+    this.dataService.getRecord$(this.parCompetencia).subscribe(
+      data => {
+          this.competencia = data;
+          if (this.titulo !== 'Agregar') {
+            this.miForm.patchValue(data.distancia[this.parId]);
+            if (this.titulo==='Eliminar') {
+              this.miForm.controls.embarcacion.disable();
+            }
+          }
+      }
+    );
   }
 
-  setState() {
+  async setState() {
+    this.parCompetencia = this.actRoute.snapshot.paramMap.get('competencia');
+    this.parAccion = this.actRoute.snapshot.paramMap.get('accion');
+    this.parId = this.actRoute.snapshot.paramMap.get('id');
+    
     const objTitulo = {add:'Agregar', edit: 'Modificar', delete: 'Eliminar'};
-    this.titulo = objTitulo[this.actRoute.snapshot.url[1].path];
+    this.titulo = objTitulo[this.parAccion];
     
     const objStyle = {add:'bg-primary', edit: 'bg-warning', delete: 'bg-danger'}
-    this.cardHeaderStyle = objStyle[this.actRoute.snapshot.url[1].path];
-
-    this.id = this.actRoute.snapshot.paramMap.get('id');
-    if (this.titulo !== 'Agregar') {
-      this.setFormData();
-    } 
+    this.cardHeaderStyle = objStyle[this.parAccion];
   }
 
   buildForm() {
     this.miForm = this.fb.group({
+      categoria: ['', [Validators.required] ],
       embarcacion: ['', [Validators.required] ],
       metros: [0, [Validators.required] ],
       distancia: ['', [Validators.required] ]
     });
   }
 
-  setFormData() {
-    this.dataService.getRecord$(this.id).subscribe(
-      data => {
-        if (data !== undefined) {
-          this.miForm.patchValue(data);
-        } 
-      }
+  setTblCategoria() {
+    this.categoriasService.getRecords$().pipe(
+      map(data => data.map(categoria => categoria.categoria))
+    ).subscribe( 
+      data => this.categorias = data,
+      error =>this.msg.error("Error al cargar la tabla de clubes: " + error.statusText)
     );
-    if (this.titulo==='Eliminar') {
-      this.miForm.controls.embarcacion.disable();
-    }
   }
 
   get embarcacion() {
@@ -78,42 +95,38 @@ export class FDistanciasComponent implements OnInit {
   get metros() {
     return this.miForm.get('metros');
   }
+  get categoria() {
+    return this.miForm.get('categoria');
+  }
 
   onSubmit() {
-    switch (this.titulo) {
-      case 'Agregar':
-        this.aceptarAgregar();
-        break;
-      case 'Modificar':
-        this.aceptarEditar();
-        break;
-      case 'Eliminar':
-        this.aceptarEliminar();
-        break;
-    }
+    this.prepararArreglo(this.titulo);
+    this.guardar();
   }
   
-  aceptarAgregar() {
-    this.dataService.addRecord$(this.miForm.value).subscribe(
-      data => this.msg.ok(this.miForm.controls['distancia'].value + ' Agregado satisfactoriamente'),
-      error => this.msg.error('Error al agregar los datos: ' + error.statusText),
-      () => this.router.navigate(['distancias'])
-    );
+  prepararArreglo(parAccion: string) {
+    let objDistancia = {
+      categoria: this.miForm.controls.categoria.value,
+      embarcacion: this.miForm.controls.embarcacion.value,
+      distancia: this.miForm.controls.distancia.value,
+    }
+    console.log("this.competencia", this.competencia)
+    if (!this.competencia.distancia) {
+      this.competencia = {...this.competencia, distancia: [objDistancia]}
+    } else if (parAccion === 'Agregar') {
+      this.competencia.distancia.push(objDistancia)
+    } else if (parAccion === 'Modificar') {
+      this.competencia.distancia.splice(+this.parId, 1, objDistancia)
+    } else if (parAccion === 'Eliminar') {
+      this.competencia.distancia.splice(+this.parId, 1)
+    }
   }
 
-  aceptarEditar() {
-    this.dataService.updateRecord$(this.id, this.miForm.value).subscribe(
-      data => this.msg.ok(this.miForm.controls['distancia'].value + ' Actualizado satisfactoriamente'),
+  guardar() {
+    this.dataService.updateRecord$(this.parCompetencia, this.competencia).subscribe(
+      _ => this.msg.ok(this.miForm.controls['distancia'].value + ' Actualizado satisfactoriamente'),
       error => this.msg.error('Error al actualizar los datos: ' + error.statusText),
-      () => this.router.navigate(['distancias'])
-    );
-  }
-
-  aceptarEliminar() {
-    this.dataService.deleteRecord$(this.id).subscribe(
-      data => this.msg.ok(this.miForm.controls['distancia'].value + ' Eliminado satisfactoriamente'),
-      error => this.msg.error('Error al eliminar los datos: ' + error.statusText),
-      () => this.router.navigate(['distancias'])
+      () => this.goBack()
     );
   }
 

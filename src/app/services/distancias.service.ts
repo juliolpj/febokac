@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/fire
 import { DistanciaI } from "src/app/models/distancia";
 import { Observable, from } from "rxjs";
 import { map } from "rxjs/operators";
+import { CompetenciaI } from 'src/app/models/competencia';
 
 @Injectable({
   providedIn: "root"
@@ -25,6 +26,22 @@ export class DistanciasService {
         });
       })
     );
+  }
+
+  getAllEnCompetencia$(competencia: string) {
+    return this.afs.doc<CompetenciaI>(`competencias/${competencia}`).valueChanges().pipe(
+      map( data => data && data.distancia ? data.distancia : [])
+    );
+  }
+
+  getOneEnCompetencia$(competencia: string, id: string) {
+    return this.afs.doc<CompetenciaI>(`competencias/${competencia}`).valueChanges().pipe(
+      map( data => data.distancia[id])
+    );
+  }
+
+  getCompetencia$(competencia: string) {
+    return this.afs.doc<CompetenciaI>(`competencias/${competencia}`).valueChanges();
   }
 
   getRecord$(id: string): Observable<DistanciaI> {

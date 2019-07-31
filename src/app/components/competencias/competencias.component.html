@@ -15,6 +15,7 @@
       <th> Competencia </th>
       <th> Club </th>
       <th> </th>
+      <th> </th>
     </tr>
   </thead>
 
@@ -24,6 +25,11 @@
       <td routerLink="/competencias/edit/{{registro.id}}"> {{ registro.hasta }} </td>
       <td routerLink="/competencias/edit/{{registro.id}}"> {{ registro.competencia }} </td>
       <td routerLink="/competencias/edit/{{registro.id}}"> {{ registro.club }} </td>
+      <td class="text-center">
+        <a routerLink="/distancias/{{registro.id}}" class="text-primary">
+          <i class="fa fa-cogs fa-2x"></i>
+        </a>
+      </td>
       <td class="text-center">
         <a routerLink="/competencias/delete/{{registro.id}}" class="text-danger">
           <i class="fa fa-minus-circle fa-2x"></i>
