@@ -48,8 +48,14 @@ export class GenerarSeriesComponent implements OnInit {
           }
         }
         this.inscripciones.sort(
-          (a, b) => a.categoria + a.genero + a.distancia > b.categoria + b.genero + b.distancia ? -1 : 0
+          (a, b) => {
+            let aValue = a.categoria + a.genero + a.distancia;
+            let bValue = b.categoria + b.genero + b.distancia;
+            return aValue === bValue ? 0 : aValue > bValue ? -1 : 1;
+          }
         );
+        console.log('inscripciones ordenadas:', this.inscripciones);
+
         this.generarClubes();
         this.generarSeries();
         this.generarFinalesYsemis();
