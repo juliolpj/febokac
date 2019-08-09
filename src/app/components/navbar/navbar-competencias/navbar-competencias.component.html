@@ -2,7 +2,7 @@
   <img class="mr-4" src="assets/img/icono.png" />
   <a class="navbar-brand" href="#">
     <h4> <strong>FeBoCaK</strong> - {{ usuario.rol }}</h4>
-    <h6> {{ usuario.rol == 'Inscripciones' ? usuario.club : 'Federación Bonairense de Canoas y Kayaks' }} </h6>
+    <h6> {{ usuario.rol == 'Inscripciones' ? usuario.club : 'Federación Bonairense de Canoas y Kayaks' }} - {{ fecha | date: 'short' }} </h6>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
