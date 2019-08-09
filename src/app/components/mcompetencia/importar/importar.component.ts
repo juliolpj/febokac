@@ -40,6 +40,7 @@ export class ImportarComponent implements OnInit {
   }
 
   onUpload() {
+    localStorage.clear();
     const tablas = ['categorias', 'clubes', 'distancias', 'competencias', 'consola', 'inscripciones', 'palistas', 'users'];
     tablas.forEach( tabla => {
       localStorage.setItem(tabla, JSON.stringify(this.datos[tabla]));
